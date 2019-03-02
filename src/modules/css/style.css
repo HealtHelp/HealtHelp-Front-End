@@ -1,0 +1,13 @@
+.icon-services{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.icon-clinic{
+
+
+    width: 70%;
+    height: 60%;
+}
