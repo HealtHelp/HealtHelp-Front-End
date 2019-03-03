@@ -40,7 +40,7 @@ class App extends Component {
       {this.state.showResource === 2 ? <TextMobileStepper></TextMobileStepper>:''}
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
       {this.state.showResource === 5 ? <FormDialog></FormDialog> : ''} 
-      
+      {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
       <BottomAppBar></BottomAppBar>
       
       </div>
