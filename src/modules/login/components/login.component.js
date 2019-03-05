@@ -21,9 +21,7 @@ export default class FormDialog extends React.Component {
     this.setState({ open: false });
   };
 
-  handleLogin = () => {
-      console.log(this.props.showNav)
-  }
+  
 
   render() {
     return (
@@ -34,7 +32,7 @@ export default class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <DialogContentText>
             Enter your credentials and access the API management

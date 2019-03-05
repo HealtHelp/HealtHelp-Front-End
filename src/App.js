@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createStore } from 'redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
@@ -8,6 +9,9 @@ import IntegrationAutosuggest from './modules/appointment/components/appointment
 import TextMobileStepper from './modules/services/components/services.component';
 import FormDialog from './modules/login/components/login.component';
 
+
+
+const store = createStore(() => {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 class App extends Component {
   constructor(props){
     super(props);
@@ -24,8 +28,9 @@ class App extends Component {
   }
 
   handleChangeTab = (value) =>{
-    console.log(value);
+    const action = { type: 'SETHANDLECHANGETAB', value: value}; 
     this.setState({showResource:value})
+    store.dispatch(action);
   }
 
 
