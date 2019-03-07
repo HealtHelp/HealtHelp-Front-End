@@ -8,10 +8,12 @@ import Clinic from './modules/clinic/components/clinic.component';
 import IntegrationAutosuggest from './modules/appointment/components/appointment.component';
 import TextMobileStepper from './modules/services/components/services.component';
 import FormDialog from './modules/login/components/login.component';
-
-
+import {setHandleChangeTab} from './modules/tab/actions';
+import {setHandleTab} from './modules/header/actions';
 
 const store = createStore(() => {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -24,13 +26,12 @@ class App extends Component {
 
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-
+    store.dispatch(setHandleTab(showNav));
   }
 
   handleChangeTab = (value) =>{
-    const action = { type: 'SETHANDLECHANGETAB', value: value}; 
     this.setState({showResource:value})
-    store.dispatch(action);
+    store.dispatch(setHandleChangeTab(value));
   }
 
 
