@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
+import {store} from './modules/store/store';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
@@ -11,7 +11,6 @@ import FormDialog from './modules/login/components/login.component';
 import {setHandleChangeTab} from './modules/tab/actions';
 import {setHandleTab} from './modules/header/actions';
 
-const store = createStore(() => {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 
 class App extends Component {
