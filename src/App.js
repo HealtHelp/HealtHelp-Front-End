@@ -13,6 +13,7 @@ import {setHandleTab} from './modules/header/actions';
 import {setHandleLogin} from './modules/login/actions';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
+import {urlLogin} from './modules/constants/constants';
 import moment from 'moment';
 
 
@@ -46,12 +47,10 @@ class App extends Component {
     })
     let now = moment().format('YYYY-MM-DD');
     console.log("Call APIRest HealtHelp:"+now+" "+data.username);
-    const url = `http://localhost:8088/api/login/`;
-
+    //CORS
     const config={
       headers:{
-        "Access-Control-Allow-Origin":"http://localhost:3000",
-        //"Access-Control-Request-Method": "POST, GET, DELETE, PUT"
+        "Access-Control-Allow-Origin":"http://localhost:3000"
       }
     }
     const value = {
@@ -60,7 +59,7 @@ class App extends Component {
     }
   
       const axios = require('axios'); 
-      axios.post(url,value,config)
+      axios.post(urlLogin,value,config)
       .then(response => {
         console.log(response);
         this.setState({
