@@ -11,6 +11,7 @@ import FormDialog from './modules/login/components/login.component';
 import {setHandleChangeTab} from './modules/tab/actions';
 import {setHandleTab} from './modules/header/actions';
 import {setHandleLogin} from './modules/login/actions';
+import Success from './modules/snackbars/components/sucess.component';
 import moment from 'moment';
 
 
@@ -22,7 +23,8 @@ class App extends Component {
     this.state={
       showNav:false,
       showResource:null,
-     
+      success:null,
+      error:null
     }
   }
   
@@ -36,13 +38,12 @@ class App extends Component {
     this.props.setHandleChangeTab(value) ;
   }
 
- handleLogin = (data) =>{
-    
+
+  handleLogin = (data) =>{
     let now = moment().format('YYYY-MM-DD');
     console.log("Call APIRest HealtHelp:"+now+" "+data.email+" "+data.password);
     const url = `http://localhost:8088/api/login/`;
-    console.log(url)
-    //const credentials = JSON.stringify(data);  
+
     const config={
       headers:{
         "Access-Control-Allow-Origin":"http://localhost:3000",
@@ -56,12 +57,15 @@ class App extends Component {
   
       const axios = require('axios'); 
       axios.post(url,value,config)
-      .then(function (response) {
+      .then(response => {
         console.log(response);
-      })
-      .catch(function (error) {
+        this.setState({
+          success:true
+        })
+        })
+        .catch(error => {
         console.log(error);
-      });
+        });
       this.props.setHandleLogin(data); 
   }
 
@@ -77,6 +81,7 @@ class App extends Component {
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
       {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
       {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
+      {this.state.success === true ? <Success></Success>:''}
       <BottomAppBar></BottomAppBar>
       
       </div>
