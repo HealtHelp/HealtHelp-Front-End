@@ -118,7 +118,6 @@ class PrimarySearchAppBar extends React.Component {
   };
 
   handleTab = () =>{
-    console.log('handleTab');
     if(this.state.showNav === false){
       this.setState({
         showNav : true

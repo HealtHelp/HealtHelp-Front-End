@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
@@ -11,48 +10,10 @@ import TextMobileStepper from './modules/services/components/services.component'
 import FormDialog from './modules/login/components/login.component';
 import {setHandleChangeTab} from './modules/tab/actions';
 import {setHandleTab} from './modules/header/actions';
+import {setHandleLogin} from './modules/login/actions';
 import moment from 'moment';
 
-function testCallApi(){
-    
-  let now = moment().format('YYYY-MM-DD');
-  console.log(`Call APIRest HealtHelp: ${now}`);
-  const url = `http://localhost:8088/api/login/`;
-  console.log(url)
-    
-  const config={
-    headers:{
-      "Access-Control-Allow-Origin":"http://localhost:3000",
-      "Access-Control-Request-Method": "POST, GET, DELETE, PUT"
-    }
-  }
-  
-    const data = {
-      username:"admin",
-      password:"admin"
-    }
-   
-    
-    const axios = require('axios'); 
-    axios.post(url,data,config)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    }); 
 
-    /*fetch(url, {  
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body:{
-        username: 'admin', password: 'admin'
-       }
-    })*/
-}
 
 
 class App extends Component {
@@ -66,7 +27,6 @@ class App extends Component {
   }
   
   handleTab = (showNav) =>{
-    testCallApi();
     this.setState({showNav:showNav})
     this.props.setHandleTab(showNav);
   }
@@ -76,6 +36,34 @@ class App extends Component {
     this.props.setHandleChangeTab(value) ;
   }
 
+ handleLogin = (data) =>{
+    
+    let now = moment().format('YYYY-MM-DD');
+    console.log("Call APIRest HealtHelp:"+now+" "+data.email+" "+data.password);
+    const url = `http://localhost:8088/api/login/`;
+    console.log(url)
+    //const credentials = JSON.stringify(data);  
+    const config={
+      headers:{
+        "Access-Control-Allow-Origin":"http://localhost:3000",
+        "Access-Control-Request-Method": "POST, GET, DELETE, PUT"
+      }
+    }
+    const value = {
+      username:data.email,
+      password:data.password
+    }
+  
+      const axios = require('axios'); 
+      axios.post(url,value,config)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      this.props.setHandleLogin(data); 
+  }
 
   render() {
     return (
@@ -87,7 +75,7 @@ class App extends Component {
       {this.state.showResource === 1 ? <Clinic></Clinic> : ''}
       {this.state.showResource === 2 ? <TextMobileStepper></TextMobileStepper>:''}
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
-      {this.state.showResource === 5 ? <FormDialog></FormDialog> : ''} 
+      {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
       {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
       <BottomAppBar></BottomAppBar>
       
@@ -100,7 +88,8 @@ class App extends Component {
 
 const mapDispatchToPropsActions = (dispatch) =>({
   setHandleTab: showNav => dispatch(setHandleTab(showNav)),
-  setHandleChangeTab:value => dispatch(setHandleChangeTab(value))
+  setHandleChangeTab:value => dispatch(setHandleChangeTab(value)),
+  setHandleLogin:data => dispatch(setHandleLogin(data))
 });
 const AppConnected = connect(null, mapDispatchToPropsActions)(App);
 
