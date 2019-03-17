@@ -2,21 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import green from '@material-ui/core/colors/green';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
+  success: CheckCircleIcon
+ 
 };
 
 const styles1 = theme => ({
@@ -82,7 +77,7 @@ const styles2 = theme => ({
   },
 });
 
-class CustomizedSnackbars extends React.Component {
+class SuccessSnackbars extends React.Component {
   state = {
     open: true,
   };
@@ -119,14 +114,14 @@ class CustomizedSnackbars extends React.Component {
             message="This is a success message!"
           />
         </Snackbar>
-        />
+      
       </div>
     );
   }
 }
 
-CustomizedSnackbars.propTypes = {
+SuccessSnackbars.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles2)(CustomizedSnackbars);
+export default withStyles(styles2)(SuccessSnackbars);

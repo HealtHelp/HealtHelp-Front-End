@@ -11,7 +11,8 @@ import FormDialog from './modules/login/components/login.component';
 import {setHandleChangeTab} from './modules/tab/actions';
 import {setHandleTab} from './modules/header/actions';
 import {setHandleLogin} from './modules/login/actions';
-import Success from './modules/snackbars/components/sucess.component';
+import Success from './modules/snackbars/components/success.component';
+import Error from './modules/snackbars/components/error.component';
 import moment from 'moment';
 
 
@@ -40,18 +41,21 @@ class App extends Component {
 
 
   handleLogin = (data) =>{
+    this.setState({
+      success:false
+    })
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" "+data.email+" "+data.password);
+    console.log("Call APIRest HealtHelp:"+now+" "+data.username);
     const url = `http://localhost:8088/api/login/`;
 
     const config={
       headers:{
         "Access-Control-Allow-Origin":"http://localhost:3000",
-        "Access-Control-Request-Method": "POST, GET, DELETE, PUT"
+        //"Access-Control-Request-Method": "POST, GET, DELETE, PUT"
       }
     }
     const value = {
-      username:data.email,
+      username:data.username,
       password:data.password
     }
   
@@ -65,6 +69,9 @@ class App extends Component {
         })
         .catch(error => {
         console.log(error);
+        this.setState({
+          error:true
+        })
         });
       this.props.setHandleLogin(data); 
   }
@@ -81,7 +88,8 @@ class App extends Component {
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
       {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
       {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.success === true ? <Success></Success>:''}
+      {this.state.success === true ? <Success></Success>:''} {this.state.error === true ? <Error></Error>:''}
+      
       <BottomAppBar></BottomAppBar>
       
       </div>
