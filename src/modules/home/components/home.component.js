@@ -34,11 +34,11 @@ const styles = theme =>( {
 class Home extends React.Component {
   
   handleActuator = () =>{
-    console.log("handleActuator");
+    this.props.handleActuator();
   } 
   
 render(){
-  const { classes } =this. props;
+  const { classes } =this.props;
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -60,6 +60,12 @@ render(){
       <CardActions>
       <Button variant="contained" color="primary" onClick={this.handleActuator} className={classes.button}>
         Actuator
+      </Button>
+      <Button variant="contained" color="primary"  className={classes.button}>
+        Users
+      </Button>
+      <Button variant="contained" color="primary"  className={classes.button}>
+        Patients
       </Button>
       </CardActions>
     </Card>
