@@ -40,7 +40,8 @@ class App extends Component {
   handleChangeTab = (value) =>{
     this.setState({
       showResource:value,
-      error:false
+      error:false,
+      success:false
     })
     this.props.setHandleChangeTab(value) ;
   }
@@ -68,7 +69,8 @@ class App extends Component {
       .then(response => {
         console.log(response);
         this.setState({
-          success:true
+          success:true,
+          showNav:false
         })
         })
         .catch(error => {

@@ -74,7 +74,7 @@ class ScrollableTabsButtonForce extends React.Component {
         {value === 2 && <TabContainer>Services</TabContainer>}
         {value === 3 && <TabContainer>Request Appointment</TabContainer>}     
         {value === 4 && <TabContainer>Contact</TabContainer>}
-        {value === 5 && <TabContainer>Login</TabContainer>}
+        {value === 5 && <TabContainer>HealtHelp APIRestful Control Panel</TabContainer>}
       </div>
       
     );
