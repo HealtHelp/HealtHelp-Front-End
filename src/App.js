@@ -26,6 +26,7 @@ class App extends Component {
     this.state={
       showNav:false,
       showResource:null,
+      successMessage:null,
       success:null,
       error:null,
       closeLogin:null
@@ -49,7 +50,8 @@ class App extends Component {
 
   handleLogin = (data) =>{
     this.setState({
-      success:false
+      success:false,
+      successMessage:false
     })
     let now = moment().format('YYYY-MM-DD');
     console.log("Call APIRest HealtHelp:"+now+" "+data.username);
@@ -70,7 +72,8 @@ class App extends Component {
         console.log(response);
         this.setState({
           success:true,
-          showNav:false
+          showNav:false,
+          successMessage:true
         })
         })
         .catch(error => {
@@ -94,7 +97,9 @@ class App extends Component {
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
       {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
       {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.success === true ? <Home></Home>:''} {this.state.error === true ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
+      {this.state.success === true ? <Home></Home>:''} 
+      {this.state.error === true ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
+      {this.state.successMessage === true ? <Success></Success>:''}
       <BottomAppBar></BottomAppBar>
       
       </div>
