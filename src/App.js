@@ -38,7 +38,10 @@ class App extends Component {
   }
 
   handleChangeTab = (value) =>{
-    this.setState({showResource:value})
+    this.setState({
+      showResource:value,
+      error:false
+    })
     this.props.setHandleChangeTab(value) ;
   }
 
