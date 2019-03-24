@@ -15,6 +15,7 @@ import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import {urlLogin} from './modules/constants/constants';
 import moment from 'moment';
+import Home from './modules/home/components/home.component';
 
 
 
@@ -26,7 +27,8 @@ class App extends Component {
       showNav:false,
       showResource:null,
       success:null,
-      error:null
+      error:null,
+      closeLogin:null
     }
   }
   
@@ -80,15 +82,14 @@ class App extends Component {
       
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
-      {this.state.showNav === true ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab}></ScrollableTabsButtonForce> : ''}
+      {this.state.showNav === true ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {this.state.showResource === 0 ? <ImageAvatars></ImageAvatars>:''}
       {this.state.showResource === 1 ? <Clinic></Clinic> : ''}
       {this.state.showResource === 2 ? <TextMobileStepper></TextMobileStepper>:''}
       {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
       {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
       {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.success === true ? <Success></Success>:''} {this.state.error === true ? <Error></Error>:''}
-      
+      {this.state.success === true ? <Home></Home>:''} {this.state.error === true ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
       <BottomAppBar></BottomAppBar>
       
       </div>

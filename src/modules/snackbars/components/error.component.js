@@ -88,10 +88,13 @@ class CustomizedSnackbars extends React.Component {
   };
 
   handleClose = (event, reason) => {
+    console.log("handleclose")
     if (reason === 'clickaway') {
       return;
     }
     this.setState({ open: false });
+   
+    this.props.handleChangeTab(0);
   };
 
   render() {

@@ -22,6 +22,7 @@ export default class FormDialog extends React.Component {
   };
 
   handleLogin = () =>{
+    this.setState({ open: false });
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const data={
