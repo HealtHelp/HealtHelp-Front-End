@@ -92,7 +92,7 @@ class App extends Component {
     console.log("Call APIRest HealtHelp:"+now);
     //CORS
 
-    const config={
+    const config = {
       headers:{
         "Access-Control-Allow-Origin":"http://localhost:3000"
       }
@@ -112,16 +112,19 @@ class App extends Component {
       
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
-      {this.state.showNav === true ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
-      {this.state.showResource === 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.showResource === 1 ? <Clinic></Clinic> : ''}
-      {this.state.showResource === 2 ? <TextMobileStepper></TextMobileStepper>:''}
-      {this.state.showResource === 3 ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
-      {this.state.showResource === 5 ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''} 
-      {this.state.showResource === null && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.success === true ? <Home handleActuator={this.handleActuator}></Home>:''} 
-      {this.state.error === true ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
-      {this.state.successMessage === true ? <Success></Success>:''}
+      {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+      
+      {Object.is(this.state.showResource, 0) ?  <ImageAvatars></ImageAvatars> : ''}
+      {Object.is(this.state.showResource, 1) ? <Clinic></Clinic> : ''}
+      {Object.is(this.state.showResource, 2) ? <TextMobileStepper></TextMobileStepper> : ''}
+      {Object.is(this.state.showResource, 3) ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
+      {Object.is(this.state.showResource, 5) ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''}
+      
+       
+      {!this.state.showResource && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
+      {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
+      {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
+      {this.state.successMessage  ? <Success></Success>:''} 
       <BottomAppBar></BottomAppBar>
       
       </div>
