@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import {store} from './modules/store/store';
-=======
->>>>>>> 9973bcc2e4f5f2b726701ac9980dc3808724f292
 import {connect} from 'react-redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
@@ -41,10 +38,7 @@ class App extends Component {
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-<<<<<<< HEAD
     //store.dispatch(setHandleTab(showNav));
-=======
->>>>>>> 9973bcc2e4f5f2b726701ac9980dc3808724f292
     this.props.setHandleTab(showNav);
   }
 
@@ -142,14 +136,6 @@ class App extends Component {
 
 
 
-<<<<<<< HEAD
-const mapDispatchToPropsActions = dispatch => ({
-  setHandleTab:showNav => dispatch(setHandleTab(showNav)),
-  setHandleChangeTab:value => dispatch(setHandleChangeTab(value))
-});
-const AppConnected = connect(null,mapDispatchToPropsActions)(App);
-export default AppConnected;
-=======
 const mapDispatchToPropsActions = (dispatch) =>({
   setHandleTab: showNav => dispatch(setHandleTab(showNav)),
   setHandleChangeTab:value => dispatch(setHandleChangeTab(value)),
@@ -159,4 +145,4 @@ const mapDispatchToPropsActions = (dispatch) =>({
 const AppConnected = connect(null, mapDispatchToPropsActions)(App);
 
 export default AppConnected;
->>>>>>> 9973bcc2e4f5f2b726701ac9980dc3808724f292
+
