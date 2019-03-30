@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {store} from './modules/store/store';
+import {connect} from 'react-redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
@@ -25,7 +26,8 @@ class App extends Component {
 
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-    store.dispatch(setHandleTab(showNav));
+    //store.dispatch(setHandleTab(showNav));
+    this.props.setHandleTab(showNav);
   }
 
   handleChangeTab = (value) =>{
@@ -53,4 +55,11 @@ class App extends Component {
   }
 }
 
-export default App;
+
+
+const mapDispatchToPropsActions = dispatch => ({
+  setHandleTab:showNav => dispatch(setHandleTab(showNav)),
+  setHandleChangeTab:value => dispatch(setHandleChangeTab(value))
+});
+const AppConnected = connect(null,mapDispatchToPropsActions)(App);
+export default AppConnected;
