@@ -21,6 +21,16 @@ export default class FormDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  handleLogin = () =>{
+    this.setState({ open: false });
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const data={
+      username,
+      password 
+    }
+    this.props.handleLogin(data);
+  }
   
 
   render() {
@@ -40,9 +50,8 @@ export default class FormDialog extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
+              id="username"
+              label="Username"
               fullWidth
             />
              <TextField
@@ -58,7 +67,7 @@ export default class FormDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button color="primary">
+            <Button color="primary" onClick={this.handleLogin}>
               Send
             </Button>
           </DialogActions>
