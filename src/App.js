@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {store} from './modules/store/store';
 import {connect} from 'react-redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
@@ -38,6 +39,7 @@ class App extends Component {
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
+    //store.dispatch(setHandleTab(showNav));
     this.props.setHandleTab(showNav);
   }
 
@@ -139,3 +141,4 @@ const mapDispatchToPropsActions = (dispatch) =>({
 const AppConnected = connect(null, mapDispatchToPropsActions)(App);
 
 export default AppConnected;
+
