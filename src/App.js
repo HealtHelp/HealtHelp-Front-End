@@ -5,9 +5,9 @@ import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
 import ImageAvatars from './modules/start/components/start.component';
 import Clinic from './modules/clinic/components/clinic.component';
-import IntegrationAutosuggest from './modules/appointment/components/appointment.component';
-import TextMobileStepper from './modules/services/components/services.component';
-import FormDialog from './modules/login/components/login.component';
+import Appointment from './modules/appointment/components/appointment.component';
+import Services from './modules/services/components/services.component';
+import Contact from './modules/login/components/login.component';
 import {setHandleChangeTab} from './modules/tab/actions';
 import {setHandleTab} from './modules/header/actions';
 import {setHandleLogin} from './modules/login/actions';
@@ -16,6 +16,7 @@ import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import {urlLogin} from './modules/constants/constants';
 import {urlActuatorInfo} from './modules/constants/constants';
+import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT} from './modules/constants/constants';
 import moment from 'moment';
 import Home from './modules/home/components/home.component';
 
@@ -27,7 +28,7 @@ class App extends Component {
     super(props);
     this.state={
       showNav:false,
-      showResource:null,
+      showResourceTab:null,
       successMessage:null,
       success:null,
       error:null,
@@ -42,7 +43,7 @@ class App extends Component {
 
   handleChangeTab = (value) =>{
     this.setState({
-      showResource:value,
+      showResourceTab:value,
       error:false,
       success:false
     })
@@ -89,9 +90,8 @@ class App extends Component {
 
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now);
+    console.log("Call APIRest HealtHelp:"+now+" handleActuator.");
     //CORS
-
     const config = {
       headers:{
         "Access-Control-Allow-Origin":"http://localhost:3000"
@@ -107,26 +107,22 @@ class App extends Component {
     });
     this.props.setHandleActuator(data); 
   }
+
   render() {
     return (
-      
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
       {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
-      
-      {Object.is(this.state.showResource, 0) ?  <ImageAvatars></ImageAvatars> : ''}
-      {Object.is(this.state.showResource, 1) ? <Clinic></Clinic> : ''}
-      {Object.is(this.state.showResource, 2) ? <TextMobileStepper></TextMobileStepper> : ''}
-      {Object.is(this.state.showResource, 3) ? <IntegrationAutosuggest></IntegrationAutosuggest> : ''}
-      {Object.is(this.state.showResource, 5) ? <FormDialog handleLogin={this.handleLogin}></FormDialog> : ''}
-      
-       
-      {!this.state.showResource && this.state.showResource !== 0 ? <ImageAvatars></ImageAvatars>:''}
+      {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
+      {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : ''}
+      {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
+      {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> : ''}
+      {Object.is(this.state.showResourceTab, TABCONTACT) ? <Contact handleLogin={this.handleLogin}></Contact> : ''}
+      {!this.state.showResourceTab && this.state.showResourceTab !== 0 ? <ImageAvatars></ImageAvatars>:''}
       {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
       {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
       {this.state.successMessage  ? <Success></Success>:''} 
       <BottomAppBar></BottomAppBar>
-      
       </div>
     );
   }
