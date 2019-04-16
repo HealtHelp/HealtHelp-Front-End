@@ -17,6 +17,7 @@ import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import {urlLogin} from './modules/constants/constants';
 import {urlActuatorInfo} from './modules/constants/constants';
+import {CONFIGHEADERS} from './modules/constants/constants';
 import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT} from './modules/constants/constants';
 import moment from 'moment';
 import Home from './modules/home/components/home.component';
@@ -29,7 +30,7 @@ class App extends Component {
     super(props);
     this.state={
       showNav:false,
-      showResourceTab:null,
+      showResourceTab:-1,
       successMessage:null,
       success:null,
       error:null,
@@ -39,9 +40,9 @@ class App extends Component {
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-    //store.dispatch(setHandleTab(showNav));
     this.props.setHandleTab(showNav);
-  }
+  } 
+
 
   handleChangeTab = (value) =>{
     this.setState({
@@ -60,19 +61,14 @@ class App extends Component {
     })
     let now = moment().format('YYYY-MM-DD');
     console.log("Call APIRest HealtHelp:"+now+" "+data.username);
-    //CORS
-    const config={
-      headers:{
-        "Access-Control-Allow-Origin":"http://localhost:3000"
-      }
-    }
+  
     const value = {
       username:data.username,
       password:data.password
     }
   
       const axios = require('axios'); 
-      axios.post(urlLogin,value,config)
+      axios.post(urlLogin,value,CONFIGHEADERS)
       .then(response => {
         console.log(response);
         this.setState({
@@ -93,14 +89,9 @@ class App extends Component {
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
     console.log("Call APIRest HealtHelp:"+now+" handleActuator.");
-    //CORS
-    const config = {
-      headers:{
-        "Access-Control-Allow-Origin":"http://localhost:3000"
-      }
-    }
+  
     const axios = require('axios'); 
-    axios.get(urlActuatorInfo,data,config)
+    axios.get(urlActuatorInfo,data,CONFIGHEADERS)
     .then(function (response) {
       console.log(response);
     })
@@ -110,15 +101,15 @@ class App extends Component {
     this.props.setHandleActuator(data); 
   }
 
-  render() {
+   render() {
     return (
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
       {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
-      {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : ''}
+      {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : '' }
       {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
-      {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> : ''}
+      {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> :''}
       {Object.is(this.state.showResourceTab, TABCONTACT) ? <Contact handleLogin={this.handleLogin}></Contact> : ''}
       {!this.state.showResourceTab && this.state.showResourceTab !== 0 ? <ImageAvatars></ImageAvatars>:''}
       {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
@@ -127,7 +118,8 @@ class App extends Component {
       <BottomAppBar></BottomAppBar>
       </div>
     );
-  }
+  } 
+  
 }
 
 
