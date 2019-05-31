@@ -23,10 +23,10 @@ export default class FormDialog extends React.Component {
 
   handleLogin = () =>{
     this.setState({ open: false });
-    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const data={
-      username,
+      email,
       password 
     }
     this.props.handleLogin(data);
@@ -50,8 +50,8 @@ export default class FormDialog extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="username"
-              label="Username"
+              id="email"
+              label="Email"
               fullWidth
             />
              <TextField

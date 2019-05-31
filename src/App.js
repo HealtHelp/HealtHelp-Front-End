@@ -60,13 +60,13 @@ class App extends Component {
       successMessage:false
     })
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" "+data.username);
+    console.log("Call APIRest HealtHelp:"+now+" "+data.email);
   
     const value = {
-      username:data.username,
+      email:data.email,
       password:data.password
     }
-  
+    
       const axios = require('axios'); 
       axios.post(urlLogin,value,CONFIGHEADERS)
       .then(response => {
