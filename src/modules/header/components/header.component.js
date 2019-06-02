@@ -4,18 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 
 const styles = theme => ({
   root: {
@@ -94,8 +87,8 @@ class PrimarySearchAppBar extends React.Component {
     super(props);
     this.state={
       anchorEl: null,
-    mobileMoreAnchorEl: null,
-    showNav:true
+      mobileMoreAnchorEl: null,
+      showNav:true
     }
   }
  
@@ -157,28 +150,9 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+      
+    
+       
       </Menu>
     );
 
@@ -195,30 +169,11 @@ class PrimarySearchAppBar extends React.Component {
            
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+           
+             
+              
             </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <MoreIcon />
-              </IconButton>
-            </div>
+        
           </Toolbar>
         </AppBar>
         {renderMenu}

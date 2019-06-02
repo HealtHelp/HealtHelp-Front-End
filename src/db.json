@@ -1,0 +1,9 @@
+{
+  "patients": [
+    { "id": 1, "name": "Patient 1", "lastname": "Last Name 1" }
+  ],
+  "comments": [
+    { "id": 1, "name": "Patient 1", "lastname": "Last Name 1" }
+  ],
+  "profile": { "name": "typicode" }
+}
