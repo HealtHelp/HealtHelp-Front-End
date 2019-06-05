@@ -1,0 +1,10 @@
+{
+  "patient": [
+    {
+      "id": 1,
+      "name": "json-server",
+      "lastname": "typicode"
+    }
+  ]
+ 
+}
