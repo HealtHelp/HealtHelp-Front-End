@@ -2,9 +2,31 @@
   "patient": [
     {
       "id": 1,
-      "name": "json-server",
-      "lastname": "typicode"
+      "tenant_id": 1,
+      "patientname": "Bladimir",
+      "patientalstname" : "del Barrio",
+      "patientdni":"71107371L",
+      "patienttelephone":625589030,
+      "patientaddress":"Mar Menor,28 8c",
+      "patientlocation": "Madrid",
+      "patientprofesion":"Development",
+      "patientemail":"bladidb@gmail.com"
+    },
+    {
+      "id": 2,
+      "tenant_id": 1,
+      "patientname": "Damian",
+      "patientalstname" : "Cruz",
+      "patientdni":"71107321K",
+      "patienttelephone":625589220,
+      "patientaddress":"Mar Mayor,28 8c",
+      "patientlocation": "Madrid",
+      "patientprofesion":"Development",
+      "patientemail":"damiandb@gmail.com"
     }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
   ]
  
 }

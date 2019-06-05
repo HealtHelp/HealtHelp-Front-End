@@ -88,7 +88,7 @@ class App extends Component {
 
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" handleActuator.");
+    console.log("Call APIRest HealtHelp: "+now+" handleActuator "+data);
   
     const axios = require('axios'); 
     axios.get(urlActuatorInfo,data,CONFIGHEADERS)

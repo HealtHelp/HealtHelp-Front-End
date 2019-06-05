@@ -19,7 +19,11 @@ function ImageAvatars(props) {
   const { classes } = props;
   return (
     <Grid container justify="center" alignItems="center">
+<<<<<<< HEAD
     <Avatar  src="../../img/healthelp.jpg" className={classes.bigAvatar} />
+=======
+    <Avatar alt="Healthelp" src="/img/logo.jpg" className={classes.bigAvatar} />
+>>>>>>> 1fd35b404ab617912835ffe6d6f787aca7e3b041
     </Grid>
   );
 }
