@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ErrorIcon from '@material-ui/icons/Error';
-
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -63,7 +62,7 @@ function MySnackbarContent(props) {
 }
 
 MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
+  //classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
@@ -98,7 +97,7 @@ class CustomizedSnackbars extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+   // const { classes } = this.props;
 
     return (
       <div>

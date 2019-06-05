@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import {store} from './modules/store/store';
 import {connect} from 'react-redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
@@ -88,7 +87,7 @@ class App extends Component {
 
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" handleActuator.");
+    console.log("Call APIRest HealtHelp: "+now+" handleActuator."+data);
   
     const axios = require('axios'); 
     axios.get(urlActuatorInfo,data,CONFIGHEADERS)
