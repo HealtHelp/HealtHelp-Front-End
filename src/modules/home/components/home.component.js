@@ -33,7 +33,8 @@ const styles = theme =>( {
 class Home extends React.Component {
   
    handleActuator = () =>{
-    this.props.handleActuator();
+    let data = 'ok'; 
+    this.props.handleActuator(data);
   }  
   
 render(){
