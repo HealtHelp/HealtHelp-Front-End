@@ -43,5 +43,5 @@ render(){
 
 
 export default GoogleApiWrapper({
-  apiKey: (APIKEY)
+  apiKey: (process.env.APIKEY)
 })(Clinic)
