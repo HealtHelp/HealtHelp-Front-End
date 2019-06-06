@@ -4,10 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-<<<<<<< HEAD
-
-=======
->>>>>>> 1fd35b404ab617912835ffe6d6f787aca7e3b041
 
 const styles = theme => ({
   text: {
