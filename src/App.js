@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
@@ -8,13 +7,8 @@ import Clinic from './modules/clinic/components/clinic.component';
 import Appointment from './modules/appointment/components/appointment.component';
 import Services from './modules/services/components/services.component';
 import Contact from './modules/login/components/login.component';
-import {setHandleChangeTab} from './modules/tab/actions';
-import {setHandleTab} from './modules/header/actions';
-import {setHandleLogin} from './modules/login/actions';
-import {setHandleActuator} from './modules/actuator/actions';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
-import {urlLogin} from './modules/constants/constants';
 import {urlActuatorInfo} from './modules/constants/constants';
 import {CONFIGHEADERS} from './modules/constants/constants';
 import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT} from './modules/constants/constants';
@@ -39,7 +33,7 @@ class App extends Component {
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-    this.props.setHandleTab(showNav);
+  //  this.props.setHandleTab(showNav);
   } 
 
 
@@ -49,41 +43,11 @@ class App extends Component {
       error:false,
       success:false
     })
-    this.props.setHandleChangeTab(value) ;
+  //  this.props.setHandleChangeTab(value) ;
   }
 
 
-  handleLogin = (data) =>{
-    this.setState({
-      success:false,
-      successMessage:false
-    })
-    let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" "+data.email);
   
-    const value = {
-      email:data.email,
-      password:data.password
-    }
-    
-      const axios = require('axios'); 
-      axios.post(urlLogin,value,CONFIGHEADERS)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          success:true,
-          showNav:false,
-          successMessage:true
-        })
-        })
-        .catch(error => {
-        console.log(error);
-        this.setState({
-          error:true
-        })
-        });
-      this.props.setHandleLogin(data); 
-  }
 
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
@@ -97,7 +61,7 @@ class App extends Component {
     .catch(function (error) {
       console.log(error);
     });
-    this.props.setHandleActuator(data); 
+   // this.props.setHandleActuator(data); 
   }
 
    render() {
@@ -123,7 +87,7 @@ class App extends Component {
 
 
 
-const mapDispatchToPropsActions = (dispatch) =>({
+/* const mapDispatchToPropsActions = (dispatch) =>({
   setHandleTab: showNav => dispatch(setHandleTab(showNav)),
   setHandleChangeTab:value => dispatch(setHandleChangeTab(value)),
   setHandleLogin:data => dispatch(setHandleLogin(data)),
@@ -131,5 +95,7 @@ const mapDispatchToPropsActions = (dispatch) =>({
 });
 const AppConnected = connect(null, mapDispatchToPropsActions)(App);
 
-export default AppConnected;
+export default AppConnected;*/ 
+
+export default App;
 
