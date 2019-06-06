@@ -14,7 +14,6 @@ import {CONFIGHEADERS} from './modules/constants/constants';
 import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT} from './modules/constants/constants';
 import moment from 'moment';
 import Home from './modules/home/components/home.component';
-import './modules/css/style.css';
 
 
 
@@ -48,6 +47,7 @@ class App extends Component {
   }
 
 
+ 
   
 
   handleActuator = (data) =>{
@@ -69,13 +69,13 @@ class App extends Component {
     return (
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
-      
       {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
       {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : '' }
       {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
       {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> :''}
       {Object.is(this.state.showResourceTab, TABCONTACT) ? <Contact handleLogin={this.handleLogin}></Contact> : ''}
+      {!this.state.showResourceTab && this.state.showResourceTab !== 0 ? <ImageAvatars></ImageAvatars>:''}
       {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
       {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
       {this.state.successMessage  ? <Success></Success>:''} 
