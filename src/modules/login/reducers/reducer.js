@@ -1,4 +1,4 @@
-import {SET_HANDLE_LOGIN} from './types';
+import {SET_HANDLE_LOGIN} from '../types/types';
 
 //cada reducer tiene su propio state
 const initialState = {

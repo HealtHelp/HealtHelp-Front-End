@@ -1,5 +1,5 @@
 
-import {SET_HANDLE_LOGIN} from '../types';
+import {SET_HANDLE_LOGIN} from '../types/types';
 
 import axios from 'axios';
 import { CONFIGHEADERS } from '../../constants/constants';
