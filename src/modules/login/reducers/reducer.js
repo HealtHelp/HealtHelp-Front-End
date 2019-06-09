@@ -11,7 +11,7 @@ export default function login(state = initialState,action){
         case SET_HANDLE_LOGIN:
             return{
                 ...state,
-                token: action.resp[0]
+                token: action.resp
             }
         default:
             return state;    

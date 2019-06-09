@@ -13,7 +13,6 @@ import Notification from './modules/notifications/components/notification.compon
 import Error from './modules/snackbars/components/error.component';
 import {urlActuatorInfo} from './modules/constants/constants';
 import {CONFIGHEADERS} from './modules/constants/constants';
-import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT,TABLOGIN} from './modules/constants/constants';
 import moment from 'moment';
 import Home from './modules/home/components/home.component';
 import SuccessSnackbars from './modules/notifications/components/notification.component';
@@ -85,6 +84,7 @@ class App extends Component {
         <Route path="/services" component={ServicesPage} />
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
+       
 
      
       
