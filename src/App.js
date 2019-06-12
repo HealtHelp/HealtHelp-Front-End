@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import store from '../src/modules/store/store';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import PrimarySearchAppBar from './modules/header/components/header.component';
+import Header from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
 import Notification from './modules/notifications/components/notification.component';
@@ -15,6 +15,7 @@ import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
+import Start from '../src/modules/start/components/start.component';
 
 class App extends Component {
   constructor(props){
@@ -74,9 +75,9 @@ class App extends Component {
     return (
       <Router>
       <div className="App">
-      <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
+      <Header handleTab={this.handleTab}></Header>
       <Notification></Notification>
-      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : <Start></Start>}
       {this.state.success ? <Success></Success>:''}
       {this.state.error ? <Error></Error>:''}
        

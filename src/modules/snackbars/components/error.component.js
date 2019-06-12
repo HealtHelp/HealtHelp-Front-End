@@ -114,7 +114,7 @@ class CustomizedSnackbars extends React.Component {
           <MySnackbarContentWrapper
             onClose={this.handleClose}
             variant="error"
-            message="Wrong credentials."
+            message="Wrong credentials!!"
           />
         </Snackbar>
       
