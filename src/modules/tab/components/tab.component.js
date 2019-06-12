@@ -56,8 +56,8 @@ class ScrollableTabsButtonForce extends React.Component {
             onChange={this.handleChange}
             variant="scrollable"
             scrollButtons="on"
-            indicatorColor="primary"
-            textColor="primary"
+            //indicatorColor="primary"
+            //textColor="primary"
             
           > 
             
@@ -81,8 +81,8 @@ class ScrollableTabsButtonForce extends React.Component {
   }
 }
 
-ScrollableTabsButtonForce.propTypes = {
+ ScrollableTabsButtonForce.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
+ 
 export default withStyles(styles)(ScrollableTabsButtonForce);

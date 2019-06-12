@@ -17,6 +17,7 @@ import StartPage from './pages/Start';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Start from '../src/modules/start/components/start.component';
+import Home from './modules/home/components/home.component';
 
 class App extends Component {
   constructor(props){
@@ -24,10 +25,6 @@ class App extends Component {
     this.state={
       showNav:false,
       showResourceTab:-1,
-      successMessage:null,
-      success:null,
-      error:null,
-      closeLogin:null
     }
 
     store.subscribe(() => {
@@ -78,8 +75,9 @@ class App extends Component {
       <div className="App">
       <Header handleTab={this.handleTab}></Header>
       <Notification></Notification>
-      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : <Start></Start>}
+      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {this.state.success ? <Success></Success>:''}
+      {this.state.success ? <Home></Home>:''}
       {this.state.error ? <Error></Error>:''}
        
  
