@@ -6,4 +6,5 @@ export const CONFIGHEADERS = {
     headers:{
       "Access-Control-Allow-Origin":"http://localhost:3000"
     }
+    
   }

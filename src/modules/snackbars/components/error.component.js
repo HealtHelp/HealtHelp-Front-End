@@ -93,7 +93,7 @@ class CustomizedSnackbars extends React.Component {
     }
     this.setState({ open: false });
    
-    this.props.handleChangeTab(0);
+    //this.props.handleChangeTab(0);
   };
 
   render() {

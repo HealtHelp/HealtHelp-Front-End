@@ -71,11 +71,15 @@ class SuccessSnackbars extends React.Component {
   state = {
     open: true,
     success:null,
-    successmessages:null
+    successmessages:null,
   };
+  
+  
+
 
   handleClick = () => {
     this.setState({ open: true });
+   
   };
   
   handleClose = (event, reason) => {
@@ -103,7 +107,7 @@ class SuccessSnackbars extends React.Component {
           <MySnackbarContentWrapper
             variant="info"
             className={classes.margin}
-            message="Welcome to Healthelp!"
+            message="Insert your credentials!"
           />
         </Snackbar>
       

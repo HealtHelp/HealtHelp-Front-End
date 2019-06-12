@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
+import store from '../src/modules/store/store';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
-import Login from './modules/login/components/login.component';
-import Start from './modules/start/components/start.component';
-import Clinic from './modules/clinic/components/clinic.component';
-import Appointment from './modules/appointment/components/appointment.component';
-import Contact from './modules/login/components/login.component';
-import Success from './modules/snackbars/components/success.component';
 import Notification from './modules/notifications/components/notification.component';
-import Error from './modules/snackbars/components/error.component';
 import {urlActuatorInfo} from './modules/constants/constants';
 import {CONFIGHEADERS} from './modules/constants/constants';
 import moment from 'moment';
-import Home from './modules/home/components/home.component';
-import SuccessSnackbars from './modules/notifications/components/notification.component';
 import ClinicPage from "./pages/Clinic"
 import ServicesPage from './pages/Services';
 import AppointmentPage from './pages/Appointment';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
-
+import Success from './modules/snackbars/components/success.component';
+import Error from './modules/snackbars/components/error.component';
 
 class App extends Component {
   constructor(props){
@@ -34,7 +27,18 @@ class App extends Component {
       error:null,
       closeLogin:null
     }
+
+    store.subscribe(() => {
+      this.setState({
+        success : store.getState().notification.success,
+        error: store.getState().notification.error
+      
+      });
+       
+    });
   }
+
+
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
@@ -43,9 +47,7 @@ class App extends Component {
 
   handleChangeTab = (value) =>{
     this.setState({
-      showResourceTab:value,
-      error:false,
-      success:false
+      showResourceTab:value
     })
   }
 
@@ -68,15 +70,16 @@ class App extends Component {
   }
 
    render() {
+    
     return (
       <Router>
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
       <Notification></Notification>
-      <SuccessSnackbars></SuccessSnackbars>
       {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
-      
-      
+      {this.state.success ? <Success></Success>:''}
+      {this.state.error ? <Error></Error>:''}
+       
  
       
         <Route path="/" component={LoginPage} />

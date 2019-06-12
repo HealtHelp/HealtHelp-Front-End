@@ -1,6 +1,6 @@
 import {SET_HANDLE_LOGIN} from '../types/types';
+import {SET_HANDLE_ERROR} from '../../notifications/types/types';
 
-//cada reducer tiene su propio state
 const initialState = {
     data:[],
     token: null
@@ -13,6 +13,11 @@ export default function login(state = initialState,action){
                 ...state,
                 token: action.resp
             }
+        case  SET_HANDLE_ERROR:
+                    return{
+                        ...state,
+                        error:true
+                    }       
         default:
             return state;    
     }

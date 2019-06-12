@@ -1,9 +1,10 @@
 import {SET_HANDLE_NOTIFICATION} from '../types/types';
+import {SET_HANDLE_ERROR} from '../types/types';
 
 const initialState = {
     data:[],
     success:null,
-    successmessages:null
+    error:null
 }
 
 export default function handleNotifications(state = initialState,action){
@@ -11,9 +12,13 @@ export default function handleNotifications(state = initialState,action){
         case SET_HANDLE_NOTIFICATION:
             return{
                 ...state,
-                success:true,
-                successmessages:true
+                success:true
             }
+        case  SET_HANDLE_ERROR:
+            return{
+                ...state,
+                error:true
+            }   
         default:
             return state;    
     }
