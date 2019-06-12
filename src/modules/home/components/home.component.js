@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -33,9 +32,10 @@ const styles = theme =>( {
 
 class Home extends React.Component {
   
-  handleActuator = () =>{
-    this.props.handleActuator();
-  } 
+   handleActuator = () =>{
+    let data = 'ok'; 
+    this.props.handleActuator(data);
+  }  
   
 render(){
   const { classes } =this.props;

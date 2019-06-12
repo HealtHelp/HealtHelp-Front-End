@@ -2,9 +2,54 @@
   "patient": [
     {
       "id": 1,
-      "name": "json-server",
-      "lastname": "typicode"
+      "tenant_id": 1,
+      "patientname": "Bladimir",
+      "patientalstname" : "del Barrio",
+      "patientdni":"71107371L",
+      "patienttelephone":625589030,
+      "patientaddress":"Mar Menor,28 8c",
+      "patientlocation": "Madrid",
+      "patientprofesion":"Development",
+      "patientemail":"bladidb@gmail.com"
+    },
+    {
+      "id": 2,
+      "tenant_id": 1,
+      "patientname": "Damian",
+      "patientalstname" : "Cruz",
+      "patientdni":"71107321K",
+      "patienttelephone":625589220,
+      "patientaddress":"Mar Mayor,28 8c",
+      "patientlocation": "Madrid",
+      "patientprofesion":"Development",
+      "patientemail":"damiandb@gmail.com"
     }
+  ],
+  "sessions": [
+    { "id": 1,
+      "date": "some comment",
+      "patient_id": 1,
+      "diagnosis":"Diagnosis test",
+      "valoration":"Valoration test",
+      "exploration":"Exploration test",
+      "treatment":"Treatment test"
+     },
+     { "id": 2,
+      "date": "2016-06-22 19:10:25-07",
+      "patient_id": 1,
+      "diagnosis":"Diagnosis test",
+      "valoration":"Valoration test",
+      "exploration":"Exploration test",
+      "treatment":"Treatment test"
+     },
+     { "id": 3,
+      "date": "2016-06-22 19:10:25-07",
+      "patient_id": 2,
+      "diagnosis":"Diagnosis test",
+      "valoration":"Valoration test",
+      "exploration":"Exploration test",
+      "treatment":"Treatment test"
+     }
   ]
  
 }

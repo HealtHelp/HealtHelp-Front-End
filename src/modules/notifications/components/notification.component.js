@@ -1,23 +1,23 @@
+
 import React from 'react';
+import {connect} from 'react-redux';
+import {handleNotifications} from '../actions/notification.actions';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ErrorIcon from '@material-ui/icons/Error';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
-  error: ErrorIcon,
+    info: InfoIcon
+ 
 };
 
 const styles1 = theme => ({
-  
-  error: {
-    backgroundColor: theme.palette.error.dark,
+  info: {
+    backgroundColor: theme.palette.primary.dark,
   },
-
   icon: {
     fontSize: 20,
   },
@@ -45,28 +45,18 @@ function MySnackbarContent(props) {
           {message}
         </span>
       }
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className={classes.close}
-          onClick={onClose}
-        >
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
-      ]}
+     
       {...other}
     />
   );
 }
 
 MySnackbarContent.propTypes = {
-  //classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf([ 'error']).isRequired,
+  variant: PropTypes.oneOf([ 'info']).isRequired,
 };
 
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
@@ -77,31 +67,30 @@ const styles2 = theme => ({
   },
 });
 
-class CustomizedSnackbars extends React.Component {
+class SuccessSnackbars extends React.Component {
   state = {
     open: true,
+    success:null,
+    successmessages:null
   };
 
   handleClick = () => {
     this.setState({ open: true });
   };
-
+  
   handleClose = (event, reason) => {
-    console.log("handleclose")
-    if (reason === 'clickaway') {
-      return;
-    }
-    this.setState({ open: false });
-   
-    this.props.handleChangeTab(0);
-  };
+  if (reason === 'clickaway') {
+    return;
+  }
+  this.setState({ open: false });
+};
+  
 
   render() {
-   // const { classes } = this.props;
-
+    
+    const { classes } = this.props;
     return (
       <div>
-       
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
@@ -112,9 +101,9 @@ class CustomizedSnackbars extends React.Component {
           onClose={this.handleClose}
         >
           <MySnackbarContentWrapper
-            onClose={this.handleClose}
-            variant="error"
-            message="Wrong credentials."
+            variant="info"
+            className={classes.margin}
+            message="Welcome to Healthelp!"
           />
         </Snackbar>
       
@@ -123,8 +112,17 @@ class CustomizedSnackbars extends React.Component {
   }
 }
 
-CustomizedSnackbars.propTypes = {
+SuccessSnackbars.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles2)(CustomizedSnackbars);
+
+const notification =  withStyles(styles2)(SuccessSnackbars);
+const mapStateToProps = (dispatch) =>({
+    data:dispatch.data
+    
+  }) 
+export default connect(mapStateToProps,{handleNotifications}) (notification);
+
+
+

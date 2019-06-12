@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import {APIKEY} from '../../constants/constants';
-import '../../css/style.css';
+
+
 
 
 
@@ -43,5 +43,5 @@ render(){
 
 
 export default GoogleApiWrapper({
-  apiKey: (APIKEY)
+  apiKey: (process.env.APIKEY)
 })(Clinic)

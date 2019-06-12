@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
   success: CheckCircleIcon
- 
 };
 
 const styles1 = theme => ({
@@ -34,7 +33,7 @@ const styles1 = theme => ({
 function MySnackbarContent(props) {
   const { classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
-
+  
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
@@ -95,8 +94,6 @@ class SuccessSnackbars extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
         <Snackbar

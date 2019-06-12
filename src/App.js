@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-//import {store} from './modules/store/store';
-import {connect} from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PrimarySearchAppBar from './modules/header/components/header.component';
 import BottomAppBar from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
-import ImageAvatars from './modules/start/components/start.component';
+import Login from './modules/login/components/login.component';
+import Start from './modules/start/components/start.component';
 import Clinic from './modules/clinic/components/clinic.component';
 import Appointment from './modules/appointment/components/appointment.component';
-import Services from './modules/services/components/services.component';
 import Contact from './modules/login/components/login.component';
-import {setHandleChangeTab} from './modules/tab/actions';
-import {setHandleTab} from './modules/header/actions';
-import {setHandleLogin} from './modules/login/actions';
-import {setHandleActuator} from './modules/actuator/actions';
 import Success from './modules/snackbars/components/success.component';
+import Notification from './modules/notifications/components/notification.component';
 import Error from './modules/snackbars/components/error.component';
-import {urlLogin} from './modules/constants/constants';
 import {urlActuatorInfo} from './modules/constants/constants';
 import {CONFIGHEADERS} from './modules/constants/constants';
-import {TABSTART,TABCLINIC,TABSERVICES,TABAPPOINTMENT,TABCONTACT} from './modules/constants/constants';
 import moment from 'moment';
 import Home from './modules/home/components/home.component';
-
-
+import SuccessSnackbars from './modules/notifications/components/notification.component';
+import ClinicPage from "./pages/Clinic"
+import ServicesPage from './pages/Services';
+import AppointmentPage from './pages/Appointment';
+import ContactPage from './pages/Contact';
+import LoginPage from './pages/Login';
 
 
 class App extends Component {
@@ -40,7 +38,6 @@ class App extends Component {
   
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
-    this.props.setHandleTab(showNav);
   } 
 
 
@@ -50,45 +47,15 @@ class App extends Component {
       error:false,
       success:false
     })
-    this.props.setHandleChangeTab(value) ;
   }
 
 
-  handleLogin = (data) =>{
-    this.setState({
-      success:false,
-      successMessage:false
-    })
-    let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" "+data.email);
+ 
   
-    const value = {
-      email:data.email,
-      password:data.password
-    }
-    
-      const axios = require('axios'); 
-      axios.post(urlLogin,value,CONFIGHEADERS)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          success:true,
-          showNav:false,
-          successMessage:true
-        })
-        })
-        .catch(error => {
-        console.log(error);
-        this.setState({
-          error:true
-        })
-        });
-      this.props.setHandleLogin(data); 
-  }
 
   handleActuator = (data) =>{
     let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp:"+now+" handleActuator.");
+    console.log("Call APIRest HealtHelp: "+now+" handleActuator "+data);
   
     const axios = require('axios'); 
     axios.get(urlActuatorInfo,data,CONFIGHEADERS)
@@ -98,25 +65,45 @@ class App extends Component {
     .catch(function (error) {
       console.log(error);
     });
-    this.props.setHandleActuator(data); 
   }
 
    render() {
     return (
+      <Router>
       <div className="App">
       <PrimarySearchAppBar handleTab={this.handleTab}></PrimarySearchAppBar>
-      {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+      <Notification></Notification>
+      <SuccessSnackbars></SuccessSnackbars>
+      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+      
+      
+ 
+      
+        <Route path="/" component={LoginPage} />
+        <Route path="/clinic" component={ClinicPage} />
+        <Route path="/services" component={ServicesPage} />
+        <Route path="/appointment" component={AppointmentPage} />
+        <Route path="/contact" component={ContactPage} />
+       
+
+     
+      
+
+
+     {/*   {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
       {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : '' }
       {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
       {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> :''}
       {Object.is(this.state.showResourceTab, TABCONTACT) ? <Contact handleLogin={this.handleLogin}></Contact> : ''}
+      {Object.is(this.state.showResourceTab, TABLOGIN) ? <Login handleLogin={this.handleLogin}></Login> : ''}
       {!this.state.showResourceTab && this.state.showResourceTab !== 0 ? <ImageAvatars></ImageAvatars>:''}
       {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
       {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
-      {this.state.successMessage  ? <Success></Success>:''} 
+      {this.state.successMessage  ? <Success></Success>:''}   */}
       <BottomAppBar></BottomAppBar>
       </div>
+       </Router> 
     );
   } 
   
@@ -124,13 +111,7 @@ class App extends Component {
 
 
 
-const mapDispatchToPropsActions = (dispatch) =>({
-  setHandleTab: showNav => dispatch(setHandleTab(showNav)),
-  setHandleChangeTab:value => dispatch(setHandleChangeTab(value)),
-  setHandleLogin:data => dispatch(setHandleLogin(data)),
-  setHandleActuator:data => dispatch(setHandleActuator(data))
-});
-const AppConnected = connect(null, mapDispatchToPropsActions)(App);
 
-export default AppConnected;
+
+export default App;
 

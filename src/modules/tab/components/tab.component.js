@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -42,8 +43,6 @@ class ScrollableTabsButtonForce extends React.Component {
     this.props.handleChangeTab(value);
   };
    
-   
-
 
   render() {
     const { classes } = this.props;
@@ -60,24 +59,29 @@ class ScrollableTabsButtonForce extends React.Component {
             indicatorColor="primary"
             textColor="primary"
             
-          >
-            <Tab label="Start" icon={<NavigateBefore />} />
-            <Tab label="The Clinic" icon={<LocalHospital />} />
-            <Tab label="Services" icon={<PersonPinIcon />} />
-            <Tab label="Request Appointment" icon={<HelpIcon />} />
-            <Tab label="Contact" icon={<PhoneIcon />} />
-            <Tab label="Login"  icon={<NoEncryption />} />
+          > 
+            
+           
+            <Link to="/"><Tab label="Start" icon={<NavigateBefore />} /></Link>
+            <Link to="/clinic"><Tab label="The Clinic" icon={<LocalHospital />} /></Link>
+            <Link to="/services"><Tab label="Services" icon={<PersonPinIcon />} /></Link>
+            <Link to="/appointment"><Tab label="Request Appointment" icon={<HelpIcon />} /></Link>
+            <Link to="/contact"><Tab label="Contact" icon={<PhoneIcon />} /></Link>
+            <Link to="/login"><Tab label="Login"  icon={<NoEncryption />} /> </Link>
+            
+            
+            
+            
             
           </Tabs>
         </AppBar>
-        
-        {value === 1 && <TabContainer>Clinic</TabContainer>}
-        {value === 2 && <TabContainer>Services</TabContainer>}
-        {value === 3 && <TabContainer>Request Appointment</TabContainer>}     
-        {value === 4 && <TabContainer>Contact</TabContainer>}
+       
+        {value === 1 }
+        {value === 2 }
+        {value === 3 }     
+        {value === 4 }
         {value === 5 && <TabContainer>HealtHelp APIRestful Control Panel</TabContainer>}
       </div>
-      
     );
   }
 }

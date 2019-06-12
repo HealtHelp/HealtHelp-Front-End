@@ -1,4 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from '../../store/store';
+import {handleLogin} from '../actions/login.actions';
+import {handleNotifications} from '../../notifications/actions/notification.actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,7 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default class FormDialog extends React.Component {
+ class FormDialog extends React.Component {
   state = {
     open: true,
   };
@@ -29,14 +33,16 @@ export default class FormDialog extends React.Component {
       email,
       password 
     }
-    this.props.handleLogin(data);
+    store.dispatch(handleLogin(data));
+    store.dispatch(handleNotifications(data));
+   
   }
   
 
   render() {
     return (
       <div>
-        
+       
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -47,6 +53,7 @@ export default class FormDialog extends React.Component {
             <DialogContentText>
             Enter your credentials and access the API management
             </DialogContentText>
+
             <TextField
               autoFocus
               margin="dense"
@@ -72,7 +79,21 @@ export default class FormDialog extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+       
       </div>
     );
   }
 }
+
+
+
+
+
+const mapStateToProps = (dispatch) =>({
+  data:dispatch.data
+  
+}) 
+
+
+export default connect(mapStateToProps,{handleLogin}) (FormDialog);
+
