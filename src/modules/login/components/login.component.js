@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import store from '../../store/store';
+import store from '../../../store/store';
 import {handleLogin} from '../actions/login.actions';
 import {handleNotifications} from '../../notifications/actions/notification.actions';
 import Button from '@material-ui/core/Button';
@@ -21,9 +21,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
     this.setState({ open: true });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
   handleLogin = () =>{
     this.setState({ open: false });
@@ -35,7 +32,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
     }
     store.dispatch(handleLogin(data));
     store.dispatch(handleNotifications(data));
-   
   }
   
 
@@ -86,12 +82,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 }
 
 
-
-
-
 const mapStateToProps = (dispatch) =>({
-  data:dispatch.data
-  
+  data:dispatch.data,
 }) 
 
 

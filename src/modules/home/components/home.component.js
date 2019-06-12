@@ -1,79 +1,112 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-const styles = theme =>( {
-  card: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-});
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 
 
-class Home extends React.Component {
-  
-   handleActuator = () =>{
-    let data = 'ok'; 
-    this.props.handleActuator(data);
-  }  
-  
-render(){
-  const { classes } =this.props;
+export default function TemporaryDrawer() {
+  const classes = {
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: 'auto',
+    }}
+
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [side]: open });
+  };
+
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  const fullList = side => (
+    <div
+      className={classes.fullList}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          HealtHelp Organization 
-        </Typography>
-        <Typography variant="h5" component="h2">
-         Control Panel APIRESTfull  HealtHelp Organization 
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-         Control of patients,sessions and billing
-        </Typography>
-        <Typography component="p">
-        Press the descriptive button according to your needs.
-          <br />
-          {'"Support: healthelporganization@gmail.com"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button variant="contained" color="primary" onClick={this.handleActuator} className={classes.button}>
-        Actuator
-      </Button>
-      <Button variant="contained" color="primary"  className={classes.button}>
-        Users
-      </Button>
-      <Button variant="contained" color="primary"  className={classes.button}>
-        Patients
-      </Button>
-      </CardActions>
-    </Card>
+    <div>
+      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
+      <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
+      <Button onClick={toggleDrawer('top', true)}>Open Top</Button>
+      <Button onClick={toggleDrawer('bottom', true)}>Open Bottom</Button>
+      <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+        {sideList('left')}
+      </Drawer>
+      <Drawer anchor="top" open={state.top} onClose={toggleDrawer('top', false)}>
+        {fullList('top')}
+      </Drawer>
+      <Drawer anchor="bottom" open={state.bottom} onClose={toggleDrawer('bottom', false)}>
+        {fullList('bottom')}
+      </Drawer>
+      <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
+        {sideList('right')}
+      </Drawer>
+    </div>
   );
 }
- 
-}
-
-
-
-export default withStyles(styles)(Home);

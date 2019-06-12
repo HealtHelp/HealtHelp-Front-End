@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -56,8 +56,8 @@ class ScrollableTabsButtonForce extends React.Component {
             onChange={this.handleChange}
             variant="scrollable"
             scrollButtons="on"
-            //indicatorColor="primary"
-            //textColor="primary"
+            indicatorColor="primary"
+            textColor="primary"
             
           > 
             

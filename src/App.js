@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import store from '../src/modules/store/store';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import store from './store/store';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from './modules/header/components/header.component';
-import BottomAppBar from './modules/footer/components/footer.component';
+import Footer from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
 import Notification from './modules/notifications/components/notification.component';
 import {urlActuatorInfo} from './modules/constants/constants';
@@ -16,7 +16,6 @@ import LoginPage from './pages/Login';
 import StartPage from './pages/Start';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
-import Start from '../src/modules/start/components/start.component';
 import Home from './modules/home/components/home.component';
 
 class App extends Component {
@@ -77,7 +76,7 @@ class App extends Component {
       <Notification></Notification>
       {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {this.state.success ? <Success></Success>:''}
-      {this.state.success ? <Home></Home>:''}
+      {this.state.success ? <Home handleActuator={this.handleActuator}></Home>:''}
       {this.state.error ? <Error></Error>:''}
        
  
@@ -105,7 +104,7 @@ class App extends Component {
       {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
       {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
       {this.state.successMessage  ? <Success></Success>:''}   */}
-      <BottomAppBar></BottomAppBar>
+      <Footer></Footer>
       </div>
        </Router> 
     );
