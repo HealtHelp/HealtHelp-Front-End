@@ -62,17 +62,12 @@ class ScrollableTabsButtonForce extends React.Component {
           > 
             
            
-            <Link to="/"><Tab label="Start" icon={<NavigateBefore />} /></Link>
+            <Link to="/start"><Tab label="Start" icon={<NavigateBefore />} /></Link>
             <Link to="/clinic"><Tab label="The Clinic" icon={<LocalHospital />} /></Link>
             <Link to="/services"><Tab label="Services" icon={<PersonPinIcon />} /></Link>
             <Link to="/appointment"><Tab label="Request Appointment" icon={<HelpIcon />} /></Link>
             <Link to="/contact"><Tab label="Contact" icon={<PhoneIcon />} /></Link>
-            
-            
-            
-            
-            
-            
+    
           </Tabs>
         </AppBar>
        

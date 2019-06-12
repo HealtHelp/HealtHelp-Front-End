@@ -13,6 +13,7 @@ import ServicesPage from './pages/Services';
 import AppointmentPage from './pages/Appointment';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
+import StartPage from './pages/Start';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Start from '../src/modules/start/components/start.component';
@@ -84,6 +85,7 @@ class App extends Component {
  
       
         <Route path="/" component={LoginPage} />
+        <Route path="/start" component={StartPage} />
         <Route path="/clinic" component={ClinicPage} />
         <Route path="/services" component={ServicesPage} />
         <Route path="/appointment" component={AppointmentPage} />
