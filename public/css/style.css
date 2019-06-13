@@ -4,6 +4,11 @@
     background-image: url("../img/logo.jpg");
 } */
 
+.MuiDrawer-paper-244 {
+    top:7% !important;
+    bottom:15% !important;
+}
+
 
 .icon-services{
     display:flex;

@@ -5,18 +5,17 @@ import Header from './modules/header/components/header.component';
 import Footer from './modules/footer/components/footer.component';
 import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
 import Notification from './modules/notifications/components/notification.component';
-import {urlActuatorInfo} from './modules/constants/constants';
-import {CONFIGHEADERS} from './modules/constants/constants';
-import moment from 'moment';
 import ClinicPage from "./pages/Clinic"
 import ServicesPage from './pages/Services';
 import AppointmentPage from './pages/Appointment';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
 import StartPage from './pages/Start';
+import HomePage from './pages/Home';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
+
 
 class App extends Component {
   constructor(props){
@@ -53,22 +52,9 @@ class App extends Component {
  
   
 
-  handleActuator = (data) =>{
-    let now = moment().format('YYYY-MM-DD');
-    console.log("Call APIRest HealtHelp: "+now+" handleActuator "+data);
-  
-    const axios = require('axios'); 
-    axios.get(urlActuatorInfo,data,CONFIGHEADERS)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
 
    render() {
-    
+    alert("I love Nicolas Cage!Prank by Victor!")
     return (
       <Router>
       <div className="App">
@@ -76,7 +62,7 @@ class App extends Component {
       <Notification></Notification>
       {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {this.state.success ? <Success></Success>:''}
-      {this.state.success ? <Home handleActuator={this.handleActuator}></Home>:''}
+      
       {this.state.error ? <Error></Error>:''}
        
  
@@ -87,11 +73,12 @@ class App extends Component {
         <Route path="/services" component={ServicesPage} />
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
+        <Route path="/home" component={HomePage} />
        
 
-     
       
-
+        {this.state.success ? <Home></Home>:''}
+    
 
      {/*   {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
