@@ -35,8 +35,6 @@ class App extends Component {
     });
   }
 
-
-  
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
   } 
@@ -48,13 +46,7 @@ class App extends Component {
     })
   }
 
-
- 
-  
-
-
    render() {
-    alert("I love Nicolas Cage!Prank by Victor!")
     return (
       <Router>
       <div className="App">
@@ -62,7 +54,7 @@ class App extends Component {
       <Notification></Notification>
       {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {this.state.success ? <Success></Success>:''}
-      
+      {this.state.success ? <Home></Home>:''} 
       {this.state.error ? <Error></Error>:''}
        
  
@@ -77,7 +69,7 @@ class App extends Component {
        
 
       
-        {this.state.success ? <Home></Home>:''}
+        
     
 
      {/*   {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}

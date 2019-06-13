@@ -18,10 +18,6 @@ export default function TemporaryDrawer() {
     },
     fullList: {
       width: 'auto',
-    },
-    root:{
-      top: 7,
-      bottom:15
     }
   }
   const [state, setState] = React.useState({
@@ -67,7 +63,7 @@ export default function TemporaryDrawer() {
   return (
     <div>
       <Button onClick={toggleDrawer('left', true)}>Open Menu</Button>
-      <Drawer className={classes.root}  open={state.left} onClose={toggleDrawer('left', false)}>
+      <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
     </div>
