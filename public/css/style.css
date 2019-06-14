@@ -1,14 +1,16 @@
 
-/* .App{
-    height:25%;
-    background-image: url("../img/logo.jpg");
-} */
+
 
 .MuiDrawer-paper-244 {
     top:7% !important;
     height:86% !important;
 }
 
+.fa-accessible-icon, .fa-address-book, .fa-money-bill-alt{
+    font-size:24px;
+    width: 1em;
+    height:1em;
+}
 
 .icon-services{
     display:flex;

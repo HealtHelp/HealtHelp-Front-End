@@ -46,17 +46,17 @@ export default function TemporaryDrawer() {
      
       <List>
           <ListItem button key="Patients">
-          <ListItemIcon><InboxIcon></InboxIcon></ListItemIcon>
+          <ListItemIcon><i class="fab fa-accessible-icon"></i></ListItemIcon>
           <ListItemText primary="Patients" />
           </ListItem>
           
           <ListItem button key="Sessions">
-          <ListItemIcon><MailIcon></MailIcon></ListItemIcon>
+          <ListItemIcon><i class="fas fa-address-book"></i></ListItemIcon>
           <ListItemText primary="Sessions" />
           </ListItem>
 
           <ListItem button key="Billing">
-          <ListItemIcon><NavigateBefore></NavigateBefore></ListItemIcon>
+          <ListItemIcon><i class="fas fa-money-bill-alt"></i></ListItemIcon>
           <ListItemText primary="Billing" />
           </ListItem>
 
