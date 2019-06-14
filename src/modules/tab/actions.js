@@ -1,2 +1,0 @@
-
-export const SET_HANDLE_CHANGE_TAB = 'SET_HANDLE_CHANGE_TAB';

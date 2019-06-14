@@ -3,7 +3,6 @@ import store from './store/store';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from './modules/header/components/header.component';
 import Footer from './modules/footer/components/footer.component';
-import ScrollableTabsButtonForce from './modules/tab/components/tab.component';
 import Notification from './modules/notifications/components/notification.component';
 import ClinicPage from "./pages/Clinic"
 import ServicesPage from './pages/Services';
@@ -52,7 +51,7 @@ class App extends Component {
       <div className="App">
       <Header handleTab={this.handleTab}></Header>
       <Notification></Notification>
-      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+      {this.state.showNav  ? <Home></Home> : ''} 
       {this.state.success ? <Success></Success>:''}
       {this.state.success ? <Home></Home>:''} 
       {this.state.error ? <Error></Error>:''}
@@ -72,7 +71,11 @@ class App extends Component {
         
     
 
-     {/*   {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+     {/*  
+     
+     {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
+     
+     {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
       {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
       {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : '' }
       {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
