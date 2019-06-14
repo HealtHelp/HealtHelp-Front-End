@@ -22,6 +22,7 @@ class App extends Component {
     this.state={
       showNav:false,
       showResourceTab:-1,
+      showLogin:null
     }
 
     store.subscribe(() => {
@@ -45,16 +46,21 @@ class App extends Component {
     })
   }
 
-   render() {
+  handleLogin = (open) =>{
+    this.setState({showLogin:open})
+  }
+
+   render() { 
     return (
       <Router>
       <div className="App">
       <Header handleTab={this.handleTab}></Header>
       <Notification></Notification>
-      {this.state.showNav  ? <Home></Home> : ''} 
+      {(this.state.showNav && this.state.success )  ? <Home></Home> : ''} 
       {this.state.success ? <Success></Success>:''}
-      {this.state.success ? <Home></Home>:''} 
-      {this.state.error ? <Error></Error>:''}
+      {this.state.success ? <HomePage></HomePage>:''} 
+      {this.state.showLogin ? <LoginPage></LoginPage>:''} 
+      {this.state.error ? <Error handleLogin={this.handleLogin}></Error>:''}
        
  
       
@@ -72,6 +78,8 @@ class App extends Component {
     
 
      {/*  
+
+      
      
      {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
      

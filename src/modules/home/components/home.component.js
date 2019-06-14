@@ -111,10 +111,3 @@ export default function TemporaryDrawer() {
     </div>
   );
 }
-
-/**
- * 
- *  <Button onClick={toggleDrawer('left', true)}>Open Menu</Button>
- * 
- * 
- */

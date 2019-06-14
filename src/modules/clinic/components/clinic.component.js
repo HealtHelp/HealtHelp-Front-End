@@ -12,6 +12,8 @@ render(){
     width: '50%',
     height: '50%'
   }
+
+  console.log(process.env)
   return (
    
    <div className="icon-clinic">  
@@ -43,5 +45,5 @@ render(){
 
 
 export default GoogleApiWrapper({
-  apiKey: (process.env.APIKEY)
+  apiKey: process.env.APIKEY
 })(Clinic)

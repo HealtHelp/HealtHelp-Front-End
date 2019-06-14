@@ -91,8 +91,7 @@ class CustomizedSnackbars extends React.Component {
       return;
     }
     this.setState({ open: false });
-   
-  
+    this.props.handleLogin(this.state.open);
   };
 
   render() {
