@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 const styles = theme => ({
   root: {
     width: '100%',
+    height:'20%'
   },
   grow: {
     flexGrow: 1,
@@ -99,20 +100,11 @@ class PrimarySearchAppBar extends React.Component {
 
 
   
-
+ 
   handleTab = () =>{
-    if(this.state.showNav === false){
-      this.setState({
-        showNav : true
-      })
-    }
-    if(this.state.showNav === true){
-      this.setState({
-        showNav : false
-      }) 
-    }
+    this.state.showNav? this.setState({showNav : false}):this.setState({showNav : true}) 
     this.props.handleTab(this.state.showNav);
-  }
+  } 
   render() {
    
     const { classes } = this.props;

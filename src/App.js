@@ -11,6 +11,7 @@ import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
 import StartPage from './pages/Start';
 import HomePage from './pages/Home';
+import UserPage from './pages/User';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
@@ -27,7 +28,7 @@ class App extends Component {
 
     store.subscribe(() => {
       this.setState({
-        success : store.getState().notification.success,
+        success : store.getState().auth.success,
         error: store.getState().notification.error
       
       });
@@ -51,6 +52,7 @@ class App extends Component {
   }
 
    render() { 
+     
     return (
       <Router>
       <div className="App">
@@ -65,12 +67,14 @@ class App extends Component {
  
       
         <Route path="/" component={LoginPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/user" component={UserPage} />
         <Route path="/start" component={StartPage} />
         <Route path="/clinic" component={ClinicPage} />
         <Route path="/services" component={ServicesPage} />
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
-        <Route path="/home" component={HomePage} />
+
        
 
       

@@ -31,7 +31,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
       password 
     }
     store.dispatch(handleLogin(data));
-    store.dispatch(handleNotifications(data));
+    //store.dispatch(handleNotifications(data));
   }
   
 

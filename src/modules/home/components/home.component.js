@@ -44,7 +44,16 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
      
+     
+
       <List>
+          <Link to="/user">
+          <ListItem button key="Users">
+          <ListItemIcon><i class="fas fa-users"></i></ListItemIcon>
+          <ListItemText primary="Users" />
+          </ListItem>
+          </Link> 
+
           <ListItem button key="Patients">
           <ListItemIcon><i class="fab fa-accessible-icon"></i></ListItemIcon>
           <ListItemText primary="Patients" />
