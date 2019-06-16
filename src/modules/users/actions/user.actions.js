@@ -7,7 +7,7 @@ import {CONFIGHEADERS} from '../../constants/constants';
 
 
 
-export const handleGetUsers = () =>  dispatch => {
+export const handleGetUsers = (data) =>  dispatch => {
     
    /*  axios.interceptors.request.use(function (config) {
         const token = store.getState().auth.token;
@@ -21,13 +21,15 @@ export const handleGetUsers = () =>  dispatch => {
 
     const HEADERS = {
         headers:{
-            "Access-Control-Allow-Origin":"http://localhost:3000",
-            "Authorization": store.getState().auth.token
+            "Access-Control-Allow-Origin":"http://localhost:3000/user",
+            "Authorization": store.getState().auth.token,
+            "Content-Type": "application/json",
+            "Accept":"*/*"
           }   
     }
     
-    console.log(HEADERS)
-    axios.post(URL_GET_USERS,HEADERS)
+    console.log(HEADERS.headers)
+    axios.post(URL_GET_USERS,data,HEADERS)
         .then((res) => {
             return dispatch({
                 type: SET_HANDLE_GET_USERS,

@@ -16,7 +16,7 @@ import UserPage from './pages/User';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
-
+import {URL_GET_USERS } from './modules/constants/constants';
 
 class App extends Component {
   constructor(props){
@@ -54,10 +54,34 @@ class App extends Component {
       error:false
     })
   }
+  
+  
+handletest = () =>{
+  console.log(store.getState().auth.token) 
+  const HEADERS = {
+    headers:{
+        "Access-Control-Allow-Origin":"http://localhost:3000/user",
+        "Authorization": store.getState().auth.token,
+        "Content-Type": "application/json",
+        "Accept":"*/*"
+      }   
+}
 
   
+
+  axios.post(URL_GET_USERS,HEADERS)
+  .then((res) => {
+      return res
+  })
+  .catch((err) =>{
+      console.log(err)
+  })  
+}
+
+   
+  
    render() { 
-    
+    this.handletest();
     return (
       <Router>
       <div className="App">
