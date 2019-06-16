@@ -53,11 +53,6 @@ const rows = [
 
 
 
-
-
-
- 
-
 class UserTable extends React.Component {
 
 
@@ -71,7 +66,7 @@ class UserTable extends React.Component {
           }       
     }
     console.log(HEADERS);  
-    store.dispatch(handleGetUsers(HEADERS))
+    store.dispatch(handleGetUsers(HEADERS.headers))
   } 
 
   render(){

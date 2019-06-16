@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import store from './store/store';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from 'axios';
 import Header from './modules/header/components/header.component';
 import Footer from './modules/footer/components/footer.component';
 import Notification from './modules/notifications/components/notification.component';
@@ -54,8 +55,9 @@ class App extends Component {
     })
   }
 
+  
    render() { 
-     
+    
     return (
       <Router>
       <div className="App">
