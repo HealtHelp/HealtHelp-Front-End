@@ -1,0 +1,1 @@
+export const SET_HANDLE_GET_USERS = 'SET_HANDLE_GET_USERS';

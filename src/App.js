@@ -23,14 +23,14 @@ class App extends Component {
     this.state={
       showNav:false,
       showResourceTab:-1,
-      showLogin:null
+      showLogin:null,
+      error:false
     }
 
     store.subscribe(() => {
       this.setState({
         success : store.getState().auth.success,
-        error: store.getState().notification.error
-      
+        error: store.getState().notification.loginError
       });
        
     });
@@ -48,7 +48,10 @@ class App extends Component {
   }
 
   handleLogin = (open) =>{
-    this.setState({showLogin:open})
+    this.setState({
+      showLogin:open,
+      error:false
+    })
   }
 
    render() { 
@@ -63,11 +66,8 @@ class App extends Component {
       {this.state.success ? <HomePage></HomePage>:''} 
       {this.state.showLogin ? <LoginPage></LoginPage>:''} 
       {this.state.error ? <Error handleLogin={this.handleLogin}></Error>:''}
-       
- 
-      
+         
         <Route path="/" component={LoginPage} />
-        <Route path="/home" component={HomePage} />
         <Route path="/user" component={UserPage} />
         <Route path="/start" component={StartPage} />
         <Route path="/clinic" component={ClinicPage} />
@@ -75,29 +75,6 @@ class App extends Component {
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
 
-       
-
-      
-        
-    
-
-     {/*  
-
-      
-     
-     {this.state.showNav  ? <ScrollableTabsButtonForce  handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
-     
-     {this.state.showNav  ? <ScrollableTabsButtonForce handleLogin={this.handleLogin} handleChangeTab={this.handleChangeTab} ></ScrollableTabsButtonForce> : ''}
-      {Object.is(this.state.showResourceTab, TABSTART) ?  <ImageAvatars></ImageAvatars> : ''}
-      {Object.is(this.state.showResourceTab, TABCLINIC) ? <Clinic></Clinic> : '' }
-      {Object.is(this.state.showResourceTab, TABSERVICES) ? <Services></Services> : ''}
-      {Object.is(this.state.showResourceTab, TABAPPOINTMENT) ? <Appointment></Appointment> :''}
-      {Object.is(this.state.showResourceTab, TABCONTACT) ? <Contact handleLogin={this.handleLogin}></Contact> : ''}
-      {Object.is(this.state.showResourceTab, TABLOGIN) ? <Login handleLogin={this.handleLogin}></Login> : ''}
-      {!this.state.showResourceTab && this.state.showResourceTab !== 0 ? <ImageAvatars></ImageAvatars>:''}
-      {this.state.success  ? <Home handleActuator={this.handleActuator}></Home>:''} 
-      {this.state.error  ? <Error handleChangeTab={this.handleChangeTab}></Error>:''}
-      {this.state.successMessage  ? <Success></Success>:''}   */}
       <Footer></Footer>
       </div>
        </Router> 
@@ -105,10 +82,6 @@ class App extends Component {
   } 
   
 }
-
-
-
-
 
 export default App;
 
