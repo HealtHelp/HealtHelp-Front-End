@@ -56,32 +56,56 @@ class App extends Component {
   }
   
   
-handletest = () =>{
-  console.log(store.getState().auth.token) 
-  const HEADERS = {
-    headers:{
-        "Access-Control-Allow-Origin":"http://localhost:3000/user",
-        "Authorization": store.getState().auth.token,
-        "Content-Type": "application/json",
-        "Accept":"*/*"
-      }   
-}
+/* handletest = () =>{
+  let token = localStorage.getItem("jwt");
+ 
+   
+     const CONFIGHEADERS ={
+       headers:{
+        "Access-Control-Allow-Origin":"http://localhost:3000",
+        "Authorization":token
+       }
+      }  
+      
+    
 
+  console.log(token)
+  var myHeaders = new Headers();
+  myHeaders.append("Access-Control-Allow-Origin","http://localhost:3000");
+  myHeaders.append("Authorization",token);
+  myHeaders.append("Content-Type","application/json");
+ 
+
+  const myInit = {
+		method: 'GET',
+    mode: 'no-cors',
+    headers:CONFIGHEADERS
+  };
   
+  console.log(myHeaders.get("Authorization"))
+  const myRequest = new Request(URL_GET_USERS,myInit);
+ console.log(myInit)
+ console.log(myRequest)
 
-  axios.post(URL_GET_USERS,HEADERS)
-  .then((res) => {
-      return res
-  })
-  .catch((err) =>{
-      console.log(err)
-  })  
-}
+ axios.get(URL_GET_USERS,CONFIGHEADERS)
+ .then((res) => {
+  return console.log(res)
+})
+.catch((err) =>{
+  console.log("ERROR:  "+err)
+})  
+ 
+
+
+}*/
+ 
+
+
+
 
    
   
    render() { 
-    this.handletest();
     return (
       <Router>
       <div className="App">

@@ -39,5 +39,6 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "redux-devtools": "^3.5.0"
-  }
+  },
+  "proxy": "http://localhost:8088"
 }

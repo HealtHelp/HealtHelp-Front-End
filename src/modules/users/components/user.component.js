@@ -57,16 +57,7 @@ class UserTable extends React.Component {
 
 
   componentWillMount(){
-    const token = localStorage.getItem("jwt");
-    console.log(token);  
-    const HEADERS = {
-        headers:{
-            "Access-Control-Allow-Origin":"http://localhost:3000",
-            "Authorization" : `${token}`
-          }       
-    }
-    console.log(HEADERS);  
-    store.dispatch(handleGetUsers(HEADERS.headers))
+    store.dispatch(handleGetUsers())
   } 
 
   render(){
