@@ -53,8 +53,26 @@ const rows = [
 
 
 
-class UserTable extends React.Component {
 
+
+
+
+class UserTable extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:[]
+    }
+  
+    store.subscribe(() => {
+      this.setState({
+        data : store.getState().getUsers
+      });
+       
+    });
+    
+  }
+ 
 
   componentWillMount(){
     store.dispatch(handleGetUsers())
@@ -62,7 +80,7 @@ class UserTable extends React.Component {
 
   render(){
     const classes = useStyles;
-
+    console.log(this.state.data)
     return (
       <Paper className={classes.root} onLoad={this.handleUsers}>
         <Table className={classes.table}>
