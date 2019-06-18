@@ -24,6 +24,7 @@ const StyledTableRow = withStyles(theme => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
+      
     },
 
   },
@@ -33,6 +34,9 @@ const useStyles = {
     root: {
         width: '100%',
         overflowX: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       },
       table: {
         minWidth: 700,
