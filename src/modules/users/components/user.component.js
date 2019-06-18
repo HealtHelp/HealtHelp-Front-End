@@ -25,6 +25,7 @@ const StyledTableRow = withStyles(theme => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
     },
+
   },
 }))(TableRow);
 
@@ -39,50 +40,47 @@ const useStyles = {
 }
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(Username, Tenant, Profile, Email, Password) {
+  return { Username, Tenant, Profile, Email, Password };
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
-
-
 
 
 
 class UserTable extends React.Component {
+  
   constructor(props){
     super(props);
     this.state = {
-      data:[]
+      data:[],
     }
-  
-    store.subscribe(() => {
-      this.setState({
-        data : store.getState().getUsers
-      });
-       
-    });
-    
-  }
- 
+     
+   };//end constructor
 
+  
   componentWillMount(){
     store.dispatch(handleGetUsers())
-  } 
+  }
 
+  renderTable() {
+    if(this.props.data.data.length == 0){
+      return []
+    }
+      let users = this.props.data.data._embedded.userDToes;
+      const rows = users.map((user) => createData(user.username,user.tenantId,user.profileId,user.email,user.password))
+      return rows;
+  }
+  
   render(){
+    console.log('render')
+    console.log(this.props.data.data.length)
     const classes = useStyles;
-    console.log(this.state.data)
+
+
+    const rows = this.renderTable()
+    
+    
     return (
-      <Paper className={classes.root} onLoad={this.handleUsers}>
+      <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -97,12 +95,14 @@ class UserTable extends React.Component {
             {rows.map(row => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.Username}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                <StyledTableCell align="right">
+                {row.Tenant}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.Profile}</StyledTableCell>
+                <StyledTableCell align="right">{row.Email}</StyledTableCell>
+                <StyledTableCell align="right">{row.Password}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -114,8 +114,14 @@ class UserTable extends React.Component {
 }
 
 
-const mapStateToProps = (dispatch) =>({
-    data:dispatch.data,
-  }) 
+
+ const mapStateToProps = (state) =>{
+     return {
+      data:state.users
+  }
+  }
+
+
+
 
 export default connect(mapStateToProps,null) (UserTable) ;

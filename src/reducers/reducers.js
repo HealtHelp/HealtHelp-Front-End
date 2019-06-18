@@ -6,5 +6,5 @@ import userReducer from '../modules/users/reducers/reducer';
 export default combineReducers({
     auth :loginReducer,
     notification: notificationReducer,
-    getUsers: userReducer
+    users: userReducer
 });
