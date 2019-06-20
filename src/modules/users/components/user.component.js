@@ -13,8 +13,6 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-// document.getElementById("ocultar").style.display = "none";
-//document.getElementById("ocultar2").style.display = "block";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -63,7 +61,6 @@ function createData(Username,Email,Profile,Tenant) {
 }
 
 
-
 class UserTable extends React.Component {
   
   constructor(props){
@@ -72,7 +69,7 @@ class UserTable extends React.Component {
       data:[],
       handleCreateUser:null
     }
-   };//end constructor
+   };
 
   
   componentWillMount(){
@@ -116,6 +113,10 @@ class UserTable extends React.Component {
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
+   /*  if(!this.state.handleCreateUser){
+      document.getElementById("standard-password-input").style.display = "none";
+      document.getElementsByTagName("label").style.display = "none";
+    } */
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -167,10 +168,11 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-
+       
 
         
-        {this.state.handleCreateUser?
+       
+              
              <form className={classes.container}  autoComplete="off">
              <TextField
                id="username"
@@ -212,36 +214,6 @@ class UserTable extends React.Component {
                <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
                <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
              </div>
-             
-             </form>
-             :
-             <form className={classes.container}  autoComplete="off">
-             <TextField
-               id="username"
-               label="Username"
-               className={classes.textField}
-             />
-              <TextField
-               id="email"
-               label="Email"
-               className={classes.textField}
-             />
-             <TextField
-               id="profile"
-               label="Profile"
-               className={classes.textField}
-             />
-              <TextField
-               id="tenant"
-               label="Tenant"
-               className={classes.textField}
-             />
-             <div className="iconsCrud">
-               <i class="fas fa-plus" onClick={this.handleCreateUser}></i>
-               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
-               <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
-             </div>
-             
              </form>
 
         }
