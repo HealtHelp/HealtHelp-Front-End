@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
 import {handleLogin} from '../actions/login.actions';
-import {handleNotifications} from '../../notifications/actions/notification.actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';

@@ -1,5 +1,16 @@
+ 
+form{
+   display:flex;
+   flex-wrap:wrap;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+   margin-top:1em;
+}
 
-
+input{
+   
+}
 
 .MuiDrawer-paper-245 {
     top:7% !important;

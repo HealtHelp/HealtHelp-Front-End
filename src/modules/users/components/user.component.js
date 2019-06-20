@@ -9,6 +9,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+
+
 
 
 
@@ -32,6 +35,10 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
+const theme = {
+  spacing: 8,
+}
+
 const useStyles = {
     root: {
         width: '100%',
@@ -39,7 +46,15 @@ const useStyles = {
       },
       table: {
         minWidth: 700,
-      } 
+      },
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+       textField: {
+        width: 200,
+
+      }  
 }
 
 
@@ -65,7 +80,7 @@ class UserTable extends React.Component {
   }
 
   renderTable() {
-    if(this.props.data.data.length == 0){
+    if(this.props.data.data.length === 0){
       return []
     }
       let users = this.props.data.data._embedded.userDToes;
@@ -83,6 +98,7 @@ class UserTable extends React.Component {
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
+
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -135,7 +151,14 @@ class UserTable extends React.Component {
            </Table>
          </Paper>
         }
-       
+       <form className={classes.container} noValidate autoComplete="off">
+      <TextField
+        id="username"
+        label="Username"
+        className={classes.textField}
+        m={2}
+      />
+      </form>
       </div>
      
     );
@@ -151,7 +174,4 @@ class UserTable extends React.Component {
   }
   }
 
-
-
-
-export default connect(mapStateToProps,null) (UserTable) ;
+export default connect(mapStateToProps,null)(UserTable);
