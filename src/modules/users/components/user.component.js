@@ -13,7 +13,8 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-
+// document.getElementById("ocultar").style.display = "none";
+//document.getElementById("ocultar2").style.display = "block";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -56,6 +57,7 @@ const useStyles = {
 }
 
 
+
 function createData(Username,Email,Profile,Tenant) {
   return { Username, Email, Profile, Tenant };
 }
@@ -68,8 +70,8 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
+      handleCreateUser:null
     }
-     
    };//end constructor
 
   
@@ -93,15 +95,27 @@ class UserTable extends React.Component {
   }
 
   handleClick(){
-    alert('handleClick')
+    const username = document.getElementById("usernameTable").value;
+    alert(username)
   }
  
   
+  handleCreateUser = () =>{
+    this.setState({handleCreateUser:true});
+  }
+
+  handleUpdateUser(){
+    alert("handleUpdateUser")
+  }
+
+  handleDeleteUser(){
+    alert("handleDeleteUser")
+  }
+
   render(){
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
-    console.log(rows) 
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -115,8 +129,8 @@ class UserTable extends React.Component {
              </TableHead>
              <TableBody>
                {rows.map(row => (
-                 <StyledTableRow key={row.name}>
-                   <StyledTableCell component="th" scope="row">
+                 <StyledTableRow key={row.name} onClick={this.handleClick}>
+                   <StyledTableCell component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
                    <StyledTableCell align="right">{row.Email}</StyledTableCell>
@@ -138,7 +152,7 @@ class UserTable extends React.Component {
              <TableBody>
                {rows.map(row => (
                  <StyledTableRow key={row.name} onClick={this.handleClick}>
-                   <StyledTableCell  component="th" scope="row">
+                   <StyledTableCell  component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
                    <StyledTableCell align="right">
@@ -152,44 +166,85 @@ class UserTable extends React.Component {
            </Table>
          </Paper>
         }
-       <form className={classes.container} noValidate autoComplete="off">
-      <TextField
-        id="username"
-        label="Username"
-        className={classes.textField}
-      />
-       <TextField
-        id="email"
-        label="Email"
-        className={classes.textField}
-      />
-      <TextField
-        id="standard-password-input"
-        label="Password"
-        className={classes.textField}
-        type="password"
-        autoComplete="current-password"
-        margin="normal"
-      />
-       <TextField
-        id="standard-password-input"
-        label="Repit Password"
-        className={classes.textField}
-        type="password"
-        autoComplete="current-password"
-        margin="normal"
-      />
-       <TextField
-        id="tenant"
-        label="Tenant"
-        className={classes.textField}
-      />
-       <TextField
-        id="profile"
-        label="Profile"
-        className={classes.textField}
-      />
-      </form>
+
+
+
+        
+        {this.state.handleCreateUser?
+             <form className={classes.container}  autoComplete="off">
+             <TextField
+               id="username"
+               label="Username"
+               className={classes.textField}
+             />
+              <TextField
+               id="email"
+               label="Email"
+               className={classes.textField}
+             />
+             <TextField
+               id="profile"
+               label="Profile"
+               className={classes.textField}
+             />
+              <TextField
+               id="tenant"
+               label="Tenant"
+               className={classes.textField}
+             />
+       
+              <TextField
+               id="standard-password-input"
+               label="Password"
+               className={classes.textField}
+               type="password"
+               autoComplete="current-password"
+             />
+              <TextField
+               id="standard-password-input"
+               label="Repit Password"
+               className={classes.textField}
+               type="password"
+               autoComplete="current-password"
+             /> 
+             <div className="iconsCrud">
+               <i class="fas fa-plus" onClick={this.handleCreateUser}></i>
+               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
+               <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
+             </div>
+             
+             </form>
+             :
+             <form className={classes.container}  autoComplete="off">
+             <TextField
+               id="username"
+               label="Username"
+               className={classes.textField}
+             />
+              <TextField
+               id="email"
+               label="Email"
+               className={classes.textField}
+             />
+             <TextField
+               id="profile"
+               label="Profile"
+               className={classes.textField}
+             />
+              <TextField
+               id="tenant"
+               label="Tenant"
+               className={classes.textField}
+             />
+             <div className="iconsCrud">
+               <i class="fas fa-plus" onClick={this.handleCreateUser}></i>
+               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
+               <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
+             </div>
+             
+             </form>
+
+        }
       </div>
      
     );

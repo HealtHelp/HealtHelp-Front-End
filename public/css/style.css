@@ -8,14 +8,28 @@ form{
     margin-top:1em;
  }
  
+ .iconsCrud{
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 5em;
+ }
+
+ .iconsCrud i{
+    margin:2em;
+ }
+
 
 .MuiDrawer-paper-245 {
     top:7% !important;
     height:789px !important;
+    
 }
 
 a:link { 
-text-decoration:none; 
+  text-decoration:none; 
 } 
 
 .fa-accessible-icon, .fa-address-book, .fa-money-bill-alt{
