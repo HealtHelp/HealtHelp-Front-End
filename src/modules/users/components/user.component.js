@@ -56,8 +56,8 @@ const useStyles = {
 }
 
 
-function createData(Username, Tenant, Profile, Email, Password) {
-  return { Username, Tenant, Profile, Email, Password };
+function createData(Username,Email,Profile,Tenant) {
+  return { Username, Email, Profile, Tenant };
 }
 
 
@@ -82,7 +82,7 @@ class UserTable extends React.Component {
       return []
     }
       let users = this.props.data.data._embedded.userDToes;
-      const rows = users.map((user) => createData(user.username,user.tenantId,user.profileId,user.email,user.password))
+      const rows = users.map((user) => createData(user.username,user.email,user.profile,user.tenant))
       return rows;
   }
 
@@ -93,7 +93,7 @@ class UserTable extends React.Component {
   }
 
   handleClick(){
-    console.log('handleClick');
+    alert('handleClick')
   }
  
   
@@ -101,9 +101,9 @@ class UserTable extends React.Component {
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
-
+    console.log(rows) 
     return (
-      <div className="tableUsers" onClick={this.handleClick}>
+      <div className="tableUsers">
         {dimension==true?
            <Paper className={classes.root}>
            <Table className={classes.table}>
@@ -130,24 +130,22 @@ class UserTable extends React.Component {
              <TableHead>
                <TableRow>
                  <StyledTableCell>Username</StyledTableCell>
-                 <StyledTableCell align="right">Tenant</StyledTableCell>
-                 <StyledTableCell align="right">Profile</StyledTableCell>
                  <StyledTableCell align="right">Email</StyledTableCell>
-                 <StyledTableCell align="right">Password</StyledTableCell>
+                 <StyledTableCell align="right">Profile</StyledTableCell>
+                 <StyledTableCell align="right">Tenant</StyledTableCell>
                </TableRow>
              </TableHead>
              <TableBody>
                {rows.map(row => (
-                 <StyledTableRow key={row.name}>
-                   <StyledTableCell component="th" scope="row">
+                 <StyledTableRow key={row.name} onClick={this.handleClick}>
+                   <StyledTableCell  component="th" scope="row">
                      {row.Username}
                    </StyledTableCell>
                    <StyledTableCell align="right">
-                   {row.Tenant}
+                   {row.Email}
                    </StyledTableCell>
                    <StyledTableCell align="right">{row.Profile}</StyledTableCell>
-                   <StyledTableCell align="right">{row.Email}</StyledTableCell>
-                   <StyledTableCell align="right">{row.Password}</StyledTableCell>
+                   <StyledTableCell align="right">{row.Tenant}</StyledTableCell>
                  </StyledTableRow>
                ))}
              </TableBody>
@@ -158,6 +156,37 @@ class UserTable extends React.Component {
       <TextField
         id="username"
         label="Username"
+        className={classes.textField}
+      />
+       <TextField
+        id="email"
+        label="Email"
+        className={classes.textField}
+      />
+      <TextField
+        id="standard-password-input"
+        label="Password"
+        className={classes.textField}
+        type="password"
+        autoComplete="current-password"
+        margin="normal"
+      />
+       <TextField
+        id="standard-password-input"
+        label="Repit Password"
+        className={classes.textField}
+        type="password"
+        autoComplete="current-password"
+        margin="normal"
+      />
+       <TextField
+        id="tenant"
+        label="Tenant"
+        className={classes.textField}
+      />
+       <TextField
+        id="profile"
+        label="Profile"
         className={classes.textField}
       />
       </form>

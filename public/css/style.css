@@ -1,26 +1,20 @@
- 
-form{
-   display:flex;
-   flex-wrap:wrap;
-   align-items: center;
-   justify-content: center;
-   flex-direction: row;
-   margin-top:1em;
-}
 
-input{
-   
-}
+form{
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top:1em;
+ }
+ 
 
 .MuiDrawer-paper-245 {
     top:7% !important;
-    height:80% !important;
+    height:789px !important;
 }
 
-
-
-a:link 
-{ 
+a:link { 
 text-decoration:none; 
 } 
 

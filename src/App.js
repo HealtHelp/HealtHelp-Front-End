@@ -74,8 +74,8 @@ class App extends Component {
         <Route path="/services" component={ServicesPage} />
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
-
-      <Footer></Footer>
+        
+       <Footer></Footer>
       </div>
        </Router> 
     );
