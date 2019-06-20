@@ -10,6 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
+
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -34,9 +36,6 @@ const useStyles = {
     root: {
         width: '100%',
         overflowX: 'auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
       },
       table: {
         minWidth: 700,
@@ -73,45 +72,72 @@ class UserTable extends React.Component {
       const rows = users.map((user) => createData(user.username,user.tenantId,user.profileId,user.email,user.password))
       return rows;
   }
+
+  renderDimension(){
+    let val;
+    {window.screen.width <= 375?val=true:val=false}
+    return val;
+  }
   
   render(){
-    console.log('render')
-    console.log(this.props.data.data.length)
+    const dimension = this.renderDimension();
     const classes = useStyles;
-
-
     const rows = this.renderTable()
-    
-    
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Username</StyledTableCell>
-              <StyledTableCell align="right">Tenant</StyledTableCell>
-              <StyledTableCell align="right">Profile</StyledTableCell>
-              <StyledTableCell align="right">Email</StyledTableCell>
-              <StyledTableCell align="right">Password</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.Username}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                {row.Tenant}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.Profile}</StyledTableCell>
-                <StyledTableCell align="right">{row.Email}</StyledTableCell>
-                <StyledTableCell align="right">{row.Password}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+      <div className="tableUsers">
+        {dimension==true?
+           <Paper className={classes.root}>
+           <Table className={classes.table}>
+             <TableHead>
+               <TableRow>
+                 <StyledTableCell>Username</StyledTableCell>
+                 <StyledTableCell align="right">Email</StyledTableCell>
+               </TableRow>
+             </TableHead>
+             <TableBody>
+               {rows.map(row => (
+                 <StyledTableRow key={row.name}>
+                   <StyledTableCell component="th" scope="row">
+                     {row.Username}
+                   </StyledTableCell>
+                   <StyledTableCell align="right">{row.Email}</StyledTableCell>
+                 </StyledTableRow>
+               ))}
+             </TableBody>
+           </Table>
+         </Paper> : 
+           <Paper className={classes.root}>
+           <Table className={classes.table}>
+             <TableHead>
+               <TableRow>
+                 <StyledTableCell>Username</StyledTableCell>
+                 <StyledTableCell align="right">Tenant</StyledTableCell>
+                 <StyledTableCell align="right">Profile</StyledTableCell>
+                 <StyledTableCell align="right">Email</StyledTableCell>
+                 <StyledTableCell align="right">Password</StyledTableCell>
+               </TableRow>
+             </TableHead>
+             <TableBody>
+               {rows.map(row => (
+                 <StyledTableRow key={row.name}>
+                   <StyledTableCell component="th" scope="row">
+                     {row.Username}
+                   </StyledTableCell>
+                   <StyledTableCell align="right">
+                   {row.Tenant}
+                   </StyledTableCell>
+                   <StyledTableCell align="right">{row.Profile}</StyledTableCell>
+                   <StyledTableCell align="right">{row.Email}</StyledTableCell>
+                   <StyledTableCell align="right">{row.Password}</StyledTableCell>
+                 </StyledTableRow>
+               ))}
+             </TableBody>
+           </Table>
+         </Paper>
+        }
+       
+      </div>
+     
     );
   }  
  
