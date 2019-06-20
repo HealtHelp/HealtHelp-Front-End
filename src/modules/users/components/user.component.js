@@ -35,9 +35,7 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-const theme = {
-  spacing: 8,
-}
+
 
 const useStyles = {
     root: {
@@ -93,6 +91,11 @@ class UserTable extends React.Component {
     {window.screen.width <= 375?val=true:val=false}
     return val;
   }
+
+  handleClick(){
+    console.log('handleClick');
+  }
+ 
   
   render(){
     const dimension = this.renderDimension();
@@ -100,7 +103,7 @@ class UserTable extends React.Component {
     const rows = this.renderTable()
 
     return (
-      <div className="tableUsers">
+      <div className="tableUsers" onClick={this.handleClick}>
         {dimension==true?
            <Paper className={classes.root}>
            <Table className={classes.table}>
@@ -156,7 +159,6 @@ class UserTable extends React.Component {
         id="username"
         label="Username"
         className={classes.textField}
-        m={2}
       />
       </form>
       </div>
