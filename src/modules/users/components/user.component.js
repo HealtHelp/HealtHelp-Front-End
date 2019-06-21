@@ -68,7 +68,8 @@ class UserTable extends React.Component {
     this.state = {
       data:[],
       handleCreateUser:false,
-      handleIconsSave:false
+      handleIconsPOST:false,
+      handleIconsPUT:false
     }
    };
 
@@ -116,10 +117,10 @@ class UserTable extends React.Component {
     this.setState({
       handleCreateUser:true,
     });
-    {this.state.handleIconsSave==true?
-      this.setState({handleIconsSave:false})
+    {this.state.handleIconsPOST==true?
+      this.setState({handleIconsPOST:false})
       : 
-      this.setState({handleIconsSave:true})
+      this.setState({handleIconsPOST:true})
     }
   }
   
@@ -129,6 +130,18 @@ class UserTable extends React.Component {
       :
       this.setState({handleCreateUser:true});
     }
+  }
+
+  handleUpdateUser = () =>{
+    alert("handleUpdateUser")
+    this.setState({
+      handleIconsPUT:true
+    })
+   {this.state.handleIconsPUT==true?
+      this.setState({handleIconsPUT:false})
+      :
+      this.setState({handleIconsPUT:true});
+    } 
   }
 
   handleUpdateUser(){
@@ -251,9 +264,15 @@ class UserTable extends React.Component {
          }
         </div> 
            
-           {this.state.handleIconsSave?
-           <div className="iconsSave">
+           {this.state.handleIconsPOST?
+           <div className="iconsPOST">
            <i class="fas fa-save" onClick={this.handlePOSTUser}></i>
+           </div>
+           : ''
+           } 
+
+           {this.state.handleIconsPUT?
+           <div className="iconsPUT">
            <i class="fas fa-user-edit" onClick={this.handlePUTUser}></i>
            </div>
            : ''
@@ -263,6 +282,7 @@ class UserTable extends React.Component {
              <div className="iconsCrud">
                <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
                <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
+               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
                <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
              </div>
       
