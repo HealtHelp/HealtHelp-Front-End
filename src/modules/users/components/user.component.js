@@ -108,14 +108,19 @@ class UserTable extends React.Component {
   }
  
   handleNewUser = () =>{
+    alert("handleNewUser")
     document.getElementById("username").value = "";
     document.getElementById("email").value = "";
     document.getElementById("profile").value = "";
     document.getElementById("tenant").value = "";
     this.setState({
-      handleIconsSave:true,
-      handleCreateUser:true
+      handleCreateUser:true,
     });
+    {this.state.handleIconsSave==true?
+      this.setState({handleIconsSave:false})
+      : 
+      this.setState({handleIconsSave:true})
+    }
   }
   
   handleCreateUser = () =>{ 
@@ -134,8 +139,14 @@ class UserTable extends React.Component {
     alert("handleDeleteUser")
   }
 
+  
+  handlePOSTUser(){
+    alert("HANDLEPOSTUSER")
+  }
 
-
+  handlePUTUser(){
+    alert("handlePUTUser")
+  }
   render(){
     const dimension = this.renderDimension();
     const classes = useStyles;
@@ -242,20 +253,19 @@ class UserTable extends React.Component {
            
            {this.state.handleIconsSave?
            <div className="iconsSave">
-           <i class="fas fa-save" ></i>
+           <i class="fas fa-save" onClick={this.handlePOSTUser}></i>
+           <i class="fas fa-user-edit" onClick={this.handlePUTUser}></i>
            </div>
            : ''
            } 
-             
+            
              
              <div className="iconsCrud">
                <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
                <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
-               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
                <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
              </div>
-         
-             
+      
              </form>
             
       </div>

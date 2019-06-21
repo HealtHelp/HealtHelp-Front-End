@@ -20,7 +20,10 @@
     justify-content: center;
     flex-direction: row;
     font-size:30px;
-    margin-top:10px; 
+}
+
+.iconsSave i{
+    margin:1em
 }
 
 .iconsCrud{
