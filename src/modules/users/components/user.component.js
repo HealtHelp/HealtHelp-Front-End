@@ -67,7 +67,8 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
-      handleCreateUser:null
+      handleCreateUser:false,
+      handleIconsSave:false
     }
    };
 
@@ -92,13 +93,37 @@ class UserTable extends React.Component {
   }
 
   handleClick(){
-    const username = document.getElementById("usernameTable").value;
-    alert(username)
+   let u = document.getElementById("usernameTable");
+   let username = Object.values(u)[1].children;
+   document.getElementById("username").value = username;
+   let e = document.getElementById("emailTable"); 
+   let email = Object.values(e)[1].children;
+   document.getElementById("email").value = email;
+   let p = document.getElementById("profileTable");
+   let profile = Object.values(p)[1].children;
+   document.getElementById("profile").value = profile;
+   let t = document.getElementById("tenantTable");
+   let tenant = Object.values(t)[1].children;
+   document.getElementById("tenant").value = tenant;
   }
  
+  handleNewUser = () =>{
+    document.getElementById("username").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("profile").value = "";
+    document.getElementById("tenant").value = "";
+    this.setState({
+      handleIconsSave:true,
+      handleCreateUser:true
+    });
+  }
   
-  handleCreateUser = () =>{
-    this.setState({handleCreateUser:true});
+  handleCreateUser = () =>{ 
+    {this.state.handleCreateUser==true?
+      this.setState({handleCreateUser:false})
+      :
+      this.setState({handleCreateUser:true});
+    }
   }
 
   handleUpdateUser(){
@@ -109,14 +134,13 @@ class UserTable extends React.Component {
     alert("handleDeleteUser")
   }
 
+
+
   render(){
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
-   /*  if(!this.state.handleCreateUser){
-      document.getElementById("standard-password-input").style.display = "none";
-      document.getElementsByTagName("label").style.display = "none";
-    } */
+    
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -134,7 +158,7 @@ class UserTable extends React.Component {
                    <StyledTableCell component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
-                   <StyledTableCell align="right">{row.Email}</StyledTableCell>
+                   <StyledTableCell align="right" id="emailTable">{row.Email}</StyledTableCell>
                  </StyledTableRow>
                ))}
              </TableBody>
@@ -156,11 +180,11 @@ class UserTable extends React.Component {
                    <StyledTableCell  component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
-                   <StyledTableCell align="right">
+                   <StyledTableCell align="right" id="emailTable">
                    {row.Email}
                    </StyledTableCell>
-                   <StyledTableCell align="right">{row.Profile}</StyledTableCell>
-                   <StyledTableCell align="right">{row.Tenant}</StyledTableCell>
+                   <StyledTableCell align="right" id="profileTable">{row.Profile}</StyledTableCell>
+                   <StyledTableCell align="right" id="tenantTable">{row.Tenant}</StyledTableCell>
                  </StyledTableRow>
                ))}
              </TableBody>
@@ -168,13 +192,14 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-       
+        
 
         
        
               
-             <form className={classes.container}  autoComplete="off">
-             <TextField
+             <form className={classes.container} noValidate  autoComplete="off">
+               <div id="textFields">
+              <TextField
                id="username"
                label="Username"
                className={classes.textField}
@@ -194,32 +219,49 @@ class UserTable extends React.Component {
                label="Tenant"
                className={classes.textField}
              />
-       
-              <TextField
+           {this.state.handleCreateUser==true?
+            <div id="textFieldsPassword">
+            <TextField
                id="standard-password-input"
                label="Password"
                className={classes.textField}
                type="password"
                autoComplete="current-password"
-             />
+             /> <br></br>
               <TextField
-               id="standard-password-input"
+               id="standard-password-input2"
                label="Repit Password"
                className={classes.textField}
                type="password"
                autoComplete="current-password"
              /> 
+            </div> 
+            : ''
+         }
+        </div> 
+           
+           {this.state.handleIconsSave?
+           <div className="iconsSave">
+           <i class="fas fa-save" ></i>
+           </div>
+           : ''
+           } 
+             
+             
              <div className="iconsCrud">
-               <i class="fas fa-plus" onClick={this.handleCreateUser}></i>
+               <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
+               <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
                <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
                <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
              </div>
+         
+             
              </form>
-
-        }
+            
       </div>
-     
+      
     );
+   
   }  
  
 }
