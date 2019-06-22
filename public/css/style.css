@@ -1,12 +1,15 @@
-
+.App{
+    overflow:auto;
+}
 
 #textFields{
    display:flex;
    flex-wrap:wrap;
    align-items: center;
-   justify-content: center;
-   flex-direction: column;
+   justify-content: space-evenly;
+   flex-direction: row;
    margin-top:5px;
+   margin-right: 3px;
 }
 
 .MuiTableCell-root-292{

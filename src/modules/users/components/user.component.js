@@ -49,8 +49,7 @@ const useStyles = {
         flexWrap: 'wrap',
       },
        textField: {
-        width: 200,
-
+        width: 200
       }  
 }
 
@@ -71,13 +70,16 @@ class UserTable extends React.Component {
       handleIconsPOST:false,
       handleIconsPUT:false
     }
+
    };
+   
 
   
   componentWillMount(){
     store.dispatch(handleGetUsers())
   }
 
+  
   renderTable() {
     if(this.props.data.data.length === 0){
       return []
@@ -93,9 +95,27 @@ class UserTable extends React.Component {
     return val;
   }
 
-  handleClick(){
+ 
+
+
+
+/*
+var rows = document.getElementsByTagName('tr');
+for(var x = 0, xLength = rows.length; x < xLength; x++) {  
+   alert('rowIndex=' + rows[x].rowIndex);
+}
+
+
+*/ 
+
+
+
+
+
+  handleClick(ex){
+   //console.log(ex.target)
    let u = document.getElementById("usernameTable");
-   let username = Object.values(u)[1].children;
+   let username = Object.values(ex.target)[1].children;
    document.getElementById("username").value = username;
    let e = document.getElementById("emailTable"); 
    let email = Object.values(e)[1].children;
@@ -105,20 +125,23 @@ class UserTable extends React.Component {
    document.getElementById("profile").value = profile;
    let t = document.getElementById("tenantTable");
    let tenant = Object.values(t)[1].children;
-   document.getElementById("tenant").value = tenant;
+   document.getElementById("tenant").value = tenant; 
   }
  
   handleNewUser = () =>{
-    alert("handleNewUser")
     document.getElementById("username").value = "";
     document.getElementById("email").value = "";
     document.getElementById("profile").value = "";
     document.getElementById("tenant").value = "";
     this.setState({
       handleCreateUser:true,
+      handleIconsPUT:false
     });
     {this.state.handleIconsPOST==true?
-      this.setState({handleIconsPOST:false})
+      this.setState({
+        handleIconsPOST:false,
+        //handleIconsPUT:true
+      })
       : 
       this.setState({handleIconsPOST:true})
     }
@@ -133,12 +156,13 @@ class UserTable extends React.Component {
   }
 
   handleUpdateUser = () =>{
-    alert("handleUpdateUser")
     this.setState({
-      handleIconsPUT:true
+      handleIconsPUT:true,
+      handleIconsPOST:false
     })
    {this.state.handleIconsPUT==true?
-      this.setState({handleIconsPUT:false})
+      this.setState({
+        handleIconsPUT:false})
       :
       this.setState({handleIconsPUT:true});
     } 
@@ -165,6 +189,8 @@ class UserTable extends React.Component {
     const classes = useStyles;
     const rows = this.renderTable()
     
+   
+  
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -176,9 +202,9 @@ class UserTable extends React.Component {
                  <StyledTableCell align="right">Email</StyledTableCell>
                </TableRow>
              </TableHead>
-             <TableBody>
+             <TableBody  onClick={this.handleClick}>
                {rows.map(row => (
-                 <StyledTableRow key={row.name} onClick={this.handleClick}>
+                 <StyledTableRow key={row.name}>
                    <StyledTableCell component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
@@ -198,9 +224,9 @@ class UserTable extends React.Component {
                  <StyledTableCell align="right">Tenant</StyledTableCell>
                </TableRow>
              </TableHead>
-             <TableBody>
+             <TableBody onClick={this.handleClick}>
                {rows.map(row => (
-                 <StyledTableRow key={row.name} onClick={this.handleClick}>
+                 <StyledTableRow key={row.name}>
                    <StyledTableCell  component="th" scope="row" id="usernameTable">
                      {row.Username}
                    </StyledTableCell>
@@ -225,22 +251,26 @@ class UserTable extends React.Component {
                <div id="textFields">
               <TextField
                id="username"
-               label="Username"
+               //label="Username"
+               placeholder="Username"
                className={classes.textField}
              />
               <TextField
                id="email"
-               label="Email"
+               //label="Email"
+               placeholder="Email"
                className={classes.textField}
              />
              <TextField
                id="profile"
-               label="Profile"
+               //label="Profile"
+               placeholder="Profile"
                className={classes.textField}
              />
               <TextField
                id="tenant"
-               label="Tenant"
+               //label="Tenant"
+               placeholder="Tenant"
                className={classes.textField}
              />
            {this.state.handleCreateUser==true?
