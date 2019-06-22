@@ -96,38 +96,27 @@ class UserTable extends React.Component {
   }
 
  
+ 
+  handleClickUsername(ex){
+    let username = Object.values(ex.target)[1].children;
+    document.getElementById("username").value = username;
+  }
 
+  handleClickEmail(ex){
+    let email = Object.values(ex.target)[1].children;
+    document.getElementById("email").value = email;
+  }
 
-
-/*
-var rows = document.getElementsByTagName('tr');
-for(var x = 0, xLength = rows.length; x < xLength; x++) {  
-   alert('rowIndex=' + rows[x].rowIndex);
-}
-
-
-*/ 
-
-
-
-
-
-  handleClick(ex){
-   //console.log(ex.target)
-   let u = document.getElementById("usernameTable");
-   let username = Object.values(ex.target)[1].children;
-   document.getElementById("username").value = username;
-   let e = document.getElementById("emailTable"); 
-   let email = Object.values(e)[1].children;
-   document.getElementById("email").value = email;
-   let p = document.getElementById("profileTable");
-   let profile = Object.values(p)[1].children;
+  handleClickProfile(ex){
+    let profile = Object.values(ex.target)[1].children;
    document.getElementById("profile").value = profile;
-   let t = document.getElementById("tenantTable");
-   let tenant = Object.values(t)[1].children;
+  }
+
+  handleClickTenant(ex){
+    let tenant = Object.values(ex.target)[1].children;
    document.getElementById("tenant").value = tenant; 
   }
- 
+
   handleNewUser = () =>{
     document.getElementById("username").value = "";
     document.getElementById("email").value = "";
@@ -202,13 +191,15 @@ for(var x = 0, xLength = rows.length; x < xLength; x++) {
                  <StyledTableCell align="right">Email</StyledTableCell>
                </TableRow>
              </TableHead>
-             <TableBody  onClick={this.handleClick}>
+             <TableBody>
                {rows.map(row => (
                  <StyledTableRow key={row.name}>
-                   <StyledTableCell component="th" scope="row" id="usernameTable">
+                   <StyledTableCell component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
                    </StyledTableCell>
-                   <StyledTableCell align="right" id="emailTable">{row.Email}</StyledTableCell>
+                   <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
+                      {row.Email}
+                   </StyledTableCell>
                  </StyledTableRow>
                ))}
              </TableBody>
@@ -224,17 +215,21 @@ for(var x = 0, xLength = rows.length; x < xLength; x++) {
                  <StyledTableCell align="right">Tenant</StyledTableCell>
                </TableRow>
              </TableHead>
-             <TableBody onClick={this.handleClick}>
+             <TableBody>
                {rows.map(row => (
                  <StyledTableRow key={row.name}>
-                   <StyledTableCell  component="th" scope="row" id="usernameTable">
+                   <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
                    </StyledTableCell>
-                   <StyledTableCell align="right" id="emailTable">
+                   <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
                    {row.Email}
                    </StyledTableCell>
-                   <StyledTableCell align="right" id="profileTable">{row.Profile}</StyledTableCell>
-                   <StyledTableCell align="right" id="tenantTable">{row.Tenant}</StyledTableCell>
+                   <StyledTableCell align="right" id="profileTable" onClick={this.handleClickProfile} >
+                   {row.Profile}
+                   </StyledTableCell>
+                   <StyledTableCell align="right" id="tenantTable" onClick={this.handleClickTenant}>
+                   {row.Tenant}
+                   </StyledTableCell>
                  </StyledTableRow>
                ))}
              </TableBody>
