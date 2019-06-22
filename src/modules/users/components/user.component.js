@@ -55,8 +55,8 @@ const useStyles = {
 
 
 
-function createData(Username,Email,Profile,Tenant) {
-  return { Username, Email, Profile, Tenant };
+function createData(Id,Username,Email,Profile,Tenant) {
+  return {Id, Username, Email, Profile, Tenant };
 }
 
 
@@ -85,7 +85,8 @@ class UserTable extends React.Component {
       return []
     }
       let users = this.props.data.data._embedded.userDToes;
-      const rows = users.map((user) => createData(user.username,user.email,user.profile,user.tenant))
+      console.log(users)
+      const rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant))
       return rows;
   }
 
@@ -219,7 +220,7 @@ class UserTable extends React.Component {
                {rows.map(row => (
                  <StyledTableRow key={row.name}>
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
-                     {row.Username}
+                     {row.Email}
                    </StyledTableCell>
                    <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
                    {row.Email}
@@ -302,7 +303,7 @@ class UserTable extends React.Component {
            </div>
            : ''
            } 
-            
+           
              
              <div className="iconsCrud">
                <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
