@@ -79,6 +79,10 @@ class UserTable extends React.Component {
     store.dispatch(handleGetUsers())
   }
 
+
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
   
   renderTable() {
     if(this.props.data.data.length === 0){
