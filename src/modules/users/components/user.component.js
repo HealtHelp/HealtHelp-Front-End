@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-
+import Warning from '../../snackbars/components/warning.component';
 
 
 
@@ -61,14 +61,15 @@ function createData(Id,Username,Email,Profile,Tenant) {
 
 
 class UserTable extends React.Component {
-  
   constructor(props){
     super(props);
     this.state = {
       data:[],
       handleCreateUser:false,
       handleIconsPOST:false,
-      handleIconsPUT:false
+      handleIconsPUT:false,
+      warning:false,
+      disabled:true
     }
 
    };
@@ -83,13 +84,14 @@ class UserTable extends React.Component {
   componentDidMount(){
     window.scrollTo(0, 0)
   }
+
+
   
   renderTable() {
     if(this.props.data.data.length === 0){
       return []
     }
       let users = this.props.data.data._embedded.userDToes;
-      console.log(users)
       const rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant))
       return rows;
   }
@@ -134,7 +136,6 @@ class UserTable extends React.Component {
     {this.state.handleIconsPOST==true?
       this.setState({
         handleIconsPOST:false,
-        //handleIconsPUT:true
       })
       : 
       this.setState({handleIconsPOST:true})
@@ -169,22 +170,74 @@ class UserTable extends React.Component {
   handleDeleteUser(){
     alert("handleDeleteUser")
   }
-
   
-  handlePOSTUser(){
-    alert("HANDLEPOSTUSER")
+
+  handleChange = (e) =>{
+    this.setState({disabled: this.handleDisabled()})
   }
+
+
+  handleDisabled = () =>{
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
+    let profile = document.getElementById("profile").value;
+    let tenant = document.getElementById("tenant").value;
+    let password = document.getElementById("password").value;
+    let repitpassword = document.getElementById("repitpassword").value;
+    console.log("Form: ",username , email , profile , tenant , password , repitpassword)
+    if(username && email && profile && tenant && password && repitpassword ){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+  
+
+   validateEmail(email){
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+  
+ 
+
+
+
+
+
+
+  handlePOSTUser = () => {
+    alert("post")
+
+    this.setState(function(){
+      return {
+         warning: false
+      }
+    },  () => {
+      //after callback
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let repitpassword = document.getElementById("repitpassword").value;
+      const check = this.validateEmail(email);
+      if((password !== repitpassword) || !check){
+        this.setState({warning:true});
+      }
+    });
+  }
+
+
 
   handlePUTUser(){
     alert("handlePUTUser")
   }
+
+
+
   render(){
     const dimension = this.renderDimension();
     const classes = useStyles;
     const rows = this.renderTable()
     
-   
-  
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -224,7 +277,7 @@ class UserTable extends React.Component {
                {rows.map(row => (
                  <StyledTableRow key={row.name}>
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
-                     {row.Email}
+                     {row.Username}
                    </StyledTableCell>
                    <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
                    {row.Email}
@@ -254,40 +307,46 @@ class UserTable extends React.Component {
                //label="Username"
                placeholder="Username"
                className={classes.textField}
+               onChange={this.handleChange}
              />
               <TextField
                id="email"
                //label="Email"
                placeholder="Email"
                className={classes.textField}
+               onChange={this.handleChange}
              />
              <TextField
                id="profile"
                //label="Profile"
                placeholder="Profile"
                className={classes.textField}
+               onChange={this.handleChange}
              />
               <TextField
                id="tenant"
                //label="Tenant"
                placeholder="Tenant"
                className={classes.textField}
+               onChange={this.handleChange}
              />
            {this.state.handleCreateUser==true?
             <div id="textFieldsPassword">
             <TextField
-               id="standard-password-input"
+               id="password"
                label="Password"
                className={classes.textField}
                type="password"
                autoComplete="current-password"
+               onChange={this.handleChange}
              /> <br></br>
               <TextField
-               id="standard-password-input2"
+               id="repitpassword"
                label="Repit Password"
                className={classes.textField}
                type="password"
                autoComplete="current-password"
+               onChange={this.handleChange}
              /> 
             </div> 
             : ''
@@ -296,14 +355,14 @@ class UserTable extends React.Component {
            
            {this.state.handleIconsPOST?
            <div className="iconsPOST">
-           <i class="fas fa-save" onClick={this.handlePOSTUser}></i>
+             <button className="buttonUserComponent" type="button" onClick={this.handlePOSTUser} disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
            </div>
            : ''
            } 
 
            {this.state.handleIconsPUT?
            <div className="iconsPUT">
-           <i class="fas fa-user-edit" onClick={this.handlePUTUser}></i>
+             <button className="buttonUserComponent" type="button" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit" onClick={this.handlePUTUser}></i></button>
            </div>
            : ''
            } 
@@ -317,7 +376,9 @@ class UserTable extends React.Component {
              </div>
       
              </form>
-            
+
+          {this.state.warning==true?<Warning></Warning>:''} 
+         
       </div>
       
     );
