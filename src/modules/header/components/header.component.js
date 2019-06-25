@@ -124,14 +124,10 @@ class PrimarySearchAppBar extends React.Component {
            
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-           
-             
-              
             </div>
         
           </Toolbar>
         </AppBar>
-        
       </div>
     );
   }

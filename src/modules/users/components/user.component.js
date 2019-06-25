@@ -207,8 +207,6 @@ class UserTable extends React.Component {
 
 
   handlePOSTUser = () => {
-    alert("post")
-
     this.setState(function(){
       return {
          warning: false
