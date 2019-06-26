@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
-import {handleGetUsers} from '../actions/user.actions';
+import {handleGetUsers, handlePostUser} from '../actions/user.actions';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -71,14 +71,13 @@ class UserTable extends React.Component {
       warning:false,
       disabled:true
     }
-
+    store.dispatch(handleGetUsers())
    };
    
 
-  
-  componentWillMount(){
+   /*  componentWillMount(){
     store.dispatch(handleGetUsers())
-  }
+  }  */ 
 
 
   componentDidMount(){
@@ -172,7 +171,7 @@ class UserTable extends React.Component {
   }
   
 
-  handleChange = (e) =>{
+  handleChange = () =>{
     this.setState({disabled: this.handleDisabled()})
   }
 
@@ -184,7 +183,6 @@ class UserTable extends React.Component {
     let tenant = document.getElementById("tenant").value;
     let password = document.getElementById("password").value;
     let repitpassword = document.getElementById("repitpassword").value;
-    console.log("Form: ",username , email , profile , tenant , password , repitpassword)
     if(username && email && profile && tenant && password && repitpassword ){
       return false;
     }
@@ -201,18 +199,16 @@ class UserTable extends React.Component {
   
  
 
-
-
-
-
-
-  handlePOSTUser = () => {
+  handlePOSTUser = (e) => { 
+    console.log(e); 
     this.setState(function(){
       return {
          warning: false
       }
+      
     },  () => {
       //after callback
+      let username = document.getElementById("username").value;
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
       let repitpassword = document.getElementById("repitpassword").value;
@@ -220,10 +216,44 @@ class UserTable extends React.Component {
       if((password !== repitpassword) || !check){
         this.setState({warning:true});
       }
+      else{
+        e.preventDefault();    
+        let profileName = document.getElementById("profile").value;
+        let tenantName = document.getElementById("tenant").value;
+         const profile = this.checkProfile(profileName);
+         const tenant =  this.checkTenant(tenantName);
+         const id = Math.floor(Math.random() * 100) + 1  
+        const user = {
+          id:id,
+          username:username,
+          email:email,
+          profileId:profile,
+          tenantId:tenant,
+          password:password
+        }
+        console.log(user);
+        store.dispatch(handlePostUser(user))
+      }
+
     });
   }
-
-
+  
+  checkProfile = (profile) =>{
+   if(profile == "ADMIN"){
+     profile = 1;
+    }
+   if(profile == "USER"){
+     profile = 2;
+   }
+   return profile; 
+  }
+  
+  checkTenant = (tenant) =>{
+    if(tenant == "Roberto del Barrio Pizarro"){
+      tenant = 1;
+    }
+    return tenant;
+  }
 
   handlePUTUser(){
     alert("handlePUTUser")
@@ -298,7 +328,7 @@ class UserTable extends React.Component {
         
        
               
-             <form className={classes.container} noValidate  autoComplete="off">
+             <form className={classes.container} noValidate  autoComplete="off" onSubmit={this.handlePOSTUser}>
                <div id="textFields">
               <TextField
                id="username"
@@ -353,14 +383,14 @@ class UserTable extends React.Component {
            
            {this.state.handleIconsPOST?
            <div className="iconsPOST">
-             <button className="buttonUserComponent" type="button" onClick={this.handlePOSTUser} disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
+             <button className="buttonUserComponent" type="submit"  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
            </div>
            : ''
            } 
 
            {this.state.handleIconsPUT?
            <div className="iconsPUT">
-             <button className="buttonUserComponent" type="button" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit" onClick={this.handlePUTUser}></i></button>
+             <button className="buttonUserComponent" type="submit" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit" onClick={this.handlePUTUser}></i></button>
            </div>
            : ''
            } 

@@ -1,6 +1,6 @@
+import axios from 'axios';
 import {SET_HANDLE_LOGIN} from '../types/types';
 import { SET_HANDLE_LOGIN_ERROR } from '../../notifications/types/types';
-import axios from 'axios';
 import { CONFIGHEADERS,URL_LOGIN } from '../../constants/constants';
 
 

@@ -1,10 +1,9 @@
 import {SET_HANDLE_LOGIN} from '../types/types';
-import {SET_HANDLE_LOGIN_ERROR} from '../../notifications/types/types';
 
 const initialState = {
     data:[],
     token: null,
-    success:null
+    success:false
 }
 
 export default function login(state = initialState,action){
@@ -15,11 +14,6 @@ export default function login(state = initialState,action){
                 token: action.resp,
                 success:true
             }
-        case  SET_HANDLE_LOGIN_ERROR:
-                    return{
-                        ...state,
-                        error:true
-                    }       
         default:
             return state;    
     }
