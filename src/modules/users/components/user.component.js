@@ -217,7 +217,8 @@ class UserTable extends React.Component {
         this.setState({warning:true});
       }
       else{
-        e.preventDefault();    
+        e.stopPropagation();
+        //e.nativeEvent.stopImmediatePropagation();
         let profileName = document.getElementById("profile").value;
         let tenantName = document.getElementById("tenant").value;
          const profile = this.checkProfile(profileName);
