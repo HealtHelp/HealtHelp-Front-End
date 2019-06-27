@@ -59,7 +59,7 @@ function createData(Id,Username,Email,Profile,Tenant) {
   return {Id, Username, Email, Profile, Tenant };
 }
 
-
+ 
 class UserTable extends React.Component {
   constructor(props){
     super(props);
@@ -71,28 +71,26 @@ class UserTable extends React.Component {
       warning:false,
       disabled:true
     }
-    store.dispatch(handleGetUsers())
+    this.rows = [];
+    store.dispatch(handleGetUsers());
    };
    
 
-   /*  componentWillMount(){
-    store.dispatch(handleGetUsers())
-  }  */ 
-
-
+  
   componentDidMount(){
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
 
 
+
   
-  renderTable() {
+  renderTable() {;
     if(this.props.data.data.length === 0){
       return []
     }
       let users = this.props.data.data._embedded.userDToes;
       const rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant))
-      return rows;
+      return rows;   
   }
 
   renderDimension(){
@@ -197,15 +195,15 @@ class UserTable extends React.Component {
     return re.test(String(email).toLowerCase());
   }
   
- 
 
-  handlePOSTUser = (e) => { 
-    console.log(e); 
+  
+
+  handlePOSTUser = (event) => { 
+    event.preventDefault();
     this.setState(function(){
       return {
          warning: false
-      }
-      
+      } 
     },  () => {
       //after callback
       let username = document.getElementById("username").value;
@@ -217,13 +215,11 @@ class UserTable extends React.Component {
         this.setState({warning:true});
       }
       else{
-        e.stopPropagation();
-        //e.nativeEvent.stopImmediatePropagation();
         let profileName = document.getElementById("profile").value;
         let tenantName = document.getElementById("tenant").value;
-         const profile = this.checkProfile(profileName);
-         const tenant =  this.checkTenant(tenantName);
-         const id = Math.floor(Math.random() * 100) + 1  
+        const profile = this.checkProfile(profileName);
+        const tenant =  this.checkTenant(tenantName);
+        const id = Math.floor(Math.random() * 100) + 1  
         const user = {
           id:id,
           username:username,
@@ -232,10 +228,8 @@ class UserTable extends React.Component {
           tenantId:tenant,
           password:password
         }
-        console.log(user);
         store.dispatch(handlePostUser(user))
-      }
-
+        }
     });
   }
   
@@ -261,12 +255,13 @@ class UserTable extends React.Component {
   }
 
 
-
+   
   render(){
+
     const dimension = this.renderDimension();
     const classes = useStyles;
-    const rows = this.renderTable()
-    
+    this.rows = this.renderTable();
+  
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -279,7 +274,7 @@ class UserTable extends React.Component {
                </TableRow>
              </TableHead>
              <TableBody>
-               {rows.map(row => (
+               {this.rows.map(row => (
                  <StyledTableRow key={row.name}>
                    <StyledTableCell component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
@@ -303,7 +298,7 @@ class UserTable extends React.Component {
                </TableRow>
              </TableHead>
              <TableBody>
-               {rows.map(row => (
+               {this.rows.map(row => (
                  <StyledTableRow key={row.name}>
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
@@ -384,7 +379,7 @@ class UserTable extends React.Component {
            
            {this.state.handleIconsPOST?
            <div className="iconsPOST">
-             <button className="buttonUserComponent" type="submit"  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
+             <button className="buttonUserComponent"  type="submit"  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
            </div>
            : ''
            } 
