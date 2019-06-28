@@ -66,7 +66,7 @@ class App extends Component {
       {this.state.success ? <Success></Success>:''}
       {this.state.success ? <HomePage></HomePage>:''} 
       {this.state.showLogin ? <LoginPage></LoginPage>:''} 
-      {this.state.error ? <Error handleLogin={this.handleLogin}></Error>:''}
+      {this.state.error==true && !this.state.success ? <Error handleLogin={this.handleLogin}></Error>:''}
          
         <Route path="/" component={LoginPage} />
         <Route path="/user" component={UserPage} />

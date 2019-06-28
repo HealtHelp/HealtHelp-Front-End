@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
-import {handleGetUsers, handlePostUser} from '../actions/user.actions';
+import {handleGetUsers} from '../actions/user.actions';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,9 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Warning from '../../snackbars/components/warning.component';
-
+import FormComponent from '../components/form.component';
 
 
 const StyledTableCell = withStyles(theme => ({
@@ -35,22 +33,14 @@ const StyledTableRow = withStyles(theme => ({
 }))(TableRow);
 
 
-
-const useStyles = {
+ const useStyles = {
     root: {
         width: '100%',
         overflowX: 'auto',
       },
       table: {
         minWidth: 700,
-      },
-      container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
-       textField: {
-        width: 200
-      }  
+      }
 }
 
 
@@ -65,32 +55,39 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
-      handleCreateUser:false,
-      handleIconsPOST:false,
-      handleIconsPUT:false,
-      warning:false,
-      disabled:true
     }
     this.rows = [];
-    store.dispatch(handleGetUsers());
+    store.dispatch(handleGetUsers())
    };
    
 
   
-  componentDidMount(){
+   componentWillMount(){
+    console.log("componentWillMount")
     window.scrollTo(0, 0);
   }
 
+  componentDidMount(){
+    console.log("componentDidMount")
+    
+  }
 
+  componentWillReceiveProps(){
+    console.log("componentWillReceiveProps")
+    this.handleRows();
+  } 
 
   
-  renderTable() {;
+  renderTable() {
+    console.log("renderTable",this.props.data.data)
     if(this.props.data.data.length === 0){
       return []
     }
+    else{
       let users = this.props.data.data._embedded.userDToes;
       const rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant))
-      return rows;   
+      return rows;
+    }        
   }
 
   renderDimension(){
@@ -101,7 +98,7 @@ class UserTable extends React.Component {
 
  
  
-  handleClickUsername(ex){
+   handleClickUsername(ex){
     let username = Object.values(ex.target)[1].children;
     document.getElementById("username").value = username;
   }
@@ -121,147 +118,27 @@ class UserTable extends React.Component {
    document.getElementById("tenant").value = tenant; 
   }
 
-  handleNewUser = () =>{
-    document.getElementById("username").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("profile").value = "";
-    document.getElementById("tenant").value = "";
-    this.setState({
-      handleCreateUser:true,
-      handleIconsPUT:false
-    });
-    {this.state.handleIconsPOST==true?
-      this.setState({
-        handleIconsPOST:false,
-      })
-      : 
-      this.setState({handleIconsPOST:true})
-    }
-  }
-  
-  handleCreateUser = () =>{ 
-    {this.state.handleCreateUser==true?
-      this.setState({handleCreateUser:false})
-      :
-      this.setState({handleCreateUser:true});
-    }
-  }
-
-  handleUpdateUser = () =>{
-    this.setState({
-      handleIconsPUT:true,
-      handleIconsPOST:false
-    })
-   {this.state.handleIconsPUT==true?
-      this.setState({
-        handleIconsPUT:false})
-      :
-      this.setState({handleIconsPUT:true});
-    } 
-  }
-
-  handleUpdateUser(){
-    alert("handleUpdateUser")
-  }
-
-  handleDeleteUser(){
-    alert("handleDeleteUser")
-  }
   
 
-  handleChange = () =>{
-    this.setState({disabled: this.handleDisabled()})
-  }
 
 
-  handleDisabled = () =>{
-    let username = document.getElementById("username").value;
-    let email = document.getElementById("email").value;
-    let profile = document.getElementById("profile").value;
-    let tenant = document.getElementById("tenant").value;
-    let password = document.getElementById("password").value;
-    let repitpassword = document.getElementById("repitpassword").value;
-    if(username && email && profile && tenant && password && repitpassword ){
-      return false;
-    }
-    else{
-      return true;
-    }
-  }
-  
-
-   validateEmail(email){
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-  
+  handleRows = () => {
+    console.log("handleRows");
+    this.rows = this.renderTable();
+    console.log(this.rows);
+  } 
 
   
 
-  handlePOSTUser = (event) => { 
-    event.preventDefault();
-    this.setState(function(){
-      return {
-         warning: false
-      } 
-    },  () => {
-      //after callback
-      let username = document.getElementById("username").value;
-      let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
-      let repitpassword = document.getElementById("repitpassword").value;
-      const check = this.validateEmail(email);
-      if((password !== repitpassword) || !check){
-        this.setState({warning:true});
-      }
-      else{
-        let profileName = document.getElementById("profile").value;
-        let tenantName = document.getElementById("tenant").value;
-        const profile = this.checkProfile(profileName);
-        const tenant =  this.checkTenant(tenantName);
-        const id = Math.floor(Math.random() * 100) + 1  
-        const user = {
-          id:id,
-          username:username,
-          email:email,
-          profileId:profile,
-          tenantId:tenant,
-          password:password
-        }
-        store.dispatch(handlePostUser(user))
-        }
-    });
-  }
-  
-  checkProfile = (profile) =>{
-   if(profile == "ADMIN"){
-     profile = 1;
-    }
-   if(profile == "USER"){
-     profile = 2;
-   }
-   return profile; 
-  }
-  
-  checkTenant = (tenant) =>{
-    if(tenant == "Roberto del Barrio Pizarro"){
-      tenant = 1;
-    }
-    return tenant;
-  }
-
-  handlePUTUser(){
-    alert("handlePUTUser")
-  }
-
-
+ 
    
   render(){
 
     const dimension = this.renderDimension();
     const classes = useStyles;
-    this.rows = this.renderTable();
-  
+    
+    //this.rows = this.renderTable();
+   
     return (
       <div className="tableUsers">
         {dimension==true?
@@ -319,89 +196,7 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-        
-
-        
-       
-              
-             <form className={classes.container} noValidate  autoComplete="off" onSubmit={this.handlePOSTUser}>
-               <div id="textFields">
-              <TextField
-               id="username"
-               //label="Username"
-               placeholder="Username"
-               className={classes.textField}
-               onChange={this.handleChange}
-             />
-              <TextField
-               id="email"
-               //label="Email"
-               placeholder="Email"
-               className={classes.textField}
-               onChange={this.handleChange}
-             />
-             <TextField
-               id="profile"
-               //label="Profile"
-               placeholder="Profile"
-               className={classes.textField}
-               onChange={this.handleChange}
-             />
-              <TextField
-               id="tenant"
-               //label="Tenant"
-               placeholder="Tenant"
-               className={classes.textField}
-               onChange={this.handleChange}
-             />
-           {this.state.handleCreateUser==true?
-            <div id="textFieldsPassword">
-            <TextField
-               id="password"
-               label="Password"
-               className={classes.textField}
-               type="password"
-               autoComplete="current-password"
-               onChange={this.handleChange}
-             /> <br></br>
-              <TextField
-               id="repitpassword"
-               label="Repit Password"
-               className={classes.textField}
-               type="password"
-               autoComplete="current-password"
-               onChange={this.handleChange}
-             /> 
-            </div> 
-            : ''
-         }
-        </div> 
-           
-           {this.state.handleIconsPOST?
-           <div className="iconsPOST">
-             <button className="buttonUserComponent"  type="submit"  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
-           </div>
-           : ''
-           } 
-
-           {this.state.handleIconsPUT?
-           <div className="iconsPUT">
-             <button className="buttonUserComponent" type="submit" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit" onClick={this.handlePUTUser}></i></button>
-           </div>
-           : ''
-           } 
-           
-             
-             <div className="iconsCrud">
-               <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
-               <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
-               <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
-               <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
-             </div>
-      
-             </form>
-
-          {this.state.warning==true?<Warning></Warning>:''} 
+          <FormComponent></FormComponent>
          
       </div>
       
