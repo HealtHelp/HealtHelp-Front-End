@@ -35,7 +35,6 @@ class FormComponent extends React.Component{
           handleIconsPUT:false,
           warning:false,
           disabled:true,
-          successPOST:false,
           successGET:false
         }
         this.rows = [];
@@ -74,7 +73,7 @@ class FormComponent extends React.Component{
           handleCreateUser:true,
           handleIconsPUT:false
         });
-        {this.state.handleIconsPOST==true?
+        {this.state.handleIconsPOST?
           this.setState({
             handleIconsPOST:false,
           })
@@ -84,7 +83,7 @@ class FormComponent extends React.Component{
       }
       
       handleCreateUser = () =>{ 
-        {this.state.handleCreateUser==true?
+        {this.state.handleCreateUser?
           this.setState({handleCreateUser:false})
           :
           this.setState({handleCreateUser:true});
@@ -96,7 +95,7 @@ class FormComponent extends React.Component{
           handleIconsPUT:true,
           handleIconsPOST:false
         })
-       {this.state.handleIconsPUT==true?
+       {this.state.handleIconsPUT?
           this.setState({
             handleIconsPUT:false})
           :
@@ -113,17 +112,17 @@ class FormComponent extends React.Component{
       }
 
       validateEmail(email){
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
       }
 
 
 
       checkProfile = (profile) =>{
-        if(profile == "ADMIN"){
+        if(profile === "ADMIN"){
           profile = 1;
          }
-        else if(profile == "USER"){
+        else if(profile === "USER"){
           profile = 2;
         }
         else{
@@ -133,7 +132,7 @@ class FormComponent extends React.Component{
        }
        
        checkTenant = (tenant) =>{
-         if(tenant == "Roberto del Barrio Pizarro"){
+         if(tenant === "Roberto del Barrio Pizarro"){
            tenant = 1;
          }
          else{
@@ -184,10 +183,11 @@ class FormComponent extends React.Component{
             resolve(store.dispatch(handlePostUser(user)))
           });
           promise.then(
-              this.setState({
-                successPOST:true
-              })
+            store.dispatch(handleGetUsers())
           );
+
+       
+          this.props.successPOST(true);   
      }
 
 
@@ -246,7 +246,7 @@ class FormComponent extends React.Component{
             className={classes.textField}
             onChange={this.handleChange}
           />
-        {this.state.handleCreateUser==true?
+        {this.state.handleCreateUser?
          <div id="textFieldsPassword">
          <TextField
             id="password"
@@ -295,9 +295,9 @@ class FormComponent extends React.Component{
        
 
           <div className="iconsCrud">
-             <i class="fal fa-table" onClick={this.handleGETUsers}></i>
-         </div>
-                 {this.state.warning==true?<Warning></Warning>:''} 
+             <i class="fas fa-users" onClick={this.handleGETUsers}></i>
+          </div>
+                 {this.state.warning?<Warning></Warning>:''} 
           </div>         
           
      

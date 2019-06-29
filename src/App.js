@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import store from './store/store';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from './modules/header/components/header.component';
-import Footer from './modules/footer/components/footer.component';
 import Notification from './modules/notifications/components/notification.component';
 import ClinicPage from "./pages/Clinic"
 import ServicesPage from './pages/Services';
@@ -66,7 +65,7 @@ class App extends Component {
       {this.state.success ? <Success></Success>:''}
       {this.state.success ? <HomePage></HomePage>:''} 
       {this.state.showLogin ? <LoginPage></LoginPage>:''} 
-      {this.state.error==true && !this.state.success ? <Error handleLogin={this.handleLogin}></Error>:''}
+      {this.state.error && !this.state.success ? <Error handleLogin={this.handleLogin}></Error>:''}
          
         <Route path="/" component={LoginPage} />
         <Route path="/user" component={UserPage} />

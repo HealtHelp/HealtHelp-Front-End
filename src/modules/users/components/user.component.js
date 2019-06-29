@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FormComponent from '../components/form.component';
-
+import SuccessPOSTUser from '../../snackbars/components/sucessPOSTUser.component';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -55,16 +55,32 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
+      successPOST:null
     }
-    this.rows = [];
-    store.dispatch(handleGetUsers())
+    this.rows = [];  
    };
    
 
   
    componentWillMount(){
     console.log("componentWillMount")
+   
+   
+  
+
     window.scrollTo(0, 0);
+
+    let promise = new Promise(function(resolve){
+      resolve(
+        store.dispatch(handleGetUsers())
+      )
+    });
+    promise.then(
+      store.subscribe(() => {
+        this.rows = store.getState().users.data._embedded.userDToes  
+    }) 
+    ); 
+
   }
 
   componentDidMount(){
@@ -74,19 +90,25 @@ class UserTable extends React.Component {
 
   componentWillReceiveProps(){
     console.log("componentWillReceiveProps")
-    this.handleRows();
+    this.renderTable();
   } 
 
-  
   renderTable() {
     console.log("renderTable",this.props.data.data)
     if(this.props.data.data.length === 0){
       return []
     }
     else{
-      let users = this.props.data.data._embedded.userDToes;
-      const rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant))
-      return rows;
+      if(this.props.data.data._embedded === undefined){
+        return [];
+      }
+      else{
+        let users = this.props.data.data._embedded.userDToes;
+        console.log("users: ",users);
+        this.rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
+        return this.rows;
+      }
+     
     }        
   }
 
@@ -119,14 +141,14 @@ class UserTable extends React.Component {
   }
 
   
+  successPOST = (value) =>{
+     this.setState({
+       successPOST:value
+     })
+  }
 
 
-
-  handleRows = () => {
-    console.log("handleRows");
-    this.rows = this.renderTable();
-    console.log(this.rows);
-  } 
+ 
 
   
 
@@ -136,12 +158,11 @@ class UserTable extends React.Component {
 
     const dimension = this.renderDimension();
     const classes = useStyles;
-    
-    //this.rows = this.renderTable();
+   
    
     return (
       <div className="tableUsers">
-        {dimension==true?
+        {dimension === true?
            <Paper className={classes.root}>
            <Table className={classes.table}>
              <TableHead>
@@ -196,8 +217,14 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent></FormComponent>
-         
+          <FormComponent successPOST={this.successPOST}></FormComponent>
+          {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
+         {/*  {this.state.successPOST?
+                  this.setState({
+                         successPOST:false
+                  })
+                  : ''
+          } */}
       </div>
       
     );
