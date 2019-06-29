@@ -185,8 +185,6 @@ class FormComponent extends React.Component{
           promise.then(
             store.dispatch(handleGetUsers())
           );
-
-       
           this.props.successPOST(true);   
      }
 
@@ -203,6 +201,7 @@ class FormComponent extends React.Component{
               successGET:true
             })
         );
+        this.props.successPOST(false);  
        }
 
 
