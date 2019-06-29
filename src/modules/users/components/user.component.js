@@ -63,13 +63,7 @@ class UserTable extends React.Component {
 
   
    componentWillMount(){
-    console.log("componentWillMount")
-   
-   
-  
-
     window.scrollTo(0, 0);
-
     let promise = new Promise(function(resolve){
       resolve(
         store.dispatch(handleGetUsers())
@@ -80,21 +74,14 @@ class UserTable extends React.Component {
         this.rows = store.getState().users.data._embedded.userDToes  
     }) 
     ); 
-
   }
 
-  componentDidMount(){
-    console.log("componentDidMount")
-    
-  }
 
   componentWillReceiveProps(){
-    console.log("componentWillReceiveProps")
     this.renderTable();
   } 
 
   renderTable() {
-    console.log("renderTable",this.props.data.data)
     if(this.props.data.data.length === 0){
       return []
     }
@@ -104,7 +91,6 @@ class UserTable extends React.Component {
       }
       else{
         let users = this.props.data.data._embedded.userDToes;
-        console.log("users: ",users);
         this.rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
         return this.rows;
       }
@@ -219,12 +205,7 @@ class UserTable extends React.Component {
 
           <FormComponent successPOST={this.successPOST}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
-         {/*  {this.state.successPOST?
-                  this.setState({
-                         successPOST:false
-                  })
-                  : ''
-          } */}
+       
       </div>
       
     );

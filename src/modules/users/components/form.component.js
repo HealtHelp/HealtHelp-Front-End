@@ -5,6 +5,8 @@ import {handleGetUsers, handlePostUser} from '../actions/user.actions';
 import TextField from '@material-ui/core/TextField';
 import Warning from '../../snackbars/components/warning.component';
 
+const crypto = require('crypto');
+
 const useStyles = {
     root: {
         width: '100%',
@@ -46,13 +48,9 @@ class FormComponent extends React.Component{
       }
       
       handleDisabled = () =>{
-        let username = document.getElementById("username").value;
-        let email = document.getElementById("email").value;
-        let profile = document.getElementById("profile").value;
-        let tenant = document.getElementById("tenant").value;
-        let password = document.getElementById("password").value;
-        let repitpassword = document.getElementById("repitpassword").value;
-        if(username && email && profile && tenant && password && repitpassword ){
+        const user = this.inputsValues();
+        console.log(user)
+        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword){
           return false;
         }
         else{
@@ -61,33 +59,44 @@ class FormComponent extends React.Component{
       }
 
 
-
+     cleanInputs = () => {
+      document.getElementById("username").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("profile").value = "";
+      document.getElementById("tenant").value = "";
+     } 
     
+     inputsValues = () => {
+      let username = document.getElementById("username").value;
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let repitpassword = document.getElementById("repitpassword").value;
+      let profileName = document.getElementById("profile").value;
+      let tenantName = document.getElementById("tenant").value;
+      const user = {
+        username:username,
+        email:email,
+        password:password,
+        repitpassword:repitpassword,
+        profileName:profileName,
+        tenantName:tenantName
+      }
+      return user;
+     }
     
       handleNewUser = () =>{
-        document.getElementById("username").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("profile").value = "";
-        document.getElementById("tenant").value = "";
+        this.cleanInputs();
         this.setState({
           handleCreateUser:true,
           handleIconsPUT:false
         });
-        {this.state.handleIconsPOST?
-          this.setState({
-            handleIconsPOST:false,
-          })
-          : 
-          this.setState({handleIconsPOST:true})
-        }
+        {this.state.handleIconsPOST?this.setState({handleIconsPOST:false}): this.setState({handleIconsPOST:true})}
       }
+
+
       
       handleCreateUser = () =>{ 
-        {this.state.handleCreateUser?
-          this.setState({handleCreateUser:false})
-          :
-          this.setState({handleCreateUser:true});
-        }
+        {this.state.handleCreateUser?this.setState({handleCreateUser:false}):this.setState({handleCreateUser:true});}
       }
     
       handleUpdateUser = () =>{
@@ -95,12 +104,7 @@ class FormComponent extends React.Component{
           handleIconsPUT:true,
           handleIconsPOST:false
         })
-       {this.state.handleIconsPUT?
-          this.setState({
-            handleIconsPUT:false})
-          :
-          this.setState({handleIconsPUT:true});
-        } 
+       {this.state.handleIconsPUT?this.setState({handleIconsPUT:false}):this.setState({handleIconsPUT:true});} 
       }
     
       handleUpdateUser(){
@@ -117,7 +121,7 @@ class FormComponent extends React.Component{
       }
 
 
-
+   
       checkProfile = (profile) =>{
         if(profile === "ADMIN"){
           profile = 1;
@@ -141,7 +145,11 @@ class FormComponent extends React.Component{
          return tenant;
        }
 
+
+
+
        handlePOSTUser = (event) => { 
+         console.log("handlePOSTUser")
         event.preventDefault();
         this.setState(function(){
           return {
@@ -149,37 +157,43 @@ class FormComponent extends React.Component{
           } 
         },  () => {
           //after callback
-          let username = document.getElementById("username").value;
-          let email = document.getElementById("email").value;
-          let password = document.getElementById("password").value;
-          let repitpassword = document.getElementById("repitpassword").value;
+          const user = this.inputsValues();  
+          let email = user.email;
           const check = this.validateEmail(email);
-          if((password !== repitpassword) || !check){
+          console.log("user.password: ",user.password)
+          if((user.password !== user.repitpassword) || !check){
             this.setState({warning:true});
           }
           else{
-            let profileName = document.getElementById("profile").value;
-            let tenantName = document.getElementById("tenant").value;
-            const profile = this.checkProfile(profileName);
-            const tenant =  this.checkTenant(tenantName);
-            const id = Math.floor(Math.random() * 100) + 1  
-            const user = {
+            const user = this.inputsValues(); 
+            const profile = this.checkProfile(user.profileName);
+            const tenant =  this.checkTenant(user.tenantName);
+            const id = Math.floor(Math.random() * 1000000) + 1  
+            const userValues = {
               id:id,
-              username:username,
-              email:email,
-              profileId:profile,
-              tenantId:tenant,
-              password:password
+              username: user.username,
+              email: email,
+              profileId: profile,
+              tenantId: tenant,
+              password: user.password
             }
-            this.handleDispatchPOST(user)
+            this.handleDispatchPOST(userValues)
+            this.cleanInputs();
+            document.getElementById("password").value="";
+            document.getElementById("repitpassword").value="";
             }
         });
       }
 
 
+      UUIDGeneratorNode = () =>
+      ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)
+      );
+
+
       handleDispatchPOST = (user) => {
         let promise = new Promise(function(resolve){
-            console.log("resolve: handleDispatchPOST")
             resolve(store.dispatch(handlePostUser(user)))
           });
           promise.then(
@@ -193,7 +207,6 @@ class FormComponent extends React.Component{
      handleGETUsers = (event) => {
         event.preventDefault();
         let promise = new Promise(function(resolve){
-            console.log("resolve: handleGETUsers")
           resolve(store.dispatch(handleGetUsers()))
         });
         promise.then(
@@ -210,7 +223,7 @@ class FormComponent extends React.Component{
       }
 
     render(){
-
+        console.log(this.state.disabled)
         const classes = useStyles;
 
         return(
@@ -270,7 +283,7 @@ class FormComponent extends React.Component{
         
         {this.state.handleIconsPOST?
         <div className="iconsPOST">
-          <button className="buttonUserComponent"  type="submit"  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
+          <button className="buttonUserComponent"  type="submit" onClick={this.handlePOSTUser}  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
         </div>
         : ''
         } 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import store from './store/store';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Header from './modules/header/components/header.component';
 import Notification from './modules/notifications/components/notification.component';
 import ClinicPage from "./pages/Clinic"
@@ -14,6 +14,7 @@ import UserPage from './pages/User';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
+
 
 class App extends Component {
   constructor(props){
@@ -34,6 +35,13 @@ class App extends Component {
     });
   }
 
+ 
+  ProtectedComponent = () => {
+    console.log("Protected component")
+       return <Redirect to='/'  />
+   } 
+ 
+
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
   } 
@@ -52,10 +60,13 @@ class App extends Component {
     })
   }
   
+
   
+
 
   
    render() { 
+    
     return (
       <Router>
       <div className="App">
@@ -75,9 +86,13 @@ class App extends Component {
         <Route path="/appointment" component={AppointmentPage} />
         <Route path="/contact" component={ContactPage} />
 
-      
+        
+
+       
       </div>
+      {window.onload=this.ProtectedComponent}
        </Router> 
+       
     );
   } 
   
