@@ -98,9 +98,6 @@ class PrimarySearchAppBar extends React.Component {
   };
 
 
-
-  
- 
   handleTab = () =>{
     this.state.showNav? this.setState({showNav : false}):this.setState({showNav : true}) 
     this.props.handleTab(this.state.showNav);
@@ -108,9 +105,7 @@ class PrimarySearchAppBar extends React.Component {
   render() {
    
     const { classes } = this.props;
-    
-
-    
+      
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -124,10 +119,11 @@ class PrimarySearchAppBar extends React.Component {
            
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-            </div>
-        
+               
+            </div> 
           </Toolbar>
         </AppBar>
+        
       </div>
     );
   }

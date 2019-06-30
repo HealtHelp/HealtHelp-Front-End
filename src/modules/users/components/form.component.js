@@ -49,7 +49,6 @@ class FormComponent extends React.Component{
       
       handleDisabled = () =>{
         const user = this.inputsValues();
-        console.log(user)
         if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword){
           return false;
         }
@@ -149,7 +148,6 @@ class FormComponent extends React.Component{
 
 
        handlePOSTUser = (event) => { 
-         console.log("handlePOSTUser")
         event.preventDefault();
         this.setState(function(){
           return {
@@ -160,7 +158,6 @@ class FormComponent extends React.Component{
           const user = this.inputsValues();  
           let email = user.email;
           const check = this.validateEmail(email);
-          console.log("user.password: ",user.password)
           if((user.password !== user.repitpassword) || !check){
             this.setState({warning:true});
           }
@@ -168,7 +165,7 @@ class FormComponent extends React.Component{
             const user = this.inputsValues(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
-            const id = Math.floor(Math.random() * 1000000) + 1  
+            const id = Math.floor(Math.random() * 100000) + 1  
             const userValues = {
               id:id,
               username: user.username,
@@ -185,6 +182,45 @@ class FormComponent extends React.Component{
         });
       }
 
+
+      handlePUTTUser = (event) => {
+        console.log("handlePUTUser")
+        event.preventDefault();
+      
+        this.setState(function(){
+          return {
+             warning: false
+          } 
+        },  () => {
+          //after callback
+          const user = this.inputsValues();  
+          console.log(user)
+          let email = user.email;
+          const check = this.validateEmail(email);
+          if((user.password !== user.repitpassword) || !check){
+            this.setState({warning:true});
+          }
+          else{
+            const user = this.inputsValues(); 
+            const profile = this.checkProfile(user.profileName);
+            const tenant =  this.checkTenant(user.tenantName);
+            const id = this.props.handleId;
+            console.log(id)  
+            const userValues = {
+              id:id,
+              username: user.username,
+              email: email,
+              profileId: profile,
+              tenantId: tenant,
+              password: user.password
+            }
+            console.log(userValues)
+            this.cleanInputs();
+            document.getElementById("password").value="";
+            document.getElementById("repitpassword").value="";
+            }
+        });
+      }
 
       UUIDGeneratorNode = () =>
       ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
@@ -204,7 +240,7 @@ class FormComponent extends React.Component{
 
 
         
-     handleGETUsers = (event) => {
+     handleDispatchGET = (event) => {
         event.preventDefault();
         let promise = new Promise(function(resolve){
           resolve(store.dispatch(handleGetUsers()))
@@ -223,7 +259,6 @@ class FormComponent extends React.Component{
       }
 
     render(){
-        console.log(this.state.disabled)
         const classes = useStyles;
 
         return(
@@ -290,7 +325,7 @@ class FormComponent extends React.Component{
 
         {this.state.handleIconsPUT?
         <div className="iconsPUT">
-          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit" onClick={this.handlePUTUser}></i></button>
+          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit"></i></button>
         </div>
         : ''
         } 
@@ -302,13 +337,15 @@ class FormComponent extends React.Component{
             <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
             <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
           </div>
-   
+
+
+          <div className="iconsCrud">
+             <i class="fas fa-users" onClick={this.handleDispatchGET}></i>
+          </div>
           </form>
        
 
-          <div className="iconsCrud">
-             <i class="fas fa-users" onClick={this.handleGETUsers}></i>
-          </div>
+         
                  {this.state.warning?<Warning></Warning>:''} 
           </div>         
           

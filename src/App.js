@@ -35,12 +35,7 @@ class App extends Component {
     });
   }
 
- 
-  ProtectedComponent = () => {
-    console.log("Protected component")
-       return <Redirect to='/'  />
-   } 
- 
+
 
   handleTab = (showNav) =>{
     this.setState({showNav:showNav})
@@ -90,7 +85,7 @@ class App extends Component {
 
        
       </div>
-      {window.onload=this.ProtectedComponent}
+      {window.onload=<Redirect to="/"  />}
        </Router> 
        
     );

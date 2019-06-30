@@ -108,7 +108,7 @@ class SuccessSnackbars extends React.Component {
           <MySnackbarContentWrapper
             onClose={this.handleClose}
             variant="success"
-            message="User introduced to the HealtHelp system !!"
+            message="User introduced to the HealtHelp system!!"
           />
         </Snackbar>
       

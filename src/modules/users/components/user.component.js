@@ -86,10 +86,10 @@ class UserTable extends React.Component {
       return []
     }
     else{
-      if(this.props.data.data._embedded === undefined){
-        return [];
-      }
-      else{
+       if(this.props.data.data._embedded === undefined){
+         return [];
+       }
+       else{
         let users = this.props.data.data._embedded.userDToes;
         this.rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
         return this.rows;
@@ -134,7 +134,11 @@ class UserTable extends React.Component {
   }
 
 
- 
+  handleId(){
+    const  id = document.getElementById("usernamrId").value;
+    console.log(id);
+    return id;
+  }
 
   
 
@@ -144,8 +148,6 @@ class UserTable extends React.Component {
 
     const dimension = this.renderDimension();
     const classes = useStyles;
-   
-   
     return (
       <div className="tableUsers">
         {dimension === true?
@@ -175,7 +177,8 @@ class UserTable extends React.Component {
            <Table className={classes.table}>
              <TableHead>
                <TableRow>
-                 <StyledTableCell>Username</StyledTableCell>
+                 <StyledTableCell>Id</StyledTableCell>
+                 <StyledTableCell align="right">Username</StyledTableCell>
                  <StyledTableCell align="right">Email</StyledTableCell>
                  <StyledTableCell align="right">Profile</StyledTableCell>
                  <StyledTableCell align="right">Tenant</StyledTableCell>
@@ -183,7 +186,10 @@ class UserTable extends React.Component {
              </TableHead>
              <TableBody>
                {this.rows.map(row => (
-                 <StyledTableRow key={row.name}>
+                 <StyledTableRow key={row.name} onChange={this.handleId}>
+                   <StyledTableCell  component="th" scope="row" id="usernameId">
+                     {row.Id}
+                   </StyledTableCell>
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
                    </StyledTableCell>
@@ -203,7 +209,7 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent successPOST={this.successPOST}></FormComponent>
+          <FormComponent successPOST={this.successPOST} handleId={this.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
        
       </div>
