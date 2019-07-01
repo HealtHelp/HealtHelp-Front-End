@@ -204,6 +204,7 @@ class FormComponent extends React.Component{
             const user = this.inputsValues(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
+            console.log(this.props)
             const id = this.props.handleId;
             console.log(id)  
             const userValues = {
