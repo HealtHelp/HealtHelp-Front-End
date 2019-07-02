@@ -5,6 +5,9 @@ import {URL_GET_USERS } from '../../constants/constants';
 import {SET_HANDLE_POST_USER} from '../types/types';
 import {SET_HANDLE_POST_USER_ERROR} from '../../notifications/types/types';
 import {URL_POST_USER} from '../../constants/constants';
+import {URL_PUT_USER} from '../../constants/constants';
+import {SET_HANDLE_PUT_USER} from '../types/types';
+import {SET_HANDLE_PUT_USER_ERROR} from '../../notifications/types/types';
 
 let token = localStorage.getItem("jwt");
 const  HEADERS = {
@@ -42,6 +45,24 @@ export const handlePostUser = (user) =>  dispatch => {
     .catch((err) =>{
         return dispatch({
             type: SET_HANDLE_POST_USER_ERROR,
+            error:true
+        })
+    })   
+    
+}
+
+
+export const handlePutUser = (user) =>  dispatch => {
+    axios.put(URL_PUT_USER,user,HEADERS)
+    .then((res) => {
+        return dispatch({
+            type: SET_HANDLE_PUT_USER,
+            resp: res.data
+        })
+    })
+    .catch((err) =>{
+        return dispatch({
+            type: SET_HANDLE_PUT_USER_ERROR,
             error:true
         })
     })   

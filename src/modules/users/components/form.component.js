@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
-import {handleGetUsers, handlePostUser} from '../actions/user.actions';
+import {handleGetUsers, handlePostUser,handlePutUser} from '../actions/user.actions';
 import TextField from '@material-ui/core/TextField';
 import Warning from '../../snackbars/components/warning.component';
+import DataOk from '../../snackbars/components/dataOk.component';
 
 const crypto = require('crypto');
 
@@ -37,7 +38,8 @@ class FormComponent extends React.Component{
           handleIconsPUT:false,
           warning:false,
           disabled:true,
-          successGET:false
+          successGET:false,
+          dataOk:false
         }
         this.rows = [];
        };
@@ -48,13 +50,14 @@ class FormComponent extends React.Component{
       }
       
       handleDisabled = () =>{
-        const id = this.props.handleId;
-        console.log(id);
+        //const id = this.props.handleId;
         const user = this.inputsValues();
-        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && id != null){
+        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword){
+          this.setState({dataOk:true})
           return false;
         }
         else{
+          this.setState({dataOk:false})
           return true;
         }
       }
@@ -103,14 +106,13 @@ class FormComponent extends React.Component{
       handleUpdateUser = () =>{
         this.setState({
           handleIconsPUT:true,
-          handleIconsPOST:false
+          handleIconsPOST:false,
+          handleCreateUser:true
         })
        {this.state.handleIconsPUT?this.setState({handleIconsPUT:false}):this.setState({handleIconsPUT:true});} 
       }
     
-      handleUpdateUser(){
-        alert("handleUpdateUser")
-      }
+
     
       handleDeleteUser(){
         alert("handleDeleteUser")
@@ -185,10 +187,8 @@ class FormComponent extends React.Component{
       }
 
 
-      handlePUTTUser = (event) => {
-        console.log("handlePUTUser")
+      handlePUTUser = (event) => {
         event.preventDefault();
-      
         this.setState(function(){
           return {
              warning: false
@@ -196,7 +196,6 @@ class FormComponent extends React.Component{
         },  () => {
           //after callback
           const user = this.inputsValues();  
-          console.log(user)
           let email = user.email;
           const check = this.validateEmail(email);
           if((user.password !== user.repitpassword) || !check){
@@ -206,9 +205,7 @@ class FormComponent extends React.Component{
             const user = this.inputsValues(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
-            console.log(this.props)
             const id = this.props.handleId;
-            console.log(id)  
             const userValues = {
               id:id,
               username: user.username,
@@ -217,7 +214,7 @@ class FormComponent extends React.Component{
               tenantId: tenant,
               password: user.password
             }
-            console.log(userValues)
+            this.handleDispatchPUT(userValues)
             this.cleanInputs();
             document.getElementById("password").value="";
             document.getElementById("repitpassword").value="";
@@ -241,6 +238,15 @@ class FormComponent extends React.Component{
           this.props.successPOST(true);   
      }
 
+     handleDispatchPUT = (user) => {
+      let promise = new Promise(function(resolve){
+        resolve(store.dispatch(handlePutUser(user)))
+      });
+      promise.then(
+        store.dispatch(handleGetUsers())
+      );
+      this.props.successPUT(true);   
+     }
 
         
      handleDispatchGET = (event) => {
@@ -253,13 +259,12 @@ class FormComponent extends React.Component{
               successGET:true
             })
         );
-        this.props.successPOST(false);  
+        this.props.successPOST(false);
+        this.props.successPUT(false);    
        }
 
 
-       handlePUTUser(){
-        alert("handlePUTUser")
-      }
+      
 
     render(){
         const classes = useStyles;
@@ -328,7 +333,7 @@ class FormComponent extends React.Component{
 
         {this.state.handleIconsPUT?
         <div className="iconsPUT">
-          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTTUser} disabled={this.state.disabled}><i class="fas fa-user-edit"></i></button>
+          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTUser} disabled={this.state.disabled}><i class="fas fa-user-edit"></i></button>
         </div>
         : ''
         } 
@@ -350,6 +355,7 @@ class FormComponent extends React.Component{
 
          
                  {this.state.warning?<Warning></Warning>:''} 
+                 {this.state.dataOk?<DataOk></DataOk>:''}
           </div>         
           
      

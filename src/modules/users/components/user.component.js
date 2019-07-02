@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FormComponent from '../components/form.component';
 import SuccessPOSTUser from '../../snackbars/components/sucessPOSTUser.component';
+import SuccessPUTUser from '../../snackbars/components/successPUTUser.component';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -56,6 +57,7 @@ class UserTable extends React.Component {
     this.state = {
       data:[],
       successPOST:null,
+      successPUT:null,
       handleId:null
     }
     this.rows = [];  
@@ -144,10 +146,13 @@ class UserTable extends React.Component {
      })
   }
 
+  successPUT = (value) =>{
+    this.setState({
+      successPUT:value
+    })
+  }
 
- 
 
- 
    
   render(){
 
@@ -214,9 +219,9 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent successPOST={this.successPOST} handleId={this.state.handleId}></FormComponent>
+          <FormComponent successPOST={this.successPOST} successPUT={this.successPUT} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
-       
+          {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
       </div>
       
     );
