@@ -65,9 +65,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
             <Button color="primary" onClick={this.handleLogin}>
               Send
             </Button>

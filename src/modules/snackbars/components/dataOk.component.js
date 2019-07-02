@@ -104,7 +104,7 @@ class SuccessSnackbars extends React.Component {
           <MySnackbarContentWrapper
             variant="info"
             className={classes.margin}
-            message="Completed Data!"
+            message="Completed Data! Make sure to click on the rows!!"
           />
         </Snackbar>
       

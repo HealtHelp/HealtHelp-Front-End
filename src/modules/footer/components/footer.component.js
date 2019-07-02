@@ -1,61 +1,20 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
+import React from 'react';
 
-const styles = theme => ({
-  text: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-  },
-  paper: {
-    paddingBottom: 50,
-  },
-  list: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-  subHeader: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-  },
-  toolbar: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  fabButton: {
-    position: 'absolute',
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: '0 auto',
-  },
-});
+class Footer extends React.Component {
+    constructor(props){
+      super(props);
+    }
 
+    render(){
+      return(
+        <div className="footer">
+          <footer>
+            <a href="https://github.com/HealtHelp/" target="_blank"><p>&copy; 2019 HealtHelp Organization.</p></a>                                                                                  
+          </footer>
+        </div>
+      );
 
-
-function BottomAppBar(props) {
-  const { classes } = props;
-  return (
-    <Fragment>
-      <CssBaseline />
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-        </Toolbar>
-      </AppBar>
-    </Fragment>
-  );
+    }
 }
 
-BottomAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(BottomAppBar);
-
+export default Footer;

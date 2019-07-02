@@ -82,7 +82,7 @@ class App extends Component {
         <Route path="/contact" component={ContactPage} />
 
         
-
+      
        
       </div>
       {window.onload=<Redirect to="/"  />}

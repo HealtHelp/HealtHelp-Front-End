@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import FormComponent from '../components/form.component';
 import SuccessPOSTUser from '../../snackbars/components/sucessPOSTUser.component';
 import SuccessPUTUser from '../../snackbars/components/successPUTUser.component';
+import Footer from '../../footer/components/footer.component';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -222,6 +223,7 @@ class UserTable extends React.Component {
           <FormComponent successPOST={this.successPOST} successPUT={this.successPUT} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
           {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
+          <Footer></Footer>
       </div>
       
     );
