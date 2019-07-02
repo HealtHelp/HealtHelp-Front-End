@@ -50,9 +50,9 @@ class FormComponent extends React.Component{
       }
       
       handleDisabled = () =>{
-        //const id = this.props.handleId;
+        const id = this.props.handleId;
         const user = this.inputsValues();
-        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword){
+        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && id != null){
           this.setState({dataOk:true})
           return false;
         }

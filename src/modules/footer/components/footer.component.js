@@ -9,7 +9,7 @@ class Footer extends React.Component {
       return(
         <div className="footer">
           <footer>
-            <a href="https://github.com/HealtHelp/" target="_blank"><p>&copy; 2019 HealtHelp Organization.</p></a>                                                                                  
+            <a href="https://github.com/HealtHelp/" target="_blank"><p>&copy; 2019 HealtHelp Organization</p></a>                                                                                  
           </footer>
         </div>
       );
