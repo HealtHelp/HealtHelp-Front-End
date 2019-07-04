@@ -189,10 +189,10 @@ class UserTable extends React.Component {
              <TableHead>
                <TableRow>
                  <StyledTableCell>Id</StyledTableCell>
-                 <StyledTableCell align="right">Username</StyledTableCell>
-                 <StyledTableCell align="right">Email</StyledTableCell>
+                 <StyledTableCell>Username</StyledTableCell>
+                 <StyledTableCell align="center">Email</StyledTableCell>
                  <StyledTableCell align="right">Profile</StyledTableCell>
-                 <StyledTableCell align="right">Tenant</StyledTableCell>
+                 <StyledTableCell align="center">Tenant</StyledTableCell>
                </TableRow>
              </TableHead>
              <TableBody >
@@ -204,13 +204,13 @@ class UserTable extends React.Component {
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
                    </StyledTableCell>
-                   <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
+                   <StyledTableCell align="center" id="emailTable" onClick={this.handleClickEmail}>
                    {row.Email}
                    </StyledTableCell>
                    <StyledTableCell align="right" id="profileTable" onClick={this.handleClickProfile} >
                    {row.Profile}
                    </StyledTableCell>
-                   <StyledTableCell align="right" id="tenantTable" onClick={this.handleClickTenant}>
+                   <StyledTableCell align="center" id="tenantTable" onClick={this.handleClickTenant}>
                    {row.Tenant}
                    </StyledTableCell>
                  </StyledTableRow>
