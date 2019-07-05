@@ -224,6 +224,8 @@ class FormComponent extends React.Component{
         const userId = this.props.handleId;
         this.handleDispatchDELETE(userId);
         this.cleanInputs();
+        document.getElementById("password").value="";
+        document.getElementById("repitpassword").value="";
       }
 
       UUIDGeneratorNode = () =>
