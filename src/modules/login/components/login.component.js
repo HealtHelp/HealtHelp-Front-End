@@ -65,9 +65,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
             />
           </DialogContent>
           <DialogActions>
+            <div className="buttonLogin">
             <Button color="primary" onClick={this.handleLogin}>
               Send
             </Button>
+            </div>
           </DialogActions>
         </Dialog>
        
