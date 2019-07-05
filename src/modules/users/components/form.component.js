@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
-import {handleGetUsers, handlePostUser,handlePutUser} from '../actions/user.actions';
+import {handleGetUsers, handlePostUser,handlePutUser,handleDeleteUser} from '../actions/user.actions';
 import TextField from '@material-ui/core/TextField';
 import Warning from '../../snackbars/components/warning.component';
 import DataOk from '../../snackbars/components/dataOk.component';
@@ -99,11 +99,11 @@ class FormComponent extends React.Component{
 
 
       
-      handleCreateUser = () =>{ 
+      handleCreateUser = () => { 
         {this.state.handleCreateUser?this.setState({handleCreateUser:false}):this.setState({handleCreateUser:true});}
       }
     
-      handleUpdateUser = () =>{
+      handleUpdateUser = () => {
         this.setState({
           handleIconsPUT:true,
           handleIconsPOST:false,
@@ -111,12 +111,8 @@ class FormComponent extends React.Component{
         })
        {this.state.handleIconsPUT?this.setState({handleIconsPUT:false}):this.setState({handleIconsPUT:true});} 
       }
+ 
     
-
-    
-      handleDeleteUser(){
-        alert("handleDeleteUser")
-      }
 
       validateEmail(email){
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -222,6 +218,14 @@ class FormComponent extends React.Component{
         });
       }
 
+
+      handleDeletedUser = (event) => {
+        event.preventDefault();
+        const userId = this.props.handleId;
+        this.handleDispatchDELETE(userId);
+        this.cleanInputs();
+      }
+
       UUIDGeneratorNode = () =>
       ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)
@@ -261,6 +265,21 @@ class FormComponent extends React.Component{
         );
         this.props.successPOST(false);
         this.props.successPUT(false);    
+        this.props.successDELETE(false);
+       }
+
+       handleDispatchDELETE = (userId) => {
+         let promise = new Promise(function(resolve){
+          resolve(store.dispatch(handleDeleteUser(userId)))
+        });
+        promise.then(
+            this.setState({
+              successDELETE:true
+            })
+        );
+        this.props.successDELETE(true);
+        this.props.successPOST(false);
+        this.props.successPUT(false);  
        }
 
 
@@ -343,7 +362,7 @@ class FormComponent extends React.Component{
             <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
             <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
             <i class="fas fa-pen-alt" onClick={this.handleUpdateUser}></i>
-            <i class="fas fa-trash" onClick={this.handleDeleteUser}></i>
+            <i class="fas fa-trash" onClick={this.handleDeletedUser}></i>
           </div>
 
 

@@ -8,6 +8,9 @@ import {URL_POST_USER} from '../../constants/constants';
 import {URL_PUT_USER} from '../../constants/constants';
 import {SET_HANDLE_PUT_USER} from '../types/types';
 import {SET_HANDLE_PUT_USER_ERROR} from '../../notifications/types/types';
+import {SET_HANDLE_DELETE_USER} from '../types/types';
+import {SET_HANDLE_DELETE_USER_ERROR} from '../../notifications/types/types';
+import {URL_DELETE_USER} from '../../constants/constants';
 
 let token = localStorage.getItem("jwt");
 const  HEADERS = {
@@ -67,4 +70,23 @@ export const handlePutUser = (user) =>  dispatch => {
         })
     })   
     
+}
+
+
+export const handleDeleteUser = (userId) => dispatch => {
+    const URL = URL_DELETE_USER+userId;
+    console.log(URL);
+    axios.delete(URL,HEADERS)
+    .then((res) => {
+        return dispatch({
+            type: SET_HANDLE_DELETE_USER,
+            resp: res.data
+        })
+    })
+    .catch((err) =>{
+        return dispatch({
+            type: SET_HANDLE_DELETE_USER_ERROR,
+            error:true
+        })
+    })   
 }

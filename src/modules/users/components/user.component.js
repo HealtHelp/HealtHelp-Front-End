@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import FormComponent from '../components/form.component';
 import SuccessPOSTUser from '../../snackbars/components/sucessPOSTUser.component';
 import SuccessPUTUser from '../../snackbars/components/successPUTUser.component';
+import SuccessDELETEUser from '../../snackbars/components/successDELETEUser.component';
 import Footer from '../../footer/components/footer.component';
 
 const StyledTableCell = withStyles(theme => ({
@@ -59,6 +60,7 @@ class UserTable extends React.Component {
       data:[],
       successPOST:null,
       successPUT:null,
+      successDELETE:null,
       handleId:null
     }
     this.rows = [];  
@@ -153,6 +155,13 @@ class UserTable extends React.Component {
     })
   }
 
+  successDELETE = (value) =>{
+    console.log("successDELETE")
+    this.setState({
+      successDELETE:value
+    })
+  }
+
 
    
   render(){
@@ -220,9 +229,10 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent successPOST={this.successPOST} successPUT={this.successPUT} handleId={this.state.handleId}></FormComponent>
+          <FormComponent successPOST={this.successPOST} successPUT={this.successPUT} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
           {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
+          {this.state.successDELETE?<SuccessDELETEUser></SuccessDELETEUser>:''}
           <Footer></Footer>
       </div>
       
