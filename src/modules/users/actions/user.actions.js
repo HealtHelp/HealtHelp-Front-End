@@ -42,7 +42,8 @@ export const handlePostUser = (user) =>  dispatch => {
     .then((res) => {
         return dispatch({
             type: SET_HANDLE_POST_USER,
-            resp: res.data
+            resp: res.data,
+            error:false
         })
     })
     .catch((err) =>{
@@ -60,7 +61,8 @@ export const handlePutUser = (user) =>  dispatch => {
     .then((res) => {
         return dispatch({
             type: SET_HANDLE_PUT_USER,
-            resp: res.data
+            resp: res.data,
+            error: false
         })
     })
     .catch((err) =>{

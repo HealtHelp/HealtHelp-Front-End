@@ -59,20 +59,19 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
-      successPOST:null,
       successPUT:null,
       successDELETE:null,
       handleId:null,
-      errorPOST:null
+      errorPOST:null,
+      successPOST:null
     }
     this.rows = [];  
 
     store.subscribe(() => {
       this.setState({
-        errorPOST : store.getState().users.error
-        
+        errorPOST : store.getState().notification.userPOST,
+        successPOST : store.getState().users.successPOST
       });
-       
     });
    };
    
@@ -88,8 +87,9 @@ class UserTable extends React.Component {
     promise.then(
       store.subscribe(() => {
         this.rows = store.getState().users.data._embedded.userDToes  
-    }) 
+    })
     ); 
+   
   }
 
 
@@ -152,13 +152,8 @@ class UserTable extends React.Component {
    ); 
    }
 
-  
-  successPOST = (value) =>{
-     this.setState({
-       successPOST:value
-     })
-  }
-
+ 
+ 
   successPUT = (value) =>{
     this.setState({
       successPUT:value
@@ -174,7 +169,6 @@ class UserTable extends React.Component {
 
    
   render(){
-
     const dimension = this.renderDimension();
     const classes = useStyles;
     return (
@@ -238,18 +232,15 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent successPOST={this.successPOST} successPUT={this.successPUT} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
+          <FormComponent successPUT={this.successPUT} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
           {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
           {this.state.successDELETE?<SuccessDELETEUser></SuccessDELETEUser>:''}
           {this.state.errorPOST?<ErrorPOST></ErrorPOST>:''}
           <Footer></Footer>
       </div>
-      
     );
-   
   }  
- 
 }
 
  const mapStateToProps = (state) =>{

@@ -233,14 +233,7 @@ class FormComponent extends React.Component{
 
 
       handleDispatchPOST = (user) => {
-        let promise = new Promise(function(resolve){
-            resolve(store.dispatch(handlePostUser(user)))
-          });
-          promise.then(
-           // store.dispatch(handleGetUsers())
-           this.props.successPOST(true)
-          );
-          //this.props.successPOST(true)
+        store.dispatch(handlePostUser(user))
      }
 
      handleDispatchPUT = (user) => {
@@ -250,7 +243,8 @@ class FormComponent extends React.Component{
       promise.then(
         store.dispatch(handleGetUsers())
       );
-      this.props.successPUT(true);   
+      this.props.successPUT(true); 
+    
      }
 
         
@@ -260,13 +254,10 @@ class FormComponent extends React.Component{
           resolve(store.dispatch(handleGetUsers()))
         });
         promise.then(
-            this.setState({
-              successGET:true
-            })
+            this.props.successPUT(false),
+            this.props.successDELETE(false),     
         );
-        this.props.successPOST(false);
-        this.props.successPUT(false);    
-        this.props.successDELETE(false);
+      
        }
 
        handleDispatchDELETE = (userId) => {
@@ -274,13 +265,10 @@ class FormComponent extends React.Component{
           resolve(store.dispatch(handleDeleteUser(userId)))
         });
         promise.then(
-            this.setState({
-              successDELETE:true
-            })
+            this.props.successDELETE(true),
+            this.props.successPUT(false)
         );
-        this.props.successDELETE(true);
-        this.props.successPOST(false);
-        this.props.successPUT(false);  
+        
        }
 
 
