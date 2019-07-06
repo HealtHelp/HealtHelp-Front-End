@@ -224,8 +224,6 @@ class FormComponent extends React.Component{
         const userId = this.props.handleId;
         this.handleDispatchDELETE(userId);
         this.cleanInputs();
-        document.getElementById("password").value="";
-        document.getElementById("repitpassword").value="";
       }
 
       UUIDGeneratorNode = () =>
@@ -239,9 +237,10 @@ class FormComponent extends React.Component{
             resolve(store.dispatch(handlePostUser(user)))
           });
           promise.then(
-            store.dispatch(handleGetUsers())
+           // store.dispatch(handleGetUsers())
+           this.props.successPOST(true)
           );
-          this.props.successPOST(true);   
+          //this.props.successPOST(true)
      }
 
      handleDispatchPUT = (user) => {
@@ -358,8 +357,7 @@ class FormComponent extends React.Component{
         </div>
         : ''
         } 
-        
-          
+           
           <div className="iconsCrud">
             <i class="fas fa-unlock-alt"  onClick={this.handleCreateUser}></i>   
             <i class="fas fa-user-plus" onClick={this.handleNewUser}></i>
@@ -373,14 +371,10 @@ class FormComponent extends React.Component{
           </div>
           </form>
        
-
-         
                  {this.state.warning?<Warning></Warning>:''} 
                  {this.state.dataOk?<DataOk></DataOk>:''}
           </div>         
           
-     
-     
         );
     }
 }

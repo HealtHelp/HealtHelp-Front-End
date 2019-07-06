@@ -29,6 +29,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
       email,
       password 
     }
+    localStorage.setItem('email',email);
     store.dispatch(handleLogin(data));
   }
   

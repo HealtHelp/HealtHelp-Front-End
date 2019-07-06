@@ -13,6 +13,7 @@ import FormComponent from '../components/form.component';
 import SuccessPOSTUser from '../../snackbars/components/sucessPOSTUser.component';
 import SuccessPUTUser from '../../snackbars/components/successPUTUser.component';
 import SuccessDELETEUser from '../../snackbars/components/successDELETEUser.component';
+import ErrorPOST from '../../snackbars/components/errorPOSTUser.component';
 import Footer from '../../footer/components/footer.component';
 
 const StyledTableCell = withStyles(theme => ({
@@ -61,9 +62,18 @@ class UserTable extends React.Component {
       successPOST:null,
       successPUT:null,
       successDELETE:null,
-      handleId:null
+      handleId:null,
+      errorPOST:null
     }
     this.rows = [];  
+
+    store.subscribe(() => {
+      this.setState({
+        errorPOST : store.getState().users.error
+        
+      });
+       
+    });
    };
    
 
@@ -156,7 +166,6 @@ class UserTable extends React.Component {
   }
 
   successDELETE = (value) =>{
-    console.log("successDELETE")
     this.setState({
       successDELETE:value
     })
@@ -233,6 +242,7 @@ class UserTable extends React.Component {
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
           {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
           {this.state.successDELETE?<SuccessDELETEUser></SuccessDELETEUser>:''}
+          {this.state.errorPOST?<ErrorPOST></ErrorPOST>:''}
           <Footer></Footer>
       </div>
       
@@ -241,8 +251,6 @@ class UserTable extends React.Component {
   }  
  
 }
-
-
 
  const mapStateToProps = (state) =>{
      return {
