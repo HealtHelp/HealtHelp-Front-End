@@ -8,7 +8,6 @@ export const handleLogin = (data) =>  dispatch => {
     axios.post(URL_LOGIN, data, CONFIGHEADERS)
         .then((res) => {
             localStorage.setItem("jwt",res.data);
-            console.log(res.data.username)
             return dispatch({
                 type: SET_HANDLE_LOGIN,
                 resp: res.data

@@ -47,17 +47,20 @@ export default function TemporaryDrawer() {
      
 
       <List>
+        
           <Link to="/user">
           <ListItem button key="Users">
           <ListItemIcon><i className="fas fa-users"></i></ListItemIcon>
           <ListItemText primary="Users" />
           </ListItem>
           </Link> 
-
+           
+          <Link to="/patient">
           <ListItem button key="Patients">
           <ListItemIcon><i className="fab fa-accessible-icon"></i></ListItemIcon>
           <ListItemText primary="Patients" />
           </ListItem>
+          </Link> 
           
           <ListItem button key="Sessions">
           <ListItemIcon><i className="fas fa-address-book"></i></ListItemIcon>

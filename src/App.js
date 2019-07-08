@@ -11,6 +11,7 @@ import LoginPage from './pages/Login';
 import StartPage from './pages/Start';
 import HomePage from './pages/Home';
 import UserPage from './pages/User';
+import PatientPage from './pages/Patient';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
@@ -75,6 +76,7 @@ class App extends Component {
          
         <Route path="/" component={LoginPage} />
         <Route path="/user" component={UserPage} />
+        <Route path="/patient" component={PatientPage}/>
         <Route path="/start" component={StartPage} />
         <Route path="/clinic" component={ClinicPage} />
         <Route path="/services" component={ServicesPage} />
