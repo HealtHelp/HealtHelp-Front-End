@@ -5,7 +5,6 @@ import {handleGetUsers, handlePostUser,handlePutUser,handleDeleteUser} from '../
 import TextField from '@material-ui/core/TextField';
 import Warning from '../../snackbars/components/warning.component';
 import DataOk from '../../snackbars/components/dataOk.component';
-
 const crypto = require('crypto');
 
 const useStyles = {
@@ -46,19 +45,24 @@ class FormComponent extends React.Component{
 
 
        handleChange = () =>{
+        console.log("handleChange") 
         this.setState({disabled: this.handleDisabled()})
       }
       
       handleDisabled = () =>{
+        console.log("handleDisabled")
         const id = this.props.handleId;
         const user = this.inputsValues();
-        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && id != null){
+        console.log("handleDisabled"+id+user)
+        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && (id != null || user.id != null)){
           this.setState({dataOk:true})
           return false;
+         
         }
         else{
           this.setState({dataOk:false})
           return true;
+         
         }
       }
 
@@ -71,6 +75,7 @@ class FormComponent extends React.Component{
      } 
     
      inputsValues = () => {
+       console.log("inputValues")
       let username = document.getElementById("username").value;
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
@@ -78,6 +83,7 @@ class FormComponent extends React.Component{
       let profileName = document.getElementById("profile").value;
       let tenantName = document.getElementById("tenant").value;
       const user = {
+        id:2,
         username:username,
         email:email,
         password:password,
@@ -112,8 +118,7 @@ class FormComponent extends React.Component{
        {this.state.handleIconsPUT?this.setState({handleIconsPUT:false}):this.setState({handleIconsPUT:true});} 
       }
  
-    
-
+      
       validateEmail(email){
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -143,7 +148,7 @@ class FormComponent extends React.Component{
          }
          return tenant;
        }
-
+ 
 
 
 
