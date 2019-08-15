@@ -61,7 +61,7 @@ class UserTable extends React.Component {
       data:[],
       successPUT:null,
       successDELETE:null,
-      handleId:null,
+      handleId:0,
       errorPOST:null,
       successPOST:null
     }
@@ -143,14 +143,17 @@ class UserTable extends React.Component {
    document.getElementById("tenant").value = tenant; 
   }
 
-  handleClickId(id,ex){
-    console.log("handleclick"+id);
-      if(ex.checked){
-        //this.setState({handleId:id})
-      }
-    //  console.log("handleclick"+id);
-  
-    //this.setState({handleId:id})
+  handleCheckedId = (event) =>{
+    let id = event.target.value;
+        this.setState(function(){
+          return {
+            id
+          } 
+        },  () => {
+          //after callback
+          this.setState({handleId:id})
+        });
+     
    }
 
  
@@ -212,8 +215,7 @@ class UserTable extends React.Component {
                {this.rows.map(row => (
                  <StyledTableRow key={row.name} id="table">
                    <StyledTableCell  component="th" scope="row" id='usernameId'>
-                     <input type="checkbox" class="rowId" value={row.Id} id="userId" onChange={this.handleClickId(row.Id,this)}></input>
-                     {row.Id}
+                     <input type="checkbox" value={row.Id} id="userId" onChange={this.handleCheckedId}></input>
                    </StyledTableCell>
                    <StyledTableCell  component="th" scope="row" id="usernameTable" onClick={this.handleClickUsername}>
                      {row.Username}
