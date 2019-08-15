@@ -1,0 +1,22 @@
+.iconSearchPatient{
+    display:flex;
+    justify-content: left;
+    margin:0.5em;
+    
+}
+
+.iconSearchPatient input{
+    text-align: center;;
+}
+
+
+
+/*.searchPatient{
+    margin-right: 20em;
+    margin-left: 10em;
+    margin-top:0.5em;
+ }
+ 
+ .searchPatient input{
+     text-align: center;
+ }*/

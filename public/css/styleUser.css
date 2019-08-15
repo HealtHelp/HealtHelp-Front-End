@@ -18,15 +18,7 @@ html, body{
 }
 
 
-.searchPatient{
-   margin-right: 20em;
-   margin-left: 10em;
-   margin-top:0.5em;
-}
 
-.searchPatient input{
-    text-align: center;
-}
 
 input:focus {
    text-align: left;

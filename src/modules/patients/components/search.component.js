@@ -28,7 +28,7 @@ class Search extends React.Component {
   render(){
     const classes = useStyles;
     return (
-        <div className="searchPatient">
+        <div className="iconSearchPatient">
            <Paper className={classes.root}>
           <InputBase 
             id="search" 

@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import Search from '../components/search.component';
+import TablePatient from '../components/table.component';
+
 
 class Patient extends Component{
   constructor(props){
@@ -17,7 +19,11 @@ class Patient extends Component{
 
 render(){
   return(
-    <Search handleSearch={this.handleSearch}></Search>
+    <div>
+     <Search handleSearch={this.handleSearch}></Search>
+     <TablePatient></TablePatient>
+    </div>
+    
   );
 }
 }
