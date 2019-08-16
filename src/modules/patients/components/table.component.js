@@ -1,4 +1,4 @@
-import TableHead from '@material-ui/core/TableHead';
+
 import React from 'react';
 
 class TablePatient extends React.Component{
@@ -10,7 +10,7 @@ class TablePatient extends React.Component{
     render(){
         return(
             <div>
-                <TableHead></TableHead>
+             
             </div>
         );
     }

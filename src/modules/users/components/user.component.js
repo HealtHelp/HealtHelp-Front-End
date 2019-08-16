@@ -181,7 +181,6 @@ class UserTable extends React.Component {
 
    
   render(){
-    console.log(this.state.successPOST)
     const dimension = this.renderDimension();
     const classes = useStyles;
     return (

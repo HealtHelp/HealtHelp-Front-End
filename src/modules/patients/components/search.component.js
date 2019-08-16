@@ -33,7 +33,7 @@ class Search extends React.Component {
           <InputBase 
             id="search" 
             className={classes.input}
-            placeholder="Search Patient"
+            placeholder="Search Patient by name"
           />
           <IconButton  aria-label="Search">
             <SearchIcon onClick={this.handleSearch} />

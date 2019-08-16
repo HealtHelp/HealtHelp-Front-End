@@ -79,7 +79,7 @@ class FormComponent extends React.Component{
       let profileName = document.getElementById("profile").value;
       let tenantName = document.getElementById("tenant").value;
       const user = {
-        id:2,
+        id:0,
         username:username,
         email:email,
         password:password,
@@ -284,7 +284,6 @@ class FormComponent extends React.Component{
 
     render(){
         const classes = useStyles;
-        console.log(this.state.handleIconsPOST) 
         return(
           <div className="Form">
          <form className={classes.container} noValidate  autoComplete="off" onSubmit={this.handlePOSTUser}>
