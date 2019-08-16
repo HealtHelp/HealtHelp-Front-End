@@ -59,6 +59,7 @@ class UserTable extends React.Component {
     super(props);
     this.state = {
       data:[],
+      sucessPOST:null,
       successPUT:null,
       successDELETE:null,
       handleId:0,
@@ -163,6 +164,13 @@ class UserTable extends React.Component {
       successPUT:value
     })
   }
+  
+   
+  successPOST = (value) =>{
+    this.setState({
+      successPOST:value
+    })
+  }
 
   successDELETE = (value) =>{
     this.setState({
@@ -173,6 +181,7 @@ class UserTable extends React.Component {
 
    
   render(){
+    console.log(this.state.successPOST)
     const dimension = this.renderDimension();
     const classes = useStyles;
     return (
@@ -236,7 +245,7 @@ class UserTable extends React.Component {
          </Paper>
         }
 
-          <FormComponent successPUT={this.successPUT} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
+          <FormComponent successPUT={this.successPUT} successPOST={this.successPOST} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}
           {this.state.successPUT?<SuccessPUTUser></SuccessPUTUser>:''}
           {this.state.successDELETE?<SuccessDELETEUser></SuccessDELETEUser>:''}

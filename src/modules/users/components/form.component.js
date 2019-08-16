@@ -44,16 +44,13 @@ class FormComponent extends React.Component{
        };
 
 
-       handleChange = () =>{
-        console.log("handleChange") 
+       handleChange = () =>{ 
         this.setState({disabled: this.handleDisabled()})
       }
       
       handleDisabled = () =>{
-        console.log("handleDisabled")
         const id = this.props.handleId;
         const user = this.inputsValues();
-        console.log("handleDisabled"+id+user)
         if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && (id != null || user.id != null)){
           this.setState({dataOk:true})
           return false;
@@ -75,7 +72,6 @@ class FormComponent extends React.Component{
      } 
     
      inputsValues = () => {
-       console.log("inputValues")
       let username = document.getElementById("username").value;
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
@@ -237,8 +233,15 @@ class FormComponent extends React.Component{
       );
 
 
-      handleDispatchPOST = (user) => {
-        store.dispatch(handlePostUser(user))
+      handleDispatchPOST = (user) => {       
+        let promise = new Promise(function(resolve){
+          resolve(store.dispatch(handlePostUser(user)))
+        });
+        promise.then(
+          store.dispatch(handleGetUsers())
+        );
+        this.props.successPOST(false); 
+
      }
 
      handleDispatchPUT = (user) => {
@@ -281,7 +284,7 @@ class FormComponent extends React.Component{
 
     render(){
         const classes = useStyles;
-
+        console.log(this.state.handleIconsPOST) 
         return(
           <div className="Form">
          <form className={classes.container} noValidate  autoComplete="off" onSubmit={this.handlePOSTUser}>
