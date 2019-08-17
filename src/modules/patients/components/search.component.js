@@ -22,6 +22,7 @@ class Search extends React.Component {
 
     handleSearch = () => {
         const search = document.getElementById("search").value;
+        console.log(search)
         this.props.handleSearch(search);
       }
   

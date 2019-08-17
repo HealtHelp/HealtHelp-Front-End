@@ -12,7 +12,6 @@ class Patient extends Component{
     this.state = {
       handleGETPatientByName:null,
       handleGETUserIdByEmail:null,
-      data:[]
     }
   };
 
@@ -34,19 +33,14 @@ class Patient extends Component{
       })
      )
 
-     store.subscribe(() => {
-      this.setState({
-        data : store.getState().patients.data.id
-      });
-    });
+ 
   }
 
 
   handleSearch = (search) => {
-   let id = this.state.data; 
    let promise = new Promise(function(resolve){
       resolve(
-        store.dispatch(handleGetPatiensByName(search,id))
+        store.dispatch(handleGetPatiensByName(search))
       )
     });
     promise.then(

@@ -15,8 +15,9 @@ const  HEADERS = {
       }   
     }
 
-    export const handleGetPatiensByName = (name,userId) =>  dispatch => {
-        let URL = `http://localhost:3000/api/patient/name/${name}/userId/${userId}`;
+    export const handleGetPatiensByName = (name) =>  dispatch => {
+        let id = localStorage.getItem("userId")
+        let URL = `http://localhost:3000/api/patient/name/${name}/userId/${id}`;
         axios.get(URL,HEADERS)
         .then((res) => {
             return dispatch({
@@ -37,8 +38,11 @@ const  HEADERS = {
 
     export const handleUserId = (email) => dispatch => {
         let URL = URL_USERID_BY_EMAIL+email;
+        console.log(URL)
         axios.get(URL,HEADERS)
         .then((res) => {
+            console.log(res)
+            localStorage.setItem("userId",res.data.id)
             return dispatch({
                 type: HANDLE_GET_USERID_BY_EMAIL,
                 resp: res.data

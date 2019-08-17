@@ -15,7 +15,7 @@ import SuccessPUTUser from '../../snackbars/components/successPUTUser.component'
 import SuccessDELETEUser from '../../snackbars/components/successDELETEUser.component';
 import ErrorPOST from '../../snackbars/components/errorPOSTUser.component';
 import Footer from '../../footer/components/footer.component';
-import { wrap } from 'module';
+
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -109,7 +109,6 @@ class UserTable extends React.Component {
        else{
         let users = this.props.data.data._embedded.userDToes;
         this.rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
-        console.log(this.rows)
         return this.rows;
       }
     }        
