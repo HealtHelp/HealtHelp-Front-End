@@ -15,6 +15,7 @@ import SuccessPUTUser from '../../snackbars/components/successPUTUser.component'
 import SuccessDELETEUser from '../../snackbars/components/successDELETEUser.component';
 import ErrorPOST from '../../snackbars/components/errorPOSTUser.component';
 import Footer from '../../footer/components/footer.component';
+import { wrap } from 'module';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -43,9 +44,9 @@ const StyledTableRow = withStyles(theme => ({
         overflowX: 'auto',
       },
       table: {
-        minWidth: 700,
+        width: '100%'
       }
-}
+ }
 
 
 
@@ -90,7 +91,6 @@ class UserTable extends React.Component {
         this.rows = store.getState().users.data._embedded.userDToes  
     })
     ); 
-   
   }
 
 
@@ -112,14 +112,7 @@ class UserTable extends React.Component {
         console.log(this.rows)
         return this.rows;
       }
-     
     }        
-  }
-
-  renderDimension(){
-    let val;
-    {window.screen.width <= 375?val=true:val=false}
-    return val;
   }
 
  
@@ -151,10 +144,8 @@ class UserTable extends React.Component {
             id
           } 
         },  () => {
-          //after callback
           this.setState({handleId:id})
         });
-     
    }
 
  
@@ -181,45 +172,23 @@ class UserTable extends React.Component {
 
    
   render(){
-    const dimension = this.renderDimension();
+
     const classes = useStyles;
     return (
       <div className="tableUsers">
-        {dimension === true?
+      
            <Paper className={classes.root}>
            <Table className={classes.table}>
              <TableHead>
                <TableRow>
-                 <StyledTableCell>Username</StyledTableCell>
-                 <StyledTableCell align="right">Email</StyledTableCell>
-               </TableRow>
-             </TableHead>
-             <TableBody>
-               {this.rows.map(row => (
-                 <StyledTableRow key={row.name}>
-                   <StyledTableCell component="th" scope="row"  id="usernameTable" onClick={this.handleClickUsername}>
-                     {row.Username}
-                   </StyledTableCell>
-                   <StyledTableCell align="right" id="emailTable" onClick={this.handleClickEmail}>
-                      {row.Email}
-                   </StyledTableCell>
-                 </StyledTableRow>
-               ))}
-             </TableBody>
-           </Table>
-         </Paper> : 
-           <Paper className={classes.root}>
-           <Table className={classes.table}>
-             <TableHead>
-               <TableRow>
-                 <StyledTableCell>Id</StyledTableCell>
+                 <StyledTableCell></StyledTableCell>
                  <StyledTableCell>Username</StyledTableCell>
                  <StyledTableCell align="center">Email</StyledTableCell>
                  <StyledTableCell align="right">Profile</StyledTableCell>
                  <StyledTableCell align="center">Tenant</StyledTableCell>
                </TableRow>
              </TableHead>
-             <TableBody >
+             <TableBody>
                {this.rows.map(row => (
                  <StyledTableRow key={row.name} id="table">
                    <StyledTableCell  component="th" scope="row" id='usernameId'>
@@ -242,7 +211,8 @@ class UserTable extends React.Component {
              </TableBody>
            </Table>
          </Paper>
-        }
+         
+        
 
           <FormComponent successPUT={this.successPUT} successPOST={this.successPOST} successDELETE={this.successDELETE} handleId={this.state.handleId}></FormComponent>
           {this.state.successPOST?<SuccessPOSTUser></SuccessPOSTUser>:''}

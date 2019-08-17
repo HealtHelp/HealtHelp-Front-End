@@ -4,7 +4,7 @@ import store from '../../../store/store';
 import Search from '../components/search.component';
 import TablePatient from '../components/table.component';
 import { handleGetPatiensByName } from '../actions/patient.actions';
-import axios from 'axios';
+
 
 class Patient extends Component{
   constructor(props){
@@ -14,29 +14,32 @@ class Patient extends Component{
     }
   };
 
-  handleSearch = (search) => {
-    console.log(search);
 
+
+  handleSearch = (search) => {
    let promise = new Promise(function(resolve){
       resolve(
         store.dispatch(handleGetPatiensByName(search))
       )
     });
     promise.then(
-        this.setState({
-          handleGetPatientByName:true
-        })
+      this.setState({
+        handleGetPatientByName:true
+      })
     );  
+    this.handleTableAll();
   }
 
-
+  handleTableAll = () =>{
+    return true;
+  }
 
 
 render(){
   return(
     <div>
-     <Search handleSearch={this.handleSearch}></Search>
-     <TablePatient></TablePatient>
+     <Search handleSearch={this.handleSearch} ></Search>
+     <TablePatient handleTableAll={this.handleTableAll}></TablePatient>
     </div>
     
   );

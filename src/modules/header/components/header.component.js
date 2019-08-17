@@ -81,7 +81,7 @@ const styles = theme => ({
 
 
 
-class PrimarySearchAppBar extends React.Component {
+class Header extends React.Component {
   constructor(props){
     super(props);
     this.state={
@@ -129,9 +129,9 @@ class PrimarySearchAppBar extends React.Component {
   }
 }
 
-PrimarySearchAppBar.propTypes = {
+Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default withStyles(styles)(Header);
 

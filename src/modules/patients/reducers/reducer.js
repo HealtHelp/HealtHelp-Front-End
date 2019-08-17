@@ -7,7 +7,6 @@ const initialState = {
 }
 
 export default function patientReducer(state = initialState,action){
-    console.log(state)
     switch(action.type){
         case HANDLE_GET_PATIENTS_BY_NAME:
             return{

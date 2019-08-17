@@ -22,7 +22,7 @@ class Search extends React.Component {
 
     handleSearch = () => {
         const search = document.getElementById("search").value;
-        this.props.handleSearch(search); 
+        this.props.handleSearch(search);
       }
   
   render(){
@@ -38,7 +38,7 @@ class Search extends React.Component {
           <IconButton  aria-label="Search">
             <SearchIcon onClick={this.handleSearch} />
           </IconButton>
-        </Paper>     
+        </Paper>   
         </div>    
       );
   } 
