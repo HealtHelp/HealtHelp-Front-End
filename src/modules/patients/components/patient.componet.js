@@ -4,37 +4,59 @@ import store from '../../../store/store';
 import Search from '../components/search.component';
 import TablePatient from '../components/table.component';
 import { handleGetPatiensByName } from '../actions/patient.actions';
-
-
+import { handleUserId } from '../actions/patient.actions';
 
 class Patient extends Component{
   constructor(props){
     super(props);
     this.state = {
-      handleGetPatientByName:null
+      handleGETPatientByName:null,
+      handleGETUserIdByEmail:null,
+      data:[]
     }
   };
 
+  componentDidMount(){
+    this.handleUserId()
+  }
+
+
   handleUserId = () => {
-    console.log("handleUserId")
     const email = localStorage.getItem("email");
-    console.log(email);
+    let promise = new Promise(function(resolve){
+      resolve(
+        store.dispatch(handleUserId(email))
+      )
+    })
+    promise.then(
+      this.setState({
+        handleGETUserIdByEmail:true
+      })
+     )
+
+     store.subscribe(() => {
+      this.setState({
+        data : store.getState().patients.data.id
+      });
+    });
   }
 
 
   handleSearch = (search) => {
+   let id = this.state.data; 
    let promise = new Promise(function(resolve){
       resolve(
-        store.dispatch(handleGetPatiensByName(search))
+        store.dispatch(handleGetPatiensByName(search,id))
       )
     });
     promise.then(
       this.setState({
-        handleGetPatientByName:true
+        handleGETPatientByName:true
       })
     );  
     this.handleTableAll();
   }
+
 
   handleTableAll = () =>{
     return true;
@@ -43,7 +65,6 @@ class Patient extends Component{
  
 
 render(){
-  this.handleUserId();
   return(
     <div>
      <Search handleSearch={this.handleSearch} ></Search>

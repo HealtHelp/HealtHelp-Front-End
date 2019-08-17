@@ -64,14 +64,12 @@ class TablePatient extends React.Component{
     }
 
     componentWillReceiveProps(){
-        console.log('componentWillReceiveProps')
         this.renderTable();  
     }
     
 
 
     renderTable = () =>{
-        console.log(this.state.data.data)
         if(this.state.data.data === undefined){
             return [];
         }
