@@ -6,6 +6,7 @@ import TablePatient from '../components/table.component';
 import { handleGetPatiensByName } from '../actions/patient.actions';
 
 
+
 class Patient extends Component{
   constructor(props){
     super(props);
@@ -14,6 +15,11 @@ class Patient extends Component{
     }
   };
 
+  handleUserId = () => {
+    console.log("handleUserId")
+    const email = localStorage.getItem("email");
+    console.log(email);
+  }
 
 
   handleSearch = (search) => {
@@ -34,8 +40,10 @@ class Patient extends Component{
     return true;
   }
 
+ 
 
 render(){
+  this.handleUserId();
   return(
     <div>
      <Search handleSearch={this.handleSearch} ></Search>

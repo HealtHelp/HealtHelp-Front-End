@@ -18,3 +18,7 @@ export const CONFIGHEADERS = {
     }   
   }
 
+export const handleUserId = () =>{
+  const email = localStorage.getItem("email");
+  console.log(email);
+}
