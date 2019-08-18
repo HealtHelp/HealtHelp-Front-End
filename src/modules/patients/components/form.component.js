@@ -113,7 +113,7 @@ class FormComponent extends React.Component{
             
              </div>
                 :''}
-            }  
+              
 
              <div id="buttonsCRUD">
              
