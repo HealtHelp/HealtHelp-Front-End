@@ -139,6 +139,9 @@ class FormComponent extends React.Component{
          if(tenant === "Roberto del Barrio Pizarro"){
            tenant = 1;
          }
+         if(tenant === "Pablo Lazaro"){
+           tenant = 2;
+         }
          else{
            tenant = 0;
          }
@@ -166,6 +169,8 @@ class FormComponent extends React.Component{
             const user = this.inputsValues(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
+            //Al cargar la aplicación obtener el id de usuario ultimo y guardarlo en localstorage
+            //En este punto obtenerlo sumarle 1 y asignarselo a const id  
             const id = Math.floor(Math.random() * 100000) + 1  
             const userValues = {
               id:id,
@@ -341,14 +346,18 @@ class FormComponent extends React.Component{
         
         {this.state.handleIconsPOST?
         <div className="iconsPOST">
-          <button className="buttonUserComponent"  type="submit" onClick={this.handlePOSTUser}  disabled={this.state.disabled}><i class="fas fa-save" ></i></button>
+          <button className="buttonUserComponent"  type="submit" onClick={this.handlePOSTUser}  disabled={this.state.disabled}>
+            <i class="fas fa-save" ></i>
+          </button>
         </div>
         : ''
         } 
 
         {this.state.handleIconsPUT?
         <div className="iconsPUT">
-          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTUser} disabled={this.state.disabled}><i class="fas fa-user-edit"></i></button>
+          <button className="buttonUserComponent" type="submit" onClick={this.handlePUTUser} disabled={this.state.disabled}>
+            <i class="fas fa-user-edit"></i>
+          </button>
         </div>
         : ''
         } 

@@ -18,7 +18,31 @@ const useStyles = {
 class FormComponent extends React.Component{
     constructor(props){
         super(props);
-        this.state = {}
+        this.state = {
+            handleIconPOST:null,
+            handleIconPUT:null
+        }
+    }
+
+
+    handlePOSTPatient = () => {
+        console.log("handlePOSTPatient")
+        this.setState({
+            handleIconPOST:true,
+            handleIconPUT:false
+        })
+    }
+
+    handlePUTPatient = () => {
+        console.log("handlePUTPatient")
+        this.setState({
+            handleIconPUT:true,
+            handleIconPOST:false
+        })    
+    }
+
+    handleDELETEPatient = () => {
+        console.log("handleDELETEPatient")
     }
 
     render(){
@@ -26,6 +50,9 @@ class FormComponent extends React.Component{
         return(
             <div className="Form">
             <form className={classes.container} noValidate  autoComplete="off" >
+            {
+                 (this.state.handleIconPOST || this.state.handleIconPUT)?
+
              <div id="textFields">
               <TextField
                id="patientName"
@@ -83,8 +110,45 @@ class FormComponent extends React.Component{
                className={classes.textField}
                onChange={this.handleChange}
              />
-             </div> 
-             </form>
+            
+             </div>
+                :''}
+            }  
+
+             <div id="buttonsCRUD">
+             
+             {
+                 this.state.handleIconPOST?
+
+                    <div className="iconsPOST">
+                      <button className="buttonUserComponent"  type="submit" onClick={this.handlePOSTUser}  disabled={this.state.disabled}>
+                        <i class="fas fa-save" ></i>
+                    </button>
+                    </div>
+                :''    
+             }
+             
+             {
+                 this.state.handleIconPUT?
+                 
+                 <div className="iconsPUT">
+                     <button className="buttonUserComponent" type="submit" onClick={this.handlePUTUser} disabled={this.state.disabled}>
+                     <i class="fas fa-user-edit"></i>
+                  </button>
+                 </div>
+
+                 :''
+             }
+            
+
+             <div className="iconsCrud">  
+                 <i class="fas fa-user-plus" onClick={this.handlePOSTPatient}></i>
+                 <i class="fas fa-pen-alt" onClick={this.handlePUTPatient}></i>
+                 <i class="fas fa-trash" onClick={this.handleDELETEPatient}></i>
+             </div>
+
+            </div> 
+            </form>
             </div> 
         );
 
