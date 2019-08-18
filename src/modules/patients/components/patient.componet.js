@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import store from '../../../store/store';
 import Search from '../components/search.component';
 import TablePatient from '../components/table.component';
+import FormComponent from '../components/form.component';
 import { handleGetPatiensByName } from '../actions/patient.actions';
 import { handleUserId } from '../actions/patient.actions';
 
@@ -63,6 +64,7 @@ render(){
     <div>
      <Search handleSearch={this.handleSearch} ></Search>
      <TablePatient handleTableAll={this.handleTableAll}></TablePatient>
+     <FormComponent></FormComponent>
     </div>
     
   );

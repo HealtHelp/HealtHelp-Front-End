@@ -77,7 +77,6 @@ export const handlePutUser = (user) =>  dispatch => {
 
 export const handleDeleteUser = (userId) => dispatch => {
     const URL = URL_DELETE_USER+userId;
-    console.log(URL);
     axios.delete(URL,HEADERS)
     .then((res) => {
         return dispatch({

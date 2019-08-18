@@ -78,10 +78,8 @@ class TablePatient extends React.Component{
                 return [];
             }
             let patients = this.state.data.data._embedded.patientDToes;
-            console.log(patients)
             this.rows = patients.map((patient) => createData(patient.id,patient.patientName,patient.patientLastName,patient.patientTelephone,patient.patientAddress,
                                                              patient.patientProfession)); 
-            console.log(this.rows)
             return this.rows;
               }
         }
@@ -111,7 +109,10 @@ class TablePatient extends React.Component{
                {this.rows.map(row => (
                  <StyledTableRow key={row.Name} id="table">
                    <StyledTableCell  component="th" scope="row" id='id'>
-                     <input type="checkbox" value={row.Id} id="userId"></input>
+                   
+                     <input type="checkbox" className="inputId" value={row.Id} id="userId"></input>
+                    
+                    
                    </StyledTableCell>
                    <StyledTableCell  component="th" scope="row" id="patientName">
                      {row.Name}
