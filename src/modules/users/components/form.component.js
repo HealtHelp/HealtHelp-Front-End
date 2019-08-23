@@ -50,8 +50,8 @@ class FormComponent extends React.Component{
       
       handleDisabled = () =>{
         const id = this.props.handleId;
-        const user = this.inputsValues();
-        if(user.username && user.email && user.profileName && user.tenantName && user.password && user.repitpassword && (id != null || user.id != null)){
+        const user = this.inputsValuesPUT();
+        if(user.username && user.email && user.profileName && user.tenantName && user.password && (id != null || user.id != null)){
           this.setState({dataOk:true})
           return false;
          
@@ -75,7 +75,7 @@ class FormComponent extends React.Component{
       let username = document.getElementById("username").value;
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
-      let repitpassword = document.getElementById("repitpassword").value;
+      let repitpassword = document.getElementById("repitpassword").value;;
       let profileName = document.getElementById("profile").value;
       let tenantName = document.getElementById("tenant").value;
       const user = {
@@ -84,6 +84,24 @@ class FormComponent extends React.Component{
         email:email,
         password:password,
         repitpassword:repitpassword,
+        profileName:profileName,
+        tenantName:tenantName
+      }
+      return user;
+     }
+
+     inputsValuesPUT = () => {
+      let username = document.getElementById("username").value;
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let profileName = document.getElementById("profile").value;
+      let tenantName = document.getElementById("tenant").value;
+      const user = {
+        id:0,
+        username:username,
+        email:email,
+        password:password,
+        repitpassword:password,
         profileName:profileName,
         tenantName:tenantName
       }
@@ -136,15 +154,14 @@ class FormComponent extends React.Component{
        }
        
        checkTenant = (tenant) =>{
+         console.log(tenant)
          if(tenant === "Roberto del Barrio Pizarro"){
            tenant = 1;
          }
          if(tenant === "Pablo Lazaro"){
            tenant = 2;
          }
-         else{
-           tenant = 0;
-         }
+       
          return tenant;
        }
  
@@ -197,14 +214,16 @@ class FormComponent extends React.Component{
           } 
         },  () => {
           //after callback
-          const user = this.inputsValues();  
+          console.log("handlePUTUser")
+          const user = this.inputsValuesPUT();
+          console.log(user.repitpassword)  
           let email = user.email;
           const check = this.validateEmail(email);
-          if((user.password !== user.repitpassword) || !check){
+          if(!check){
             this.setState({warning:true});
           }
           else{
-            const user = this.inputsValues(); 
+            const user = this.inputsValuesPUT(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
             const id = this.props.handleId;
@@ -219,7 +238,6 @@ class FormComponent extends React.Component{
             this.handleDispatchPUT(userValues)
             this.cleanInputs();
             document.getElementById("password").value="";
-            document.getElementById("repitpassword").value="";
             }
         });
       }
@@ -331,6 +349,7 @@ class FormComponent extends React.Component{
             autoComplete="current-password"
             onChange={this.handleChange}
           /> <br></br>
+          {!this.state.handleIconsPUT?
            <TextField
             id="repitpassword"
             label="Repit Password"
@@ -338,7 +357,9 @@ class FormComponent extends React.Component{
             type="password"
             autoComplete="current-password"
             onChange={this.handleChange}
-          /> 
+          />
+          :''
+          } 
          </div> 
          : ''
       }
