@@ -147,7 +147,7 @@ class UserTable extends React.Component {
           
         const myBoard = document.getElementsByTagName("table")[0];
         const mytbody = myBoard.getElementsByTagName("tbody")[0];
-        const myRow = mytbody.getElementsByTagName("tr")[0];
+        const myRow = mytbody.getElementsByTagName("tr")[id-1];
       
         const myCell1 = myRow.getElementsByTagName("th")[1];
         const myCell2 = myRow.getElementsByTagName("td")[0];
