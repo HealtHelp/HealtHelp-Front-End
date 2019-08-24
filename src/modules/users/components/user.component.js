@@ -144,6 +144,25 @@ class UserTable extends React.Component {
           } 
         },  () => {
           this.setState({handleId:id})
+          
+        const myBoard = document.getElementsByTagName("table")[0];
+        const mytbody = myBoard.getElementsByTagName("tbody")[0];
+        const myRow = mytbody.getElementsByTagName("tr")[0];
+      
+        const myCell1 = myRow.getElementsByTagName("th")[1];
+        const myCell2 = myRow.getElementsByTagName("td")[0];
+        const myCell3 = myRow.getElementsByTagName("td")[1];
+        const myCell4 = myRow.getElementsByTagName("td")[2];
+       
+       
+        const username = myCell1.firstChild.nodeValue;
+        const email = myCell2.firstChild.nodeValue;
+        const profile = myCell3.firstChild.nodeValue;
+        const tenant = myCell4.firstChild.nodeValue;
+        document.getElementById("username").value = username; 
+        document.getElementById("email").value = email
+        document.getElementById("profile").value = profile;
+        document.getElementById("tenant").value = tenant;
         });
    }
 
@@ -152,7 +171,7 @@ class UserTable extends React.Component {
   successPUT = (value) =>{
     this.setState({
       successPUT:value
-    })
+    })  
   }
   
    
