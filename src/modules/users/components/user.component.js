@@ -108,7 +108,8 @@ class UserTable extends React.Component {
        }
        else{
         let users = this.props.data.data._embedded.userDToes;
-        this.rows = users.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
+        let principal = users.filter(i => i.id>1) ;console.log(principal)
+        this.rows = principal.map((user) => createData(user.id,user.username,user.email,user.profile,user.tenant)); 
         return this.rows;
       }
     }        
