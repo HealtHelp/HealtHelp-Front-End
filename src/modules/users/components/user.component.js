@@ -119,6 +119,7 @@ class UserTable extends React.Component {
    handleClickUsername(ex){
     let username = Object.values(ex.target)[1].children;
     document.getElementById("username").value = username;
+    return username;
   }
 
   handleClickEmail(ex){
@@ -142,10 +143,10 @@ class UserTable extends React.Component {
           return {
             id
           } 
-        },  () => {
+        },  (event) => {
           this.setState({handleId:id})
-          
-        const myBoard = document.getElementsByTagName("table")[0];
+         console.log(id)
+          const myBoard = document.getElementsByTagName("table")[0];
         const mytbody = myBoard.getElementsByTagName("tbody")[0];
         const myRow = mytbody.getElementsByTagName("tr")[id-1];
       
@@ -162,7 +163,8 @@ class UserTable extends React.Component {
         document.getElementById("username").value = username; 
         document.getElementById("email").value = email
         document.getElementById("profile").value = profile;
-        document.getElementById("tenant").value = tenant;
+        document.getElementById("tenant").value = tenant; 
+
         });
    }
 
@@ -171,7 +173,7 @@ class UserTable extends React.Component {
   successPUT = (value) =>{
     this.setState({
       successPUT:value
-    })  
+    })
   }
   
    
