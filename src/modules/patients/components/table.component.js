@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import Sessions from '../../sessions/components/sesions.component';
 
 
 const StyledTableCell = withStyles(theme => ({
@@ -51,7 +51,8 @@ class TablePatient extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            data:[]
+            data:[],
+            handleSessions:false
         }
         this.rows = [];  
 
@@ -84,7 +85,10 @@ class TablePatient extends React.Component{
               }
         }
     
-
+      handleSessions = () => {
+        console.log("handleSessions");
+        this.setState({handleSessions:true})
+      } 
 
     render(){
        
@@ -100,7 +104,7 @@ class TablePatient extends React.Component{
                  <StyledTableCell>Name</StyledTableCell>
                  <StyledTableCell align="center">Last Name</StyledTableCell>
                  <StyledTableCell align="right">Telephone</StyledTableCell>
-                 <StyledTableCell align="right">Address</StyledTableCell>
+                 <StyledTableCell align="center">Address</StyledTableCell>
                  <StyledTableCell align="center">Profession</StyledTableCell>
                </TableRow>
              </TableHead>
@@ -110,7 +114,7 @@ class TablePatient extends React.Component{
                  <StyledTableRow key={row.Name} id="table">
                    <StyledTableCell  component="th" scope="row" id='id'>
                    
-                     <input type="checkbox" className="inputId" value={row.Id} id="userId"></input>
+                     <input type="checkbox" className="inputId" value={row.Id} id="userId" onClick={this.handleSessions}></input>
                     
                     
                    </StyledTableCell>
@@ -136,6 +140,7 @@ class TablePatient extends React.Component{
            </Table>
         
          </Paper>
+         {this.state.handleSessions?<Sessions></Sessions>:''}
             </div>
         );
     }
