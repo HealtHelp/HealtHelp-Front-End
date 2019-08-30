@@ -66,6 +66,7 @@ class UserTable extends React.Component {
       handleId:0,
       errorPOST:null,
       successPOST:null
+     
     }
     this.rows = [];  
 
@@ -116,7 +117,6 @@ class UserTable extends React.Component {
   }
 
  
- 
    handleClickUsername(ex){
     let username = Object.values(ex.target)[1].children;
     document.getElementById("username").value = username;
@@ -138,35 +138,47 @@ class UserTable extends React.Component {
    document.getElementById("tenant").value = tenant; 
   }
 
-  handleCheckedId = (event) =>{
-    let id = event.target.value;
-        this.setState(function(){
+  handleCheckedId = (e) => {
+    let id = e.target.value;
+
+    var data = [];
+
+    e = e || window.event;
+    var target = e.srcElement || e.target;
+    while (target && target.nodeName !== "TR") {
+        target = target.parentNode;
+    } 
+    if (target) {
+        var cells = target.getElementsByTagName("td");
+        for (var i = 0; i < cells.length; i++) {
+            data.push(cells[i].innerHTML);
+        }
+        var ths = target.getElementsByTagName("th");
+        for (var i = 0; i < ths.length; i++) {
+          data.push(ths[i].innerHTML);
+      } 
+      }
+
+         this.setState(function(){
           return {
             id
           } 
-        },  (event) => {
+        },  () => {
           this.setState({handleId:id})
-         console.log(id)
-          const myBoard = document.getElementsByTagName("table")[0];
-        const mytbody = myBoard.getElementsByTagName("tbody")[0];
-        const myRow = mytbody.getElementsByTagName("tr")[id-1];
-      
-        const myCell1 = myRow.getElementsByTagName("th")[1];
-        const myCell2 = myRow.getElementsByTagName("td")[0];
-        const myCell3 = myRow.getElementsByTagName("td")[1];
-        const myCell4 = myRow.getElementsByTagName("td")[2];
-       
-       
-        const username = myCell1.firstChild.nodeValue;
-        const email = myCell2.firstChild.nodeValue;
-        const profile = myCell3.firstChild.nodeValue;
-        const tenant = myCell4.firstChild.nodeValue;
-        document.getElementById("username").value = username; 
-        document.getElementById("email").value = email
-        document.getElementById("profile").value = profile;
-        document.getElementById("tenant").value = tenant; 
+          
+          const username = data[4];    
+          const email = data[0];
+          const profile = data[1];
+          const tenant = data[2]
 
+          
+
+          document.getElementById("username").value = username; 
+          document.getElementById("email").value = email;
+          document.getElementById("profile").value = profile;
+          document.getElementById("tenant").value = tenant;
         });
+
    }
 
  
@@ -211,7 +223,7 @@ class UserTable extends React.Component {
              </TableHead>
              <TableBody>
                {this.rows.map(row => (
-                 <StyledTableRow key={row.name} id="table">
+                 <StyledTableRow key={row.name} id="table" onChange={this.handleClickTable}>
                    <StyledTableCell  component="th" scope="row" id='usernameId'>
                      <input type="checkbox" value={row.Id} id="userId" onChange={this.handleCheckedId}></input>
                    </StyledTableCell>
