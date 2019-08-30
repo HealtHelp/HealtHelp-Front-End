@@ -42,8 +42,8 @@ const StyledTableCell = withStyles(theme => ({
   
   
   
-  function createData(Id,Name,LastName,Telephone,Address,Profession) {
-    return {Id, Name, LastName, Telephone, Address, Profession};
+  function createData(Id,Name,DNI,LastName,Telephone,Address,Profession) {
+    return {Id, Name, DNI, LastName, Telephone, Address, Profession};
   }
   
 
@@ -79,7 +79,8 @@ class TablePatient extends React.Component{
                 return [];
             }
             let patients = this.state.data.data._embedded.patientDToes;
-            this.rows = patients.map((patient) => createData(patient.id,patient.patientName,patient.patientLastName,patient.patientTelephone,patient.patientAddress,
+            console.log(patients)
+            this.rows = patients.map((patient) => createData(patient.id,patient.patientName,patient.patientDNI,patient.patientLastName,patient.patientTelephone,patient.patientAddress,
                                                              patient.patientProfession)); 
             return this.rows;
               }
@@ -93,7 +94,6 @@ class TablePatient extends React.Component{
     render(){
        
         const classes = useStyles;
-       
         return(
             <div>
          <Paper className={classes.root}>
@@ -103,6 +103,7 @@ class TablePatient extends React.Component{
                  <StyledTableCell></StyledTableCell>
                  <StyledTableCell>Name</StyledTableCell>
                  <StyledTableCell align="center">Last Name</StyledTableCell>
+                 <StyledTableCell align="center">DNI</StyledTableCell>
                  <StyledTableCell align="right">Telephone</StyledTableCell>
                  <StyledTableCell align="center">Address</StyledTableCell>
                  <StyledTableCell align="center">Profession</StyledTableCell>
@@ -123,6 +124,9 @@ class TablePatient extends React.Component{
                    </StyledTableCell>
                    <StyledTableCell align="center" id="patientLastName">
                    {row.LastName}
+                   </StyledTableCell>
+                   <StyledTableCell align="center" id="patientDNI">
+                   {row.DNI}
                    </StyledTableCell>
                    <StyledTableCell align="right" id="patientTelephone">
                    {row.Telephone}
