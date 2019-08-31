@@ -1,5 +1,5 @@
 import {SET_HANDLE_NOTIFICATION_LOGIN} from '../types/types';
-import {SET_HANDLE_LOGIN_ERROR,} from '../types/types';
+import {ERROR_HANDLE_LOGIN,} from '../types/types';
 import {SET_HANDLE_POST_USER_ERROR} from '../types/types';
 
 const initialState = {
@@ -14,7 +14,7 @@ export default function handleNotifications(state = initialState,action){
             return{
                 ...state,
             }
-        case  SET_HANDLE_LOGIN_ERROR:
+        case  ERROR_HANDLE_LOGIN:
                     return{
                         ...state,
                         loginError:true

@@ -100,7 +100,6 @@ class Header extends React.Component {
 
   handleTab = () =>{
     this.state.showNav? this.setState({showNav : false}):this.setState({showNav : true}) 
-    console.log(this.state.showNav)
     this.props.handleTab(this.state.showNav);
   } 
   render() {

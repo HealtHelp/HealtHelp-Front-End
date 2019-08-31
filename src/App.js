@@ -3,7 +3,7 @@ import store from './store/store';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Header from './modules/header/components/header.component';
 import Notification from './modules/notifications/components/notification.component';
-import SessionsPage from './pages/Sessions'
+import SessionsPage from './pages/Sessions';
 import ClinicPage from "./pages/Clinic"
 import ServicesPage from './pages/Services';
 import AppointmentPage from './pages/Appointment';
@@ -16,7 +16,7 @@ import PatientPage from './pages/Patient';
 import Success from './modules/snackbars/components/success.component';
 import Error from './modules/snackbars/components/error.component';
 import Home from './modules/home/components/home.component';
-import Sessions from './modules/sessions/components/sesions.component';
+
 
 
 class App extends Component {
@@ -59,12 +59,7 @@ class App extends Component {
     })
   }
   
-  handleSessions = (value) => {
-    this.setState({
-      handleSessions:true
-    })
-  }
-
+ 
   
 
 
@@ -81,7 +76,7 @@ class App extends Component {
       {this.state.success ? <HomePage></HomePage>:''} 
       {this.state.showLogin ? <LoginPage></LoginPage>:''} 
       {this.state.error && !this.state.success ? <Error handleLogin={this.handleLogin}></Error>:''}
-      {this.state.handleSessions? <Sessions></Sessions>:''}
+     
          
         <Route path="/" component={LoginPage} />
         <Route path="/user" component={UserPage} />

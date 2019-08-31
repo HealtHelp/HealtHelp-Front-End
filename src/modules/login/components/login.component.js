@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../../store/store';
 import {handleLogin} from '../actions/login.actions';
+import {handleLastUserId} from '../actions/login.actions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,6 +23,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
   handleLogin = () =>{
+    
     this.setState({ open: false });
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -31,6 +33,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
     }
     localStorage.setItem('email',email);
     store.dispatch(handleLogin(data));
+    store.dispatch(handleLastUserId())
   }
   
 

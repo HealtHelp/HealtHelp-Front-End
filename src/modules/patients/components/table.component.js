@@ -9,7 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Sessions from '../../sessions/components/sesions.component';
+import SessionsPage from '../../../pages/Sessions';
+
 
 
 
@@ -81,22 +82,29 @@ class TablePatient extends React.Component{
                 return [];
             }
             let patients = this.state.data.data._embedded.patientDToes;
-            console.log(patients)
             this.rows = patients.map((patient) => createData(patient.id,patient.patientName,patient.patientDNI,patient.patientLastName,patient.patientTelephone,patient.patientAddress,
                                                              patient.patientProfession)); 
             return this.rows;
               }
         }
     
-      handleSessions = () => {
-        console.log("handleSessions");
+      handleSessions = (event) => {
         this.setState({handleSessions:true})
+        
+        console.log(event.target.value)
+        console.log(this.state.handleSessions)
+        //store.handleSessionsPatient(event.target.value)
+        
+           
+        
       } 
 
     render(){
+          
        
         const classes = useStyles;
         return(
+          
             <div>
          <Paper className={classes.root}>
            <Table className={classes.table}>
@@ -146,9 +154,11 @@ class TablePatient extends React.Component{
            </Table>
         
          </Paper>
-         {this.state.handleSessions?<Sessions></Sessions>:''}
+         {this.state.handleSessions?<SessionsPage></SessionsPage>:''}
             </div>
+         
         );
+       
     }
 }
 

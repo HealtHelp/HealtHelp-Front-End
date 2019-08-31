@@ -62,10 +62,12 @@ export default function TemporaryDrawer() {
           </ListItem>
           </Link> 
           
+          <Link to="/sessions">
           <ListItem button key="Sessions">
           <ListItemIcon><i className="fas fa-address-book"></i></ListItemIcon>
           <ListItemText primary="Sessions" />
           </ListItem>
+          </Link>
 
           <ListItem button key="Billing">
           <ListItemIcon><i className="fas fa-money-bill-alt"></i></ListItemIcon>
