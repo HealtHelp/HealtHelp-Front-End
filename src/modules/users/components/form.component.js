@@ -186,9 +186,8 @@ class FormComponent extends React.Component{
             const user = this.inputsValues(); 
             const profile = this.checkProfile(user.profileName);
             const tenant =  this.checkTenant(user.tenantName);
-            //Al cargar la aplicación obtener el id de usuario ultimo y guardarlo en localstorage
-            //En este punto obtenerlo sumarle 1 y asignarselo a const id  
-            const id = Math.floor(Math.random() * 100000) + 1  
+            const lastUserId = localStorage.getItem("lastUserId");
+            const id = parseInt(lastUserId) + 1  
             const userValues = {
               id:id,
               username: user.username,
