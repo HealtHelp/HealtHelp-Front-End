@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import store from '../../../store/store';
 import TextField from '@material-ui/core/TextField';
 
 

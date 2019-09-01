@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import SessionsPage from '../../../pages/Sessions';
+
 
 
 
@@ -88,7 +88,7 @@ class TablePatient extends React.Component{
               }
         }
     
-      handleSessions = (event) => {
+     /*  handleSessions = (event) => {
         this.setState({handleSessions:true})
         
         console.log(event.target.value)
@@ -97,7 +97,7 @@ class TablePatient extends React.Component{
         
            
         
-      } 
+      }  */
 
     render(){
           
@@ -154,8 +154,8 @@ class TablePatient extends React.Component{
            </Table>
         
          </Paper>
-         {this.state.handleSessions?<SessionsPage></SessionsPage>:''}
-            </div>
+
+    </div>
          
         );
        
