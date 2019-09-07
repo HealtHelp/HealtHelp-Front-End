@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-
+import ErrorEmail from '../../snackbars/components/patients/errorEmail';
+import DataOk from '../../snackbars/components/dataOk.component';
 
 const useStyles = {
   
@@ -20,18 +21,22 @@ class FormComponent extends React.Component{
         this.state = {
             handleIconPOST:null,
             handleIconPUT:null,
-            disabled:true
+            disabled:true,
+            checkEmail:false
         }
     }
 
-    handleChange = () =>{ 
-        console.log("state disabled: "+this.state.disabled)
-        this.setState({disabled: this.handleTextFieldsValidator()})
-      }
+    
+
+    handleValidateEmail(email){
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }  
 
     handleTexFieldsValues = () =>{
         const patient = {
             id:0,
+            lopd:0,
             user_id:localStorage.getItem("userId"),
             tenan_id:localStorage.getItem("tenantId"),
             patientName:document.getElementById("patientName").value,
@@ -47,7 +52,6 @@ class FormComponent extends React.Component{
 
     handleTextFieldsValidator = () =>{
         const patient = this.handleTexFieldsValues();
-        console.log(patient)
         if(patient.patientName && patient.patientLastName && patient.patientDNI && patient.patientTelephone && patient.patientLocation && patient.patientProfession && patient.patientDNI && patient.patientEmail){
             return false;
         }
@@ -56,20 +60,29 @@ class FormComponent extends React.Component{
         }
     }
 
+    handleChange = () =>{ 
+        this.setState({checkEmail:false})  
+        this.setState({disabled: this.handleTextFieldsValidator()})
+      }
+
     handleDispatchPOST = (event) =>{
         event.preventDefault();
         const patient = this.handleTexFieldsValues();
-        console.log(patient)
-        const check = this.handleTextFieldsValidator();
-        if(!check){
-            console.log("storage");
+        const checkEmail = this.handleValidateEmail(patient.patientEmail);
+        console.log(patient);
+        if(!checkEmail){
+            console.log("checkEmail: "+checkEmail)
+            this.setState({checkEmail:true})      
         }
+        else{
+            console.log("checkEmail: "+checkEmail)
+            this.setState({checkEmail:false})
+        } 
     }
 
 
     handlePOSTPatient = () => {
-        console.log("handlePOSTPatient")
-        
+        console.log("handlePOSTPatient") 
         this.setState({
             handleIconPOST:true,
             handleIconPUT:false
@@ -99,7 +112,7 @@ class FormComponent extends React.Component{
              <div id="textFields">
               <TextField
                id="patientName"
-               //label="Username"
+               label="Username"
                placeholder="Name"
                className={classes.textField}
                onChange={this.handleChange}
@@ -107,7 +120,7 @@ class FormComponent extends React.Component{
 
               <TextField
                id="patientLastName"
-               //label="Username"
+               label="Last Name"
                placeholder="Last Name"
                className={classes.textField}
                onChange={this.handleChange}
@@ -115,7 +128,7 @@ class FormComponent extends React.Component{
 
               <TextField
                id="patientDNI"
-               //label="Username"
+               label="DNI"
                placeholder="DNI"
                className={classes.textField}
                onChange={this.handleChange}
@@ -124,7 +137,7 @@ class FormComponent extends React.Component{
              
               <TextField
                id="patientTelephone"
-               //label="Username"
+               label="Telephone"
                placeholder="Telephone"
                className={classes.textField}
                onChange={this.handleChange}
@@ -132,7 +145,7 @@ class FormComponent extends React.Component{
 
              <TextField
                id="patientAddress"
-               //label="Username"
+               label="Address"
                placeholder="Address"
                className={classes.textField}
                onChange={this.handleChange}
@@ -142,7 +155,7 @@ class FormComponent extends React.Component{
 
               <TextField
                id="patientLocation"
-               //label="Username"
+               label="Location"
                placeholder="Location"
                className={classes.textField}
                onChange={this.handleChange}
@@ -150,7 +163,7 @@ class FormComponent extends React.Component{
 
               <TextField
                id="patientProfession"
-               //label="Username"
+               label="Profession"
                placeholder="Profession"
                className={classes.textField}
                onChange={this.handleChange}
@@ -158,7 +171,7 @@ class FormComponent extends React.Component{
 
               <TextField
                id="patientEmail"
-               //label="Username"
+               label="Email"
                placeholder="Email"
                className={classes.textField}
                onChange={this.handleChange}
@@ -202,6 +215,8 @@ class FormComponent extends React.Component{
 
             </div> 
             </form>
+            {this.state.checkEmail?<ErrorEmail></ErrorEmail>:''}
+            {!this.state.disabled?<DataOk></DataOk>:''}
             </div> 
         );
 

@@ -15,7 +15,6 @@ import LocalHospital from '@material-ui/icons/LocalHospital';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 
 
-
 export default function TemporaryDrawer() {
   const classes = {
     list: {
