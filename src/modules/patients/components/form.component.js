@@ -19,9 +19,15 @@ class FormComponent extends React.Component{
         super(props);
         this.state = {
             handleIconPOST:null,
-            handleIconPUT:null
+            handleIconPUT:null,
+            disabled:true
         }
     }
+
+    handleChange = () =>{ 
+        console.log("state disabled: "+this.state.disabled)
+        this.setState({disabled: this.handleTextFieldsValidator()})
+      }
 
     handleTexFieldsValues = () =>{
         const patient = {
@@ -39,11 +45,25 @@ class FormComponent extends React.Component{
         return patient;
     }
 
-    handleDispatchPOST = (event) =>{
-        event.preventDefault();
-        console.log("handleDispatchPOST")
+    handleTextFieldsValidator = () =>{
         const patient = this.handleTexFieldsValues();
         console.log(patient)
+        if(patient.patientName && patient.patientLastName && patient.patientDNI && patient.patientTelephone && patient.patientLocation && patient.patientProfession && patient.patientDNI && patient.patientEmail){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    handleDispatchPOST = (event) =>{
+        event.preventDefault();
+        const patient = this.handleTexFieldsValues();
+        console.log(patient)
+        const check = this.handleTextFieldsValidator();
+        if(!check){
+            console.log("storage");
+        }
     }
 
 
