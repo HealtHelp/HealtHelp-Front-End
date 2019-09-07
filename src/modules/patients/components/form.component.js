@@ -23,9 +23,33 @@ class FormComponent extends React.Component{
         }
     }
 
+    handleTexFieldsValues = () =>{
+        const patient = {
+            id:0,
+            user_id:localStorage.getItem("userId"),
+            tenan_id:localStorage.getItem("tenantId"),
+            patientName:document.getElementById("patientName").value,
+            patientLastName:document.getElementById("patientLastName").value,
+            patientDNI:document.getElementById("patientDNI").value,
+            patientTelephone:document.getElementById("patientTelephone").value,
+            patientLocation:document.getElementById("patientLocation").value,
+            patientProfession:document.getElementById("patientProfession").value,
+            patientEmail:document.getElementById("patientEmail").value
+        }
+        return patient;
+    }
+
+    handleDispatchPOST = (event) =>{
+        event.preventDefault();
+        console.log("handleDispatchPOST")
+        const patient = this.handleTexFieldsValues();
+        console.log(patient)
+    }
+
 
     handlePOSTPatient = () => {
         console.log("handlePOSTPatient")
+        
         this.setState({
             handleIconPOST:true,
             handleIconPUT:false
@@ -86,6 +110,16 @@ class FormComponent extends React.Component{
                onChange={this.handleChange}
              />
 
+             <TextField
+               id="patientAddress"
+               //label="Username"
+               placeholder="Address"
+               className={classes.textField}
+               onChange={this.handleChange}
+             />
+          
+
+
               <TextField
                id="patientLocation"
                //label="Username"
@@ -120,7 +154,7 @@ class FormComponent extends React.Component{
                  this.state.handleIconPOST?
 
                     <div className="iconsPOST">
-                      <button className="buttonUserComponent"  type="submit" onClick={this.handlePOSTUser}  disabled={this.state.disabled}>
+                      <button className="buttonUserComponent"  type="submit" onClick={this.handleDispatchPOST}  disabled={this.state.disabled}>
                         <i class="fas fa-save" ></i>
                     </button>
                     </div>

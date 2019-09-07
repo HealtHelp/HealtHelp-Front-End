@@ -57,9 +57,6 @@ class Patient extends Component{
     return true;
   }
 
-/*   handleSessions = (value) =>{
-    this.props.handleSessions(value);
-  } */
 
 render(){
   return(
