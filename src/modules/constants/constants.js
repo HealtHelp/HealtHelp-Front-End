@@ -10,7 +10,7 @@ export const URL_USERID_BY_EMAIL = `http://localhost:3000/api/user/email/`;
 export const URL_LASTUSERID = `http://localhost:3000/api/user/lastUserId`
 //Patient
 export const URL_GET_PATIENTS_BY_NAME = `http://localhost:3000/api/patient/name`
-
+export const URL_GET_LASTPATIENTID = 'http://localhost:3000/api/patient/lastPatientId'
 
 //Actuator
 export const urlActuatorInfo = `http://localhost:3000/actuator/info`;

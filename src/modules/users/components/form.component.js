@@ -306,28 +306,28 @@ class FormComponent extends React.Component{
             <div id="textFields">
            <TextField
             id="username"
-            //label="Username"
+            label="Username"
             placeholder="Username"
             className={classes.textField}
             onChange={this.handleChange}
           />
            <TextField
             id="email"
-            //label="Email"
+            label="Email"
             placeholder="Email"
             className={classes.textField}
             onChange={this.handleChange}
           />
           <TextField
             id="profile"
-            //label="Profile"
+            label="Profile"
             placeholder="Profile"
             className={classes.textField}
             onChange={this.handleChange}
           />
            <TextField
             id="tenant"
-            //label="Tenant"
+            label="Tenant"
             placeholder="Tenant"
             className={classes.textField}
             onChange={this.handleChange}
