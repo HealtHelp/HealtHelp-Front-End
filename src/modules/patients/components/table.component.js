@@ -14,7 +14,6 @@ import Paper from '@material-ui/core/Paper';
 
 
 
-
 const StyledTableCell = withStyles(theme => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -55,7 +54,6 @@ class TablePatient extends React.Component{
         super(props);
         this.state={
             data:[],
-            handleSessions:false
         }
         this.rows = [];  
 
@@ -82,29 +80,42 @@ class TablePatient extends React.Component{
                 return [];
             }
             let patients = this.state.data.data._embedded.patientDToes;
+            console.log(patients)
             this.rows = patients.map((patient) => createData(patient.id,patient.patientName,patient.patientDNI,patient.patientLastName,patient.patientTelephone,patient.patientAddress,
                                                              patient.patientProfession)); 
             return this.rows;
               }
         }
     
-     /*  handleSessions = (event) => {
-        this.setState({handleSessions:true})
-        
-        console.log(event.target.value)
-        console.log(this.state.handleSessions)
-        //store.handleSessionsPatient(event.target.value)
-        
-           
-        
-      }  */
+        handleValues = (e) => {
+        console.log("handleValues");
+        let id = e.target.value;
+        var data = [];
+        e = e || window.event;
+        var target = e.srcElement || e.target;
+        while (target && target.nodeName !== "TR") {
+         target = target.parentNode;
+        } 
+        if (target) {
+          var cells = target.getElementsByTagName("td");
+          for (var i = 0; i < cells.length; i++) {
+            data.push(cells[i].innerHTML);
+          }
+          var ths = target.getElementsByTagName("th");
+          for (var i = 0; i < ths.length; i++) {
+            data.push(ths[i].innerHTML);
+          } 
+           data.splice(5,1)
+          console.log(data)
+          //desplegar form
+          this.props.handleForm(true);
+      } 
+    }
 
     render(){
-          
        
         const classes = useStyles;
         return(
-          
             <div>
          <Paper className={classes.root}>
            <Table className={classes.table}>
@@ -125,9 +136,9 @@ class TablePatient extends React.Component{
                  <StyledTableRow key={row.Name} id="table">
                    <StyledTableCell  component="th" scope="row" id='id'>
                    
-                     <input type="checkbox" className="inputId" value={row.Id} id="userId" onClick={this.handleSessions}></input>
+                     <input type="checkbox" className="inputId" value={row.Id} id="userId" onClick={this.handleValues}></input>
                     
-                    
+
                    </StyledTableCell>
                    <StyledTableCell  component="th" scope="row" id="patientName">
                      {row.Name}
@@ -154,11 +165,8 @@ class TablePatient extends React.Component{
            </Table>
         
          </Paper>
-
-    </div>
-         
+            </div>
         );
-       
     }
 }
 

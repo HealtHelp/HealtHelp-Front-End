@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import ErrorEmail from '../../snackbars/components/patients/errorEmail';
+import ErrorDNI from '../../snackbars/components/patients/errorDNI';
 import DataOk from '../../snackbars/components/dataOk.component';
 
 const useStyles = {
@@ -22,15 +23,19 @@ class FormComponent extends React.Component{
             handleIconPOST:null,
             handleIconPUT:null,
             disabled:true,
-            checkEmail:false
+            checkEmail:false,
+            checkDNI:false,
         }
     }
+
+   
 
     handleChange = () =>{ 
         console.log("handleCange "+this.state.disabled)
         this.setState({
             disabled: this.handleTextFieldsValidator(),
-            checkEmail:false
+            checkEmail:false,
+            checkDNI:false
         })
       }
 
@@ -38,28 +43,35 @@ class FormComponent extends React.Component{
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
       }
+
       
     checkDNI(dni) {
         var number
         var letr
         var letter
-        var expresion_regular_dni
-        expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
-        if(expresion_regular_dni.test (dni) == true){
+        var regularExpresssion
+        regularExpresssion = /^\d{8}[a-zA-Z]$/;
+        if(regularExpresssion.test (dni) === true){
            number = dni.substr(0,dni.length-1);
            letr = dni.substr(dni.length-1,1);
            number = number % 23;
            letter='TRWAGMYFPDXBNJZSQVHLCKET';
            letter=letter.substring(number,number+1);
-          if (letter!=letr.toUpperCase()) {
-             alert('Dni erroneo, la letra del NIF no se corresponde');
+          if (letter!==letr.toUpperCase()) {
+             //Dni erroneo, la letra del NIF no se corresponde
+             this.setState({
+                 checkDNI:true
+             })
              return false;
            }else{
-             alert('Dni correcto');
+             //'Dni correcto'
              return true;
            }
         }else{
-           alert('Dni erroneo, formato no válido');
+           //Dni erroneo, formato no válido
+           this.setState({
+            checkDNI:true
+        })
            return false;
          }
       }  
@@ -108,6 +120,7 @@ class FormComponent extends React.Component{
 
     handleDispatchPOST = (event) =>{
         event.preventDefault();
+        console.log("handleDispatchPOST")
         const patient = this.handleTexFieldsValues();
         this.cleanInputs();
         const checkEmail = this.handleValidateEmail(patient.patientEmail);
@@ -151,7 +164,7 @@ class FormComponent extends React.Component{
             <div className="Form">
             <form className={classes.container} noValidate  autoComplete="off" >
             {
-                 (this.state.handleIconPOST || this.state.handleIconPUT)?
+                 (this.state.handleIconPOST || this.state.handleIconPUT || this.state.openForm)?
 
              <div id="textFields">
               <TextField
@@ -261,6 +274,7 @@ class FormComponent extends React.Component{
             </form>
             {this.state.checkEmail?<ErrorEmail></ErrorEmail>:''}
             {!this.state.disabled?<DataOk></DataOk>:''}
+            {this.state.checkDNI?<ErrorDNI></ErrorDNI>:''}
             </div> 
         );
 
