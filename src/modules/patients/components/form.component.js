@@ -26,22 +26,56 @@ class FormComponent extends React.Component{
         }
     }
 
-    
+    handleChange = () =>{ 
+        console.log("handleCange "+this.state.disabled)
+        this.setState({
+            disabled: this.handleTextFieldsValidator(),
+            checkEmail:false
+        })
+      }
 
     handleValidateEmail(email){
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
+      }
+      
+    checkDNI(dni) {
+        var number
+        var letr
+        var letter
+        var expresion_regular_dni
+        expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+        if(expresion_regular_dni.test (dni) == true){
+           number = dni.substr(0,dni.length-1);
+           letr = dni.substr(dni.length-1,1);
+           number = number % 23;
+           letter='TRWAGMYFPDXBNJZSQVHLCKET';
+           letter=letter.substring(number,number+1);
+          if (letter!=letr.toUpperCase()) {
+             alert('Dni erroneo, la letra del NIF no se corresponde');
+             return false;
+           }else{
+             alert('Dni correcto');
+             return true;
+           }
+        }else{
+           alert('Dni erroneo, formato no válido');
+           return false;
+         }
       }  
 
     handleTexFieldsValues = () =>{
+        let patientStoreId = localStorage.getItem("lastPatientId");
+        const patientId = parseInt(patientStoreId)+1;
         const patient = {
-            id:0,
-            lopd:0,
+            id:patientId,
+            lopd:patientId,
             user_id:localStorage.getItem("userId"),
             tenan_id:localStorage.getItem("tenantId"),
             patientName:document.getElementById("patientName").value,
             patientLastName:document.getElementById("patientLastName").value,
             patientDNI:document.getElementById("patientDNI").value,
+            patientAddress:document.getElementById("patientAddress").value,
             patientTelephone:document.getElementById("patientTelephone").value,
             patientLocation:document.getElementById("patientLocation").value,
             patientProfession:document.getElementById("patientProfession").value,
@@ -52,7 +86,8 @@ class FormComponent extends React.Component{
 
     handleTextFieldsValidator = () =>{
         const patient = this.handleTexFieldsValues();
-        if(patient.patientName && patient.patientLastName && patient.patientDNI && patient.patientTelephone && patient.patientLocation && patient.patientProfession && patient.patientDNI && patient.patientEmail){
+        console.log(patient)  
+        if(patient.patientName && patient.patientLastName && patient.patientDNI && patient.patientAddress && patient.patientTelephone && patient.patientLocation && patient.patientProfession && patient.patientDNI && patient.patientEmail){
             return false;
         }
         else{
@@ -60,29 +95,38 @@ class FormComponent extends React.Component{
         }
     }
 
-    handleChange = () =>{ 
-        this.setState({checkEmail:false})  
-        this.setState({disabled: this.handleTextFieldsValidator()})
-      }
+    cleanInputs = () =>{
+        document.getElementById("patientName").value = "";
+        document.getElementById("patientLastName").value = "";
+        document.getElementById("patientDNI").value = "";
+        document.getElementById("patientAddress").value = "";
+        document.getElementById("patientTelephone").value = "";
+        document.getElementById("patientLocation").value = "";
+        document.getElementById("patientProfession").value = "";
+        document.getElementById("patientEmail").value = "";
+    }
 
     handleDispatchPOST = (event) =>{
         event.preventDefault();
         const patient = this.handleTexFieldsValues();
+        this.cleanInputs();
         const checkEmail = this.handleValidateEmail(patient.patientEmail);
+        const checkDNI = this.checkDNI(patient.patientDNI);
+        console.log("checkDNI: "+checkDNI);
         console.log(patient);
         if(!checkEmail){
-            console.log("checkEmail: "+checkEmail)
             this.setState({checkEmail:true})      
         }
         else{
-            console.log("checkEmail: "+checkEmail)
             this.setState({checkEmail:false})
+        }
+        if(checkEmail && checkDNI){
+            //store.dispatch(patient);
         } 
     }
 
 
     handlePOSTPatient = () => {
-        console.log("handlePOSTPatient") 
         this.setState({
             handleIconPOST:true,
             handleIconPUT:false

@@ -9,7 +9,7 @@
     text-align: center;;
 }
 
-
+input:focus { text-align: left; }
 
 /*.searchPatient{
     margin-right: 20em;
