@@ -24,8 +24,11 @@ class FormComponent extends React.Component{
             handleIconPUT:null,
             disabled:true,
             checkEmail:false,
-            checkDNI:false,
+            checkDNI:false
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleTextFieldsValidator = this.handleTextFieldsValidator.bind(this);
+        this.handleTexFieldsValues = this.handleTexFieldsValues.bind(this);
     }
 
    
@@ -164,12 +167,12 @@ class FormComponent extends React.Component{
             <div className="Form">
             <form className={classes.container} noValidate  autoComplete="off" >
             {
-                 (this.state.handleIconPOST || this.state.handleIconPUT || this.state.openForm)?
+                 (this.state.handleIconPOST || this.state.handleIconPUT)?
 
              <div id="textFields">
               <TextField
                id="patientName"
-               label="Username"
+               label="Name"
                placeholder="Name"
                className={classes.textField}
                onChange={this.handleChange}

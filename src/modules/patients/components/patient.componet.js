@@ -58,12 +58,7 @@ class Patient extends Component{
     return true;
   }
   
-  handleForm = (value) =>{
-    console.log(value)
-    this.setState({
-      openForm:true
-    })
-  }
+
  
 
 render(){
@@ -71,7 +66,7 @@ render(){
     <div>
      <Search handleSearch={this.handleSearch} ></Search>
      <TablePatient handleTableAll={this.handleTableAll} handleForm={this.handleForm}></TablePatient>
-     {this.state.openForm? <FormComponent handleForm={this.state.openForm}></FormComponent>:''}
+     <FormComponent></FormComponent>:''}
      
     </div>
     
