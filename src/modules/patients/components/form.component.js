@@ -15,6 +15,9 @@ const useStyles = {
         width: 200
       }  
 }
+//En el state se inicializa data.
+//cada taxtfield tendrá su propio handle change que con un push añadira a data y al state
+
 
 class FormComponent extends React.Component{
     constructor(props){
@@ -24,21 +27,25 @@ class FormComponent extends React.Component{
             handleIconPUT:null,
             disabled:true,
             checkEmail:false,
-            checkDNI:false
+            checkDNI:false,
+            data:[]
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleTextFieldsValidator = this.handleTextFieldsValidator.bind(this);
-        this.handleTexFieldsValues = this.handleTexFieldsValues.bind(this);
+        this.handleTexFieldsValues = this.handleTexFieldsValues.bind(this); 
     }
 
    
 
-    handleChange = () =>{ 
-        console.log("handleCange "+this.state.disabled)
+    handleChange = (e) =>{ 
+        console.log("handleChange "+this.state.disabled)
+        console.log(e.target.value)
+        const value = e.target.value;
         this.setState({
             disabled: this.handleTextFieldsValidator(),
             checkEmail:false,
-            checkDNI:false
+            checkDNI:false,
+            data:value
         })
       }
 
@@ -81,10 +88,7 @@ class FormComponent extends React.Component{
 
     handleTexFieldsValues = () =>{
         let patientStoreId = localStorage.getItem("lastPatientId");
-        const patientId = parseInt(patientStoreId)+1;
         const patient = {
-            id:patientId,
-            lopd:patientId,
             user_id:localStorage.getItem("userId"),
             tenan_id:localStorage.getItem("tenantId"),
             patientName:document.getElementById("patientName").value,
@@ -125,7 +129,7 @@ class FormComponent extends React.Component{
         event.preventDefault();
         console.log("handleDispatchPOST")
         const patient = this.handleTexFieldsValues();
-        this.cleanInputs();
+        //this.cleanInputs();
         const checkEmail = this.handleValidateEmail(patient.patientEmail);
         const checkDNI = this.checkDNI(patient.patientDNI);
         console.log("checkDNI: "+checkDNI);
@@ -272,7 +276,6 @@ class FormComponent extends React.Component{
                  <i class="fas fa-pen-alt" onClick={this.handlePUTPatient}></i>
                  <i class="fas fa-trash" onClick={this.handleDELETEPatient}></i>
              </div>
-
             </div> 
             </form>
             {this.state.checkEmail?<ErrorEmail></ErrorEmail>:''}
