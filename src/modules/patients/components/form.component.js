@@ -15,8 +15,7 @@ const useStyles = {
         width: 200
       }  
 }
-//En el state se inicializa data.
-//cada taxtfield tendrá su propio handle change que con un push añadira a data y al state
+
 
 
 class FormComponent extends React.Component{
@@ -30,19 +29,15 @@ class FormComponent extends React.Component{
             checkDNI:false,
             data:[]
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleTextFieldsValidator = this.handleTextFieldsValidator.bind(this);
-        this.handleTexFieldsValues = this.handleTexFieldsValues.bind(this); 
+        
     }
 
    
 
-    handleChange = (e) =>{ 
-        console.log("handleChange "+this.state.disabled)
-        console.log(e.target.value)
-        const value = e.target.value;
+    handleChange = (e) =>{
+        const value = e.target.value; 
         this.setState({
-            disabled: this.handleTextFieldsValidator(),
+            disabled: this.handleTextFieldsValidator(value),
             checkEmail:false,
             checkDNI:false,
             data:value
@@ -86,8 +81,7 @@ class FormComponent extends React.Component{
          }
       }  
 
-    handleTexFieldsValues = () =>{
-        let patientStoreId = localStorage.getItem("lastPatientId");
+      handleTexFieldsValues = () =>{
         const patient = {
             user_id:localStorage.getItem("userId"),
             tenan_id:localStorage.getItem("tenantId"),
@@ -125,15 +119,29 @@ class FormComponent extends React.Component{
         document.getElementById("patientEmail").value = "";
     }
 
+    handleTexFieldsValues = () =>{
+        const patient = {
+            user_id:localStorage.getItem("userId"),
+            tenan_id:localStorage.getItem("tenantId"),
+            patientName:document.getElementById("patientName").value,
+            patientLastName:document.getElementById("patientLastName").value,
+            patientDNI:document.getElementById("patientDNI").value,
+            patientAddress:document.getElementById("patientAddress").value,
+            patientTelephone:document.getElementById("patientTelephone").value,
+            patientLocation:document.getElementById("patientLocation").value,
+            patientProfession:document.getElementById("patientProfession").value,
+            patientEmail:document.getElementById("patientEmail").value
+        }
+        return patient;
+    }
     handleDispatchPOST = (event) =>{
         event.preventDefault();
         console.log("handleDispatchPOST")
         const patient = this.handleTexFieldsValues();
-        //this.cleanInputs();
+        console.log(patient);
         const checkEmail = this.handleValidateEmail(patient.patientEmail);
         const checkDNI = this.checkDNI(patient.patientDNI);
         console.log("checkDNI: "+checkDNI);
-        console.log(patient);
         if(!checkEmail){
             this.setState({checkEmail:true})      
         }
@@ -180,6 +188,7 @@ class FormComponent extends React.Component{
                placeholder="Name"
                className={classes.textField}
                onChange={this.handleChange}
+            
              />
 
               <TextField
@@ -188,6 +197,7 @@ class FormComponent extends React.Component{
                placeholder="Last Name"
                className={classes.textField}
                onChange={this.handleChange}
+               ref="lastName"
              />
 
               <TextField
