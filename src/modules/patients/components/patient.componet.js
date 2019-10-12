@@ -66,7 +66,7 @@ render(){
     <div>
      <Search handleSearch={this.handleSearch} ></Search>
      <TablePatient handleTableAll={this.handleTableAll} handleForm={this.handleForm}></TablePatient>
-     <FormComponent></FormComponent>:''}
+     <FormComponent></FormComponent>
      
     </div>
     
